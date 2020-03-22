@@ -8,7 +8,7 @@ import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
 
-const useStyles = makeStyles(theme => ({
+  const useStyles = makeStyles(theme => ({ 
   root: {
     flexGrow: 1,
   },
@@ -53,7 +53,7 @@ const useStyles = makeStyles(theme => ({
     // vertical padding + font size from searchIcon
     paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
     transition: theme.transitions.create('width'),
-    width: '100%',
+    width: '60%',
     [theme.breakpoints.up('sm')]: {
       width: '12ch',
       '&:focus': {

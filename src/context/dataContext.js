@@ -5,10 +5,11 @@ export const DataContext = createContext();
 
 const DataProvider = (props) => {
 
-    const country = 'uruguay';
+    const country = 'Uruguay';
     const [confirmed, setconfirmed] = useState([]);
     const [deaths, setdeaths] = useState([]);
     const [recovered, setrecovered] = useState([]);
+    const [flag, setflag] = useState([]);
 
     useEffect (() =>{
         const getconfirmed = async () => {
@@ -31,6 +32,15 @@ const DataProvider = (props) => {
             setrecovered(recovered.data);
         }
         getrecovered();
+
+        const getflag = async () => {
+            const url = `https://restcountries.eu/rest/v2/name/${country}`;
+            const code = await Axios.get(url);
+            setflag(`https://www.countryflags.io/${code.data[0].alpha2Code}/flat/64.png`);
+            console.log(flag);
+        }
+        getflag();
+
         
     }, []);
 
@@ -38,7 +48,10 @@ const DataProvider = (props) => {
         <DataContext.Provider
         value={{
             country,
-            confirmed
+            confirmed,
+            deaths,
+            recovered,
+            flag
         }}>
             {props.children}
         </DataContext.Provider>
