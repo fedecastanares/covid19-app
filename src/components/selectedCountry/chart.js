@@ -8,7 +8,7 @@ const Chart = () => {
 
     return ( 
         <Fragment>
-            
+            <h1>Chart</h1>
         </Fragment>
      );
 }
