@@ -2,6 +2,7 @@ import React, { Fragment, useContext } from 'react';
 import { DataContext } from '../context/dataContext.js'
 import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
+import Tabla from './selectedCountry/table.js'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
@@ -41,7 +42,9 @@ const Body = () => {
                         country={country}
                         status={status}
                         flag={'https://www.countryflags.io/' + code.alpha2Code + '/flat/64.png'}
+                        population={code.population}
                         />
+                        <Tabla />
                         <Chart />
                     </CardContent>
                 </Card>

@@ -41,6 +41,7 @@ const DataProvider = (props) => {
             country,
             status,
             code,
+            historical
         }}>
             {props.children}
         </DataContext.Provider>
