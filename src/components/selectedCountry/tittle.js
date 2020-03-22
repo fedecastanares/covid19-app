@@ -9,7 +9,10 @@ const useStyles = makeStyles({
     title: {
       fontSize: 32,
       marginLeft: 16,
-    },
+    }, 
+    alert:{
+        marginTop: 6,
+    }
   });
 
 const Tittle = (props) => {
@@ -37,10 +40,10 @@ const Tittle = (props) => {
                 </Grid>
             </Grid>
             <Grid item xs>
-                <Alert severity="warning">Casos: {status.cases}</Alert>
-                <Alert severity="error">Fallecimientos: {status.deaths}</Alert>
-                <Alert severity="success">Recuperados: {status.recovered}</Alert>
-                <Alert severity="info">De hoy: {status.todayCases}</Alert>
+                <Alert className={classes.alert} severity="warning">Casos: {status.cases}</Alert>
+                <Alert className={classes.alert} severity="error">Fallecimientos: {status.deaths}</Alert>
+                <Alert className={classes.alert} severity="success">Recuperados: {status.recovered}</Alert>
+                <Alert className={classes.alert} severity="info">De hoy: {status.todayCases}</Alert>
             </Grid>
             </Grid>
             

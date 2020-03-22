@@ -5,7 +5,7 @@ export const DataContext = createContext();
 
 const DataProvider = (props) => {
 
-    const country = 'Uruguay';
+    const [country, setcountry] = useState('Uruguay');
     const [code, setcode] = useState([]);
     const [status, setstatus] = useState({});
     const [historical, sethistorical] = useState([]);
@@ -40,7 +40,7 @@ const DataProvider = (props) => {
         value={{
             country,
             status,
-            code
+            code,
         }}>
             {props.children}
         </DataContext.Provider>
