@@ -17,7 +17,6 @@ import SearchIcon from '@material-ui/icons/Search';
   },
   title: {
     flexGrow: 1,
-    display: 'none',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -30,10 +29,10 @@ import SearchIcon from '@material-ui/icons/Search';
       backgroundColor: fade(theme.palette.common.white, 0.25),
     },
     marginLeft: 0,
-    width: '100%',
+    width: '35%',
     [theme.breakpoints.up('sm')]: {
       marginLeft: theme.spacing(1),
-      width: 'auto',
+      width: '40%', 
     },
   },
   searchIcon: {
