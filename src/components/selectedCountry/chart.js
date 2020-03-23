@@ -6,7 +6,7 @@ import { DataContext } from '../../context/dataContext';
 
 const Chart = () => {
 
-    const {historical} = useContext(DataContext);
+    const {} = useContext(DataContext);
 
     const data = {
     labels: ['1', '2','3','4'],

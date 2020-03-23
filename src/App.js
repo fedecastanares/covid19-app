@@ -2,6 +2,7 @@ import React, {Fragment} from 'react';
 import './App.css';
 import AppBar from './components/appbar.js'
 import DataProvider from './context/dataContext.js'
+import HistoryProvider from './context/historyContext.js'
 import Body from './components/body.js'
 
 function App() {
@@ -9,7 +10,9 @@ function App() {
     <Fragment>
         <AppBar/>
         <DataProvider>
-          <Body />
+          <HistoryProvider>
+            <Body />
+          </HistoryProvider>
         </DataProvider>
     </Fragment>
   );

@@ -8,7 +8,6 @@ const DataProvider = (props) => {
     const [country, setcountry] = useState('Uruguay');
     const [code, setcode] = useState([]);
     const [status, setstatus] = useState({});
-    const [historical, sethistorical] = useState([]);
 
     useEffect (() =>{
         const getStatus = async () => {
@@ -17,13 +16,6 @@ const DataProvider = (props) => {
             setstatus(status.data);
         }
         getStatus();
-
-        const getHistorical = async () => {
-            const url = `https://corona.lmao.ninja/historical/${country}`
-            const historical = await Axios.get(url);
-            sethistorical(historical.data)
-        }
-        getHistorical();
 
         const getcode = async () => {
             const url = `https://restcountries.eu/rest/v2/name/${country}`;
@@ -40,8 +32,7 @@ const DataProvider = (props) => {
         value={{
             country,
             status,
-            code,
-            historical
+            code
         }}>
             {props.children}
         </DataContext.Provider>

@@ -1,4 +1,8 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useContext} from 'react';
+import {HistoryContext} from '../../context/historyContext.js'
+import { DataContext } from '../../context/dataContext.js'
+
+
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -30,18 +34,7 @@ const StyledTableCell = withStyles(theme => ({
   function createData(dia, confirmed, deaths) {
     return { dia, confirmed, deaths};
   }
-  
-  const rows = [
-    createData('Dia 0' + ' Actual', 0,0),
-    createData('Dia 1', 0,0),
-    createData('Dia 2', 0,0),
-    createData('Dia 3', 0,0),
-    createData('Dia 4', 0,0),
-    createData('Dia 5', 0,0),
-    createData('Dia 6', 0,0),
-    createData('Dia 7', 0,0),
-  ];
-  
+    
   const useStyles = makeStyles({
     table: {
       maxWidth: '100%',
@@ -54,11 +47,49 @@ const StyledTableCell = withStyles(theme => ({
 
 const Tabla = () => {
     const classes = useStyles();
+
+    const {countrycompare,
+      timeline,
+      countrycases,
+      countrydeaths,
+      countrycasescompare,
+      countrydeathscompare} = useContext(HistoryContext);
+      const {country} = useContext(DataContext);
+
+      function getsCountryStatus() {
+        const rowsCoutry = [];
+          if (timeline !== undefined && countrycases !== undefined && countrydeaths !== undefined ) {
+            for (let i = 0 ; i < 14 ; i++ ) {
+              let day = timeline[i];
+              let cases = countrycases[i];
+              let deaths = countrydeaths[i];
+              rowsCoutry.push(createData( day , cases, deaths));
+          }
+          return rowsCoutry;
+        }
+      }
+      let rowsCoutry = getsCountryStatus(); 
+
+      function getsCountryCompareStatus() {
+        const rowsCoutryCompare = [];
+          if (timeline !== undefined && countrycasescompare !== undefined && countrydeathscompare !== undefined ) {
+            for (let i = 0 ; i < 14 ; i++ ) {
+              let day = timeline[i];
+              let cases = countrycasescompare[i];
+              let deaths = countrydeathscompare[i];
+              rowsCoutryCompare.push(createData( day , cases, deaths));
+          }
+          return rowsCoutryCompare;
+        }
+      }
+      let rowsCoutryCompare = getsCountryCompareStatus(); 
+
+
     return ( 
     <Fragment>
-    <Grid container xs={12} spacing={3} className={classes.margen}>
+    <Grid container spacing={3} className={classes.margen} justify='space-around' alignItems='center' alignContent='center'>
         <Grid item xs>
-        <Typography color="textSecondary">Uruguay</Typography>
+        <Typography color="textSecondary">{country}</Typography>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="Uruguay">
                 <TableHead>
@@ -69,8 +100,8 @@ const Tabla = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => (
-                    <StyledTableRow key={row.name}>
+                    {rowsCoutry.map(row => (
+                    <StyledTableRow key={row.dia}>
                         <StyledTableCell component="th" scope="row">
                         {row.dia}
                         </StyledTableCell>
@@ -83,7 +114,7 @@ const Tabla = () => {
             </TableContainer>
         </Grid>
         <Grid item xs>
-        <Typography color="textSecondary">Comparacion</Typography>
+        <Typography color="textSecondary">{countrycompare}</Typography>
             <TableContainer component={Paper}>
                 <Table className={classes.table} aria-label="Uruguay">
                 <TableHead>
@@ -94,8 +125,8 @@ const Tabla = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rows.map(row => (
-                    <StyledTableRow key={row.name}>
+                    {rowsCoutryCompare.map(row => (
+                    <StyledTableRow key={row.dia}>
                         <StyledTableCell component="th" scope="row">
                         {row.dia}
                         </StyledTableCell>
