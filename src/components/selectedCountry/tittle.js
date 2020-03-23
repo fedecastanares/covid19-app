@@ -51,7 +51,7 @@ const Tittle = (props) => {
                 <Alert className={classes.alert} severity="warning">Casos: {status.cases} - ({((status.cases * 100) / population).toFixed(3)}%)</Alert>
                 <Alert className={classes.alert} severity="error">Fallecimientos: {status.deaths} - ({((status.deaths * 100) / status.cases).toFixed(3)}%)</Alert>
                 <Alert className={classes.alert} severity="success">Recuperados: {status.recovered} - ({((status.recovered * 100) / status.cases).toFixed(3)}%)</Alert>
-                <Alert className={classes.alert} severity="info">De hoy: {status.todayCases} - ({(((status.cases - status.todayCases) * 100) / status.cases).toFixed(3)}%) </Alert>
+                <Alert className={classes.alert} severity="info">De hoy: {status.todayCases} - ({(((status.todayCases === 0 ?  0 : status.cases - status.todayCases) * 100) / status.cases).toFixed(3)}%) </Alert>
             </Grid>
             </Grid>  
         </Fragment>

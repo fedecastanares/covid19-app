@@ -6,7 +6,7 @@ export const HistoryContext = createContext();
 
 const HistoryProvider = (props) => {
 
-    const [countrycompare, setcountrycompare] = useState('Argentina');
+    const [countrycompare, setcountrycompare] = useState('España');
     const [timeline, settimeline] = useState([]);
     const [countrycases, setcountrycases] = useState([]);
     const [countrydeaths, setcountrydeaths] = useState([]);
