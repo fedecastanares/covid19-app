@@ -56,7 +56,7 @@ const Chart = () => {
             <Bar
             data={data}
             width={100}
-            height={50}
+            height={80}
             options={{ title: {display: true, text: 'Evolucion'}, legend: {display: true}  }}
             />
         </Fragment>

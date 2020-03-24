@@ -4,12 +4,13 @@ import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
 import Tabla from './selectedCountry/table.js'
 
+
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid, Typography } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-
-
+import { css } from "@emotion/core";
+import PacmanLoader from "react-spinners/ClipLoader";
 
 
 const useStyles = makeStyles({
@@ -21,6 +22,11 @@ const useStyles = makeStyles({
       fontSize: 32,
     },
   });
+
+  const override = css`
+  margin: 35vh auto;
+  border-color: "#123abc";
+`;
 
 const Body = () => {
 
@@ -54,26 +60,23 @@ const Body = () => {
         } else {
             return <Fragment>
             <Container>
-            <Card className={classes.root}>
-                <CardContent>
-                    <Grid container 
-                    direction="row"
-                    justify="space-around"
-                    alignItems="center">
+                <Grid container 
+                direction="row"
+                justify="space-around"
+                alignItems="center">
                     <Grid item xs>
                         <Grid container 
                             direction="row"
                             justify="center"
                             alignItems="center"
                             spacing={2}>
-                            <Typography className={classes.title} color="textSecondary">
-                                Pais no encontrado
-                            </Typography>
+                                <PacmanLoader
+                                css={override}
+                                size={150}
+                                />
                         </Grid>
                     </Grid>
-                    </Grid>
-                </CardContent>
-            </Card>
+                </Grid>
             </Container>
         </Fragment>;
 }} 
