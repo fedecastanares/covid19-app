@@ -6,7 +6,7 @@ export const HistoryContext = createContext();
 
 const HistoryProvider = (props) => {
 
-    const [countrycompare, setcountrycompare] = useState('Spain');
+    const [countrycompare, setcountrycompare] = useState('Argentina');
     const [timeline, settimeline] = useState([]);
     const [countrycases, setcountrycases] = useState([]);
     const [countrydeaths, setcountrydeaths] = useState([]);
@@ -33,7 +33,7 @@ const HistoryProvider = (props) => {
             const matches = [];
             const findSimilarData = await findSimilar(cases);
             Promise.all(findSimilarData).then(response => {
-                console.log(response[0]);
+              //  console.log(response[0]);
             })
             
         }
@@ -62,15 +62,15 @@ const HistoryProvider = (props) => {
                 let cases = Object.values(data.data.timeline.cases);
                 cases = cases.reverse();
                 const countryData = data.data.standardizedCountryName.charAt(0).toUpperCase() + data.data.standardizedCountryName.slice(1);
-                 if (cases[0] !== undefined || country.country !== countryData) {
-                     for (let i = 0 ; i < cases.length ; i++) {
-                         if( cases[i] === countrycases[0] ) {
+                if (cases[0] !== undefined || country.country !== countryData) {
+                     for (let i = 0 ; i < cases.length && cases[i] !== 0 ; i++) {
+                         if( cases[i] === countrycases[0]) {
                             const countryfinded = country.country;
-                            match.push({countryfinded, i });
+                            match.push({countryfinded, i , 'Prioridad': 'Primera'});
                          } 
                      }
                  } 
-                console.log('Recorriendo..');
+                // console.log('Recorriendo..');
                 return match;
             });
             Promise.resolve(matches).then((response) => {

@@ -1,30 +1,55 @@
 import React, {Fragment, useContext} from 'react';
 import { Bar } from 'react-chartjs-2';
 import { DataContext } from '../../context/dataContext';
+import { HistoryContext} from '../../context/historyContext.js';
 
 
 
 const Chart = () => {
 
-    const {} = useContext(DataContext);
+    const {countrycompare,
+        timeline,
+        countrycases,
+        countrydeaths,
+        countrycasescompare,
+        countrydeathscompare} = useContext(HistoryContext);
+        const {country} = useContext(DataContext);
 
-    const data = {
-    labels: ['1', '2','3','4'],
+
+    let data = {
+    labels: [],
     datasets: [
         {
-            label: 'Uruguay',
+            label: '',
             backgroundColor: 'rgba(255,0,0,0.50)',
             type: 'line',
-            data: [9, 12, 24,94]
+            data: []
         },
         {
-            label: 'Promedio',
+            label: '',
             backgroundColor: 'rgba(63,81,181,0.75)',
             type: 'line',
-            data: [0, 10, 16, 102]
+            data: []
         }
     ]
-}
+    }
+    data.datasets[0].label = country;
+    data.datasets[1].label = countrycompare;
+    let timelineReverse = [];
+    let  countrycasesReverse = [];
+    let  countrycasescompareReverse = [];
+    for (let i = 0 ; i < 14 ; i++) {
+        timelineReverse.push(timeline[i]) ;
+        countrycasesReverse.push(countrycases[i]);
+        countrycasescompareReverse.push(countrycasescompare[i]);
+    } 
+    
+    data.labels = timelineReverse.reverse()
+    data.datasets[0].data = countrycasesReverse.reverse();
+    data.datasets[1].data = countrycasescompareReverse.reverse(); 
+    // Agregando un valor al objeto
+    // data.labels[data.labels.length] = '4' ;
+
 
     return ( 
         <Fragment>

@@ -45,6 +45,7 @@ const Body = () => {
                         population={code.population}
                         />
                         <Tabla />
+                        <Chart />
                     </CardContent>
                 </Card>
                 </Container>
