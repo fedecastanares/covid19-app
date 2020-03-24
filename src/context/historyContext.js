@@ -12,7 +12,7 @@ const HistoryProvider = (props) => {
     const [countrydeaths, setcountrydeaths] = useState([]);
     const [countrycasescompare, setcountrycasescompare] = useState([]);
     const [countrydeathscompare , setcountrydeathscompare] = useState([]);
-
+    const [allcountrys, setallcountrys] = useState([]);
 
     const { country } = useContext(DataContext);
 
@@ -29,6 +29,13 @@ const HistoryProvider = (props) => {
             settimeline(timeline);
             setcountrycases(cases);
             setcountrydeaths(deaths);
+
+            const matches = [];
+            const findSimilarData = await findSimilar(cases);
+            Promise.all(findSimilarData).then(response => {
+                console.log(response[0]);
+            })
+            
         }
         getData();
 
@@ -44,6 +51,35 @@ const HistoryProvider = (props) => {
         }
         getDatacompare();
 
+        const findSimilar = async (countrycases) => {
+            let match = [];
+            const url = `https://corona.lmao.ninja/countries`;
+            const data = await Axios.get(url);
+            setallcountrys(data.data);
+            let matches = data.data.map(async country =>{
+                const url = `https://corona.lmao.ninja/historical/${country.country}`;
+                const data = await Axios.get(url);
+                let cases = Object.values(data.data.timeline.cases);
+                cases = cases.reverse();
+                const countryData = data.data.standardizedCountryName.charAt(0).toUpperCase() + data.data.standardizedCountryName.slice(1);
+                 if (cases[0] !== undefined || country.country !== countryData) {
+                     for (let i = 0 ; i < cases.length ; i++) {
+                         if( cases[i] === countrycases[0] ) {
+                            const countryfinded = country.country;
+                            match.push({countryfinded, i });
+                         } 
+                     }
+                 } 
+                console.log('Recorriendo..');
+                return match;
+            });
+            Promise.resolve(matches).then((response) => {
+                return response;
+            })
+            
+            return matches;
+            
+        }
     }, []);
 
     return (
