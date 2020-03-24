@@ -33,7 +33,7 @@ const HistoryProvider = (props) => {
             const matches = [];
             const findSimilarData = await findSimilar(cases);
             Promise.all(findSimilarData).then(response => {
-              //  console.log(response[0]);
+                console.log(response[0]);
             })
             
         }
@@ -70,7 +70,7 @@ const HistoryProvider = (props) => {
                          } 
                      }
                  } 
-                // console.log('Recorriendo..');
+                console.log('Recorriendo..');
                 return match;
             });
             Promise.resolve(matches).then((response) => {

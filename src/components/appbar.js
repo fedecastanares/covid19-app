@@ -68,7 +68,7 @@ export default function SearchAppBar() {
   return (
       <Fragment>
     <div className={classes.root}>
-      <AppBar position="static">
+      <AppBar position="sticky"  style={{ position: "fixed" }}>
         <Toolbar>
           <IconButton
             edge="start"

@@ -15,7 +15,7 @@ import PacmanLoader from "react-spinners/ClipLoader";
 
 const useStyles = makeStyles({
     root: {
-      marginTop : 32,
+      paddingTop : 80,
       minWidth: 275,
     },
     title: {
@@ -24,8 +24,8 @@ const useStyles = makeStyles({
   });
 
   const override = css`
-  margin: 35vh auto;
-  border-color: "#123abc";
+  margin: 40vh auto;
+  border-color: "white";
 `;
 
 const Body = () => {
@@ -72,7 +72,8 @@ const Body = () => {
                             spacing={2}>
                                 <PacmanLoader
                                 css={override}
-                                size={150}
+                                size={'20vh'}
+                                color={'white'}
                                 />
                         </Grid>
                     </Grid>
