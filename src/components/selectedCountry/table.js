@@ -54,12 +54,13 @@ const Tabla = () => {
       countrydeaths,
       countrycasescompare,
       countrydeathscompare} = useContext(HistoryContext);
-      const {country} = useContext(DataContext);
+      const {country, cantidad, status} = useContext(DataContext);
 
       function getsCountryStatus() {
         const rowsCoutry = [];
+        rowsCoutry.push(createData('Hoy', status.cases, status.deaths ));
           if (timeline !== undefined && countrycases !== undefined && countrydeaths !== undefined ) {
-            for (let i = 0 ; i < 14 ; i++ ) {
+            for (let i = 0 ; i < cantidad ; i++ ) {
               let day = timeline[i];
               let cases = countrycases[i];
               let deaths = countrydeaths[i];
@@ -73,12 +74,13 @@ const Tabla = () => {
       function getsCountryCompareStatus() {
         const rowsCoutryCompare = [];
           if (timeline !== undefined && countrycasescompare !== undefined && countrydeathscompare !== undefined ) {
-            for (let i = 0 ; i < 14 ; i++ ) {
+            for (let i = 0 ; i < cantidad ; i++ ) {
               let day = timeline[i];
               let cases = countrycasescompare[i];
               let deaths = countrydeathscompare[i];
               rowsCoutryCompare.push(createData( day , cases, deaths));
           }
+          
           return rowsCoutryCompare;
         }
       }

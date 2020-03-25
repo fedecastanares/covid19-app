@@ -5,6 +5,7 @@ export const DataContext = createContext();
 
 const DataProvider = (props) => {
 
+    const cantidad = 13;
     const [country, setcountry] = useState('Uruguay');
     const [code, setcode] = useState([]);
     const [status, setstatus] = useState({});
@@ -31,6 +32,7 @@ const DataProvider = (props) => {
     return (
         <DataContext.Provider
         value={{
+            cantidad,
             country,
             status,
             code
