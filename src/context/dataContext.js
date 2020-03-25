@@ -5,19 +5,15 @@ export const DataContext = createContext();
 
 const DataProvider = (props) => {
 
-    const cantidad = 13;
+
     const [country, setcountry] = useState('Uruguay');
+    const [countrycompare, setcountrycompare] = useState('Argentina');
     const [code, setcode] = useState([]);
+    const [allcountrys, setallcountrys] = useState([]);
     const [status, setstatus] = useState({});
+    const [statuscompare, setstatuscompare] = useState({});
 
     useEffect (() =>{
-        const getStatus = async () => {
-            const url = `https://corona.lmao.ninja/countries/${country}`
-            const status = await Axios.get(url);
-            setstatus(status.data);
-        }
-        getStatus();
-
         // Cambiar a misma API que corona o no porque uso la poblacion tambien
         const getcode = async () => {
             const url = `https://restcountries.eu/rest/v2/name/${country}`;
@@ -26,16 +22,28 @@ const DataProvider = (props) => {
         }
         getcode();
 
-        
-    }, []);
+        const getallcountrys = async () => {
+            const url = `https://corona.lmao.ninja/countries`;
+            const data = await Axios.get(url);
+            setallcountrys(data.data);
+            const status = data.data.find(aCountry => aCountry.country === country);
+            setstatus(status);
+            const statuscompare = data.data.find(aCountry => aCountry.country === countrycompare);
+            setstatuscompare(statuscompare);
+        }
+        getallcountrys();
+    }, [country]);
 
     return (
         <DataContext.Provider
         value={{
-            cantidad,
             country,
+            countrycompare,
+            code,
+            allcountrys,
             status,
-            code
+            statuscompare,
+            setcountry
         }}>
             {props.children}
         </DataContext.Provider>

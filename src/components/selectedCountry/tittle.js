@@ -25,6 +25,7 @@ const Tittle = (props) => {
         flag,
         population } = props;
 
+    if (status !== undefined) {
     return ( 
         <Fragment>
             <Grid container 
@@ -56,6 +57,7 @@ const Tittle = (props) => {
             </Grid>  
         </Fragment>
      );
+    }
 }
  
 export default Tittle;

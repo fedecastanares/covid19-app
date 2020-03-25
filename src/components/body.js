@@ -6,7 +6,7 @@ import Tabla from './selectedCountry/table.js'
 
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid, Typography } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { css } from "@emotion/core";
@@ -37,7 +37,7 @@ const Body = () => {
         code
     } = useContext(DataContext);
 
-        if (country.length && code.alpha2Code !== undefined && status.country !== undefined ) {
+        if (country && code.alpha2Code !== undefined ) {
         
         return(
             <Fragment>
@@ -51,7 +51,7 @@ const Body = () => {
                         population={code.population}
                         />
                         <Tabla />
-                        <Chart />
+                        <Chart/>
                     </CardContent>
                 </Card>
                 </Container>

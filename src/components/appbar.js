@@ -1,4 +1,5 @@
-import React , {Fragment} from 'react';
+import React , {Fragment , useContext} from 'react';
+
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import IconButton from '@material-ui/core/IconButton';
@@ -7,6 +8,7 @@ import InputBase from '@material-ui/core/InputBase';
 import { fade, makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
 import SearchIcon from '@material-ui/icons/Search';
+import { DataContext } from '../context/dataContext';
 
   const useStyles = makeStyles(theme => ({ 
   root: {
@@ -65,6 +67,12 @@ import SearchIcon from '@material-ui/icons/Search';
 export default function SearchAppBar() {
   const classes = useStyles();
 
+  const {country, setcountry} = useContext(DataContext);
+
+  const handleChange = (event) => {
+    setcountry(event.target.value);
+  }
+
   return (
       <Fragment>
     <div className={classes.root}>
@@ -86,12 +94,15 @@ export default function SearchAppBar() {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Buscar.."
+              placeholder="Search.."
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,
               }}
               inputProps={{ 'aria-label': 'search' }}
+              name='search'
+              
+              onChange={handleChange}
             />
           </div>
         </Toolbar>

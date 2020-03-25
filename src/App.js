@@ -18,12 +18,12 @@ function App() {
   const classes = useStyles();
   return (
     <Fragment>
-        <AppBar/>
-        <DataProvider>
-          <HistoryProvider>
-            <div className={classes.root}>
-              <Body/>
-            </div>
+      <DataProvider>
+        <HistoryProvider>
+          <AppBar/>
+          <div className={classes.root}>
+            <Body/>
+          </div>
           </HistoryProvider>
         </DataProvider>
     </Fragment>

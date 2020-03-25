@@ -48,13 +48,13 @@ const StyledTableCell = withStyles(theme => ({
 const Tabla = () => {
     const classes = useStyles();
 
-    const {countrycompare,
+    const {cantidad,
       timeline,
       countrycases,
       countrydeaths,
       countrycasescompare,
       countrydeathscompare} = useContext(HistoryContext);
-      const {country, cantidad, status} = useContext(DataContext);
+      const {country, status, countrycompare, statuscompare} = useContext(DataContext);
 
       function getsCountryStatus() {
         const rowsCoutry = [];
@@ -73,6 +73,7 @@ const Tabla = () => {
 
       function getsCountryCompareStatus() {
         const rowsCoutryCompare = [];
+        rowsCoutryCompare.push(createData('Hoy', statuscompare.cases, statuscompare.deaths ));
           if (timeline !== undefined && countrycasescompare !== undefined && countrydeathscompare !== undefined ) {
             for (let i = 0 ; i < cantidad ; i++ ) {
               let day = timeline[i];

@@ -6,15 +6,14 @@ export const HistoryContext = createContext();
 
 const HistoryProvider = (props) => {
 
-    const [countrycompare, setcountrycompare] = useState('Argentina');
+    const cantidad = 9;
     const [timeline, settimeline] = useState([]);
     const [countrycases, setcountrycases] = useState([]);
     const [countrydeaths, setcountrydeaths] = useState([]);
     const [countrycasescompare, setcountrycasescompare] = useState([]);
     const [countrydeathscompare , setcountrydeathscompare] = useState([]);
-    const [allcountrys, setallcountrys] = useState([]);
 
-    const { country } = useContext(DataContext);
+    const { country , allcountrys, countrycompare} = useContext(DataContext);
 
     useEffect(() => {
         const getData = async () => {
@@ -33,7 +32,7 @@ const HistoryProvider = (props) => {
             const matches = [];
             const findSimilarData = await findSimilar(cases);
             Promise.all(findSimilarData).then(response => {
-                console.log(response[0]);
+            //    console.log(response[0]);
             })
             
         }
@@ -53,10 +52,7 @@ const HistoryProvider = (props) => {
 
         const findSimilar = async (countrycases) => {
             let match = [];
-            const url = `https://corona.lmao.ninja/countries`;
-            const data = await Axios.get(url);
-            setallcountrys(data.data);
-            let matches = data.data.map(async country =>{
+            let matches = allcountrys.map(async country =>{
                 const url = `https://corona.lmao.ninja/historical/${country.country}`;
                 const data = await Axios.get(url);
                 let cases = Object.values(data.data.timeline.cases);
@@ -85,7 +81,7 @@ const HistoryProvider = (props) => {
     return (
         <HistoryContext.Provider
         value={{
-            countrycompare,
+            cantidad,
             timeline,
             countrycases,
             countrydeaths,

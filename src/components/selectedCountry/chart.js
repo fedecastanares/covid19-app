@@ -13,7 +13,7 @@ const Chart = () => {
         countrydeaths,
         countrycasescompare,
         countrydeathscompare} = useContext(HistoryContext);
-        const {country , status} = useContext(DataContext);
+        const {country , status, statuscompare} = useContext(DataContext);
 
 
     let data = {
@@ -40,7 +40,7 @@ const Chart = () => {
     let  countrycasescompareReverse = [];
     timelineReverse.push('Hoy');
     countrycasesReverse.push(status.cases);
-    countrycasescompareReverse.push(status.deaths);
+    countrycasescompareReverse.push(statuscompare.cases);
     for (let i = 0 ; i < 14 ; i++) {
         timelineReverse.push(timeline[i]) ;
         countrycasesReverse.push(countrycases[i]);
