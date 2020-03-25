@@ -19,6 +19,7 @@ const HistoryProvider = (props) => {
         const getData = async () => {
             const url = `https://corona.lmao.ninja/historical/${country}`
             const data = await Axios.get(url);
+            console.log(data.data);
             let timeline =  Object.keys(data.data.timeline.cases);
             timeline = timeline.reverse();
             let cases = Object.values(data.data.timeline.cases);
@@ -76,7 +77,7 @@ const HistoryProvider = (props) => {
             return matches;
             
         }
-    }, []);
+    }, [country]);
 
     return (
         <HistoryContext.Provider
@@ -86,7 +87,7 @@ const HistoryProvider = (props) => {
             countrycases,
             countrydeaths,
             countrycasescompare,
-            countrydeathscompare
+            countrydeathscompare,
         }}>
         {props.children}
         </HistoryContext.Provider>

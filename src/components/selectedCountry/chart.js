@@ -7,13 +7,13 @@ import { HistoryContext} from '../../context/historyContext.js';
 
 const Chart = () => {
 
-    const {countrycompare,
+    const {
         timeline,
         countrycases,
         countrydeaths,
         countrycasescompare,
         countrydeathscompare} = useContext(HistoryContext);
-        const {country , status, statuscompare} = useContext(DataContext);
+        const {country , countrycompare, status, statuscompare} = useContext(DataContext);
 
 
     let data = {

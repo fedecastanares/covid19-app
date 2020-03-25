@@ -34,10 +34,11 @@ const Body = () => {
     const {
         country,
         status,
-        code
+        code,
+        allcountrys
     } = useContext(DataContext);
 
-        if (country && code.alpha2Code !== undefined ) {
+        if (country && code.alpha2Code !== undefined && allcountrys[0] !== undefined) {
         
         return(
             <Fragment>

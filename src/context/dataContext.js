@@ -14,7 +14,6 @@ const DataProvider = (props) => {
     const [statuscompare, setstatuscompare] = useState({});
 
     useEffect (() =>{
-        // Cambiar a misma API que corona o no porque uso la poblacion tambien
         const getcode = async () => {
             const url = `https://restcountries.eu/rest/v2/name/${country}`;
             const code = await Axios.get(url);

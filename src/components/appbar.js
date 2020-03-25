@@ -67,10 +67,16 @@ import { DataContext } from '../context/dataContext';
 export default function SearchAppBar() {
   const classes = useStyles();
 
-  const {country, setcountry} = useContext(DataContext);
+  const {country, setcountry, allcountrys} = useContext(DataContext);
 
   const handleChange = (event) => {
-    setcountry(event.target.value);
+    const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
+    if( newCountry !== undefined) {
+      setcountry(newCountry.country);
+    } else {
+      console.log('Esta buscando un pais que no encontro');
+    }
+
   }
 
   return (
