@@ -8,29 +8,40 @@ const DataProvider = (props) => {
 
     const [country, setcountry] = useState('Uruguay');
     const [countrycompare, setcountrycompare] = useState('Argentina');
-    const [code, setcode] = useState([]);
+    const [flag, setflag] = useState('');
     const [allcountrys, setallcountrys] = useState([]);
     const [status, setstatus] = useState({});
     const [statuscompare, setstatuscompare] = useState({});
+    const [firstcontrol, setfirstcontrol] = useState(true);
 
-    useEffect (() =>{
-        const getcode = async () => {
-            const url = `https://restcountries.eu/rest/v2/name/${country}`;
-            const code = await Axios.get(url);
-            setcode(code.data[0]);
-        }
-        getcode();
-
+    useEffect(()=> {
         const getallcountrys = async () => {
+            const urlcountry = `https://corona.lmao.ninja/countries/${country}`
+            const datacountry = await Axios.get(urlcountry);
+            setstatus(datacountry.data);
+            setflag(datacountry.data.countryInfo.flag);
+            const urlcountrycompare = `https://corona.lmao.ninja/countries/${countrycompare}`
+            const datacountrycompare = await Axios.get(urlcountrycompare);
+            setstatuscompare(datacountrycompare.data);
             const url = `https://corona.lmao.ninja/countries`;
             const data = await Axios.get(url);
             setallcountrys(data.data);
-            const status = data.data.find(aCountry => aCountry.country === country);
-            setstatus(status);
-            const statuscompare = data.data.find(aCountry => aCountry.country === countrycompare);
-            setstatuscompare(statuscompare);
+            setfirstcontrol(false);
         }
         getallcountrys();
+    }, []);
+
+    useEffect (() =>{
+        if (firstcontrol === false) {
+        const getdata = async () => {
+            const status = allcountrys.find(aCountry => aCountry.country === country);
+            setstatus(status);
+            setflag(status.countryInfo.flag);
+            const statuscompare = allcountrys.find(aCountry => aCountry.country === countrycompare);
+            setstatuscompare(statuscompare);
+        }
+        getdata();
+        }
     }, [country]);
 
     return (
@@ -38,10 +49,10 @@ const DataProvider = (props) => {
         value={{
             country,
             countrycompare,
-            code,
             allcountrys,
             status,
             statuscompare,
+            flag,
             setcountry
         }}>
             {props.children}

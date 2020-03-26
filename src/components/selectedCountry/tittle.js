@@ -25,7 +25,7 @@ const Tittle = (props) => {
         flag,
         population } = props;
 
-    if (status !== undefined) {
+    if (status !== undefined ) {
     return ( 
         <Fragment>
             <Grid container 
@@ -35,7 +35,7 @@ const Tittle = (props) => {
             spacing={2}>
             <Grid item xs>
                 <Grid container 
-                    direction="row"
+                    direction="column"
                     justify="center"
                     alignItems="center"
                     spacing={2}>
@@ -44,12 +44,9 @@ const Tittle = (props) => {
                         {country}
                     </Typography>
                 </Grid>
-            <Grid container alignItems="center" justify="center" >
-                <Typography className={classes.body2} variant='body2' component='body'>Poblacion: {population}</Typography>
-            </Grid>
             </Grid>
             <Grid item xs>
-                <Alert className={classes.alert} severity="warning">Casos: {status.cases} - ({((status.cases * 100) / population).toFixed(3)}%)</Alert>
+                <Alert className={classes.alert} severity="warning">Casos: {status.cases} - ({status.casesPerOneMillion} por millon)</Alert>
                 <Alert className={classes.alert} severity="error">Fallecidos: {status.deaths} - ({((status.deaths * 100) / status.cases).toFixed(3)}%)</Alert>
                 <Alert className={classes.alert} severity="success">Recuperados: {status.recovered} - ({((status.recovered * 100) / status.cases).toFixed(3)}%)</Alert>
                 <Alert className={classes.alert} severity="info">De hoy: {status.todayCases} - ({(((status.todayCases === 0 ?  0 : status.cases - status.todayCases) * 100) / status.cases).toFixed(3)}%) </Alert>

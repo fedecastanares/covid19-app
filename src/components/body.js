@@ -1,12 +1,13 @@
 import React, { Fragment, useContext } from 'react';
 import { DataContext } from '../context/dataContext.js'
+import {HistoryContext} from '../context/historyContext.js'
 import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
 import Tabla from './selectedCountry/table.js'
 
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid , Typography} from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { css } from "@emotion/core";
@@ -15,16 +16,23 @@ import PacmanLoader from "react-spinners/ClipLoader";
 
 const useStyles = makeStyles({
     root: {
-      paddingTop : 80,
+      paddingTop : '10vh',
       minWidth: 275,
     },
     title: {
       fontSize: 32,
     },
+    firm: {
+        color: '#304ffe',
+        fontSize: '0.8rem',
+        textAlign: 'right',
+        padding: '1vh',
+        fontStyle: 'italic'
+    }
   });
 
   const override = css`
-  margin: 40vh auto;
+  margin: 35vh auto;
   border-color: "white";
 `;
 
@@ -34,11 +42,12 @@ const Body = () => {
     const {
         country,
         status,
-        code,
-        allcountrys
+        flag,
+        allcountrys,
     } = useContext(DataContext);
+    const {historycontrol} = useContext(HistoryContext);
 
-        if (country && code.alpha2Code !== undefined && allcountrys[0] !== undefined) {
+        if (country &&  allcountrys[0] !== undefined && flag !== undefined && historycontrol === true) {
         
         return(
             <Fragment>
@@ -48,13 +57,15 @@ const Body = () => {
                         <Tittle
                         country={country}
                         status={status}
-                        flag={'https://www.countryflags.io/' + code.alpha2Code + '/flat/64.png'}
-                        population={code.population}
+                        flag={flag}
                         />
                         <Tabla />
                         <Chart/>
                     </CardContent>
                 </Card>
+                <Typography variant='body2' className={classes.firm}>
+                Federico Castañares
+                </Typography>
                 </Container>
             </Fragment>
         )

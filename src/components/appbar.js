@@ -15,10 +15,11 @@ import { DataContext } from '../context/dataContext';
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(2),
+    marginRight: theme.spacing(0),
   },
   title: {
     flexGrow: 1,
+    fontSize: '1.2rem',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -74,7 +75,7 @@ export default function SearchAppBar() {
     if( newCountry !== undefined) {
       setcountry(newCountry.country);
     } else {
-      console.log('Esta buscando un pais que no encontro');
+      console.log(newCountry);
     }
 
   }
@@ -100,7 +101,7 @@ export default function SearchAppBar() {
               <SearchIcon />
             </div>
             <InputBase
-              placeholder="Search.."
+              placeholder="English"
               classes={{
                 root: classes.inputRoot,
                 input: classes.inputInput,

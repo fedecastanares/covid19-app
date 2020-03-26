@@ -7,6 +7,7 @@ export const HistoryContext = createContext();
 const HistoryProvider = (props) => {
 
     const cantidad = 9;
+    const [historycontrol, sethistorycontrol] = useState(false);
     const [timeline, settimeline] = useState([]);
     const [countrycases, setcountrycases] = useState([]);
     const [countrydeaths, setcountrydeaths] = useState([]);
@@ -17,9 +18,10 @@ const HistoryProvider = (props) => {
 
     useEffect(() => {
         const getData = async () => {
-            const url = `https://corona.lmao.ninja/historical/${country}`
+            // API deprecada
+            sethistorycontrol(false);
+            const url = `https://corona.lmao.ninja/v2/historical/${country}`
             const data = await Axios.get(url);
-            console.log(data.data);
             let timeline =  Object.keys(data.data.timeline.cases);
             timeline = timeline.reverse();
             let cases = Object.values(data.data.timeline.cases);
@@ -40,7 +42,7 @@ const HistoryProvider = (props) => {
         getData();
 
         const getDatacompare = async () => {
-            const url = `https://corona.lmao.ninja/historical/${countrycompare}`
+            const url = `https://corona.lmao.ninja/v2/historical/${countrycompare}`
             const data = await Axios.get(url);
             let cases = Object.values(data.data.timeline.cases);
             cases = cases.reverse();
@@ -48,6 +50,7 @@ const HistoryProvider = (props) => {
             deaths = deaths.reverse();
             setcountrycasescompare(cases);
             setcountrydeathscompare(deaths);
+            sethistorycontrol(true);
         }
         getDatacompare();
 
@@ -67,7 +70,7 @@ const HistoryProvider = (props) => {
                          } 
                      }
                  } 
-                console.log('Recorriendo..');
+                //console.log('Recorriendo..');
                 return match;
             });
             Promise.resolve(matches).then((response) => {
@@ -88,6 +91,7 @@ const HistoryProvider = (props) => {
             countrydeaths,
             countrycasescompare,
             countrydeathscompare,
+            historycontrol
         }}>
         {props.children}
         </HistoryContext.Provider>
