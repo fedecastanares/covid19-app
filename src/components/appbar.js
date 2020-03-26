@@ -43,7 +43,7 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Coronavirus covid-19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🦠
+            Coronavirus covid-19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🦠
           </Typography>
         </Toolbar>
       </AppBar>

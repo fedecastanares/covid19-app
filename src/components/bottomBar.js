@@ -70,9 +70,9 @@ const BottomBar = () => {
       });
 
     const handleChange = event => {
-        if ( event.target.name) {
+        if ( event.target.name === 'checkedB') {
             setswitchSt({ ...switchSt, [event.target.name]: event.target.checked });
-        } else {
+        } else if (event.target.name === 'search'){
             const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
             if( newCountry !== undefined) {
              setcountry(newCountry.country);
@@ -91,7 +91,6 @@ const BottomBar = () => {
                     <SearchIcon />
                     </div>
                     <InputBase
-                    autoComplete
                     placeholder="Search country.. (English)"
                     classes={{
                         root: classes.inputRoot,
