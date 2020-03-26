@@ -60,7 +60,7 @@ const Chart = () => {
             data={data}
             width={100}
             height={80}
-            options={{ title: {display: true, text: 'Evolucion'}, legend: {display: true}  }}
+            options={{ title: {display: true, text: 'Cases evolucion'}, legend: {display: true}  }}
             />
         </Fragment>
      );
