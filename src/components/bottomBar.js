@@ -50,9 +50,9 @@ const useStyles = makeStyles(theme => ({
       transition: theme.transitions.create('width'),
       width: '60%',
       [theme.breakpoints.up('sm')]: {
-        width: '12ch',
+        width: '20ch',
         '&:focus': {
-          width: '20ch',
+          width: '30ch',
         },
       },
     },}));
@@ -91,7 +91,8 @@ const BottomBar = () => {
                     <SearchIcon />
                     </div>
                     <InputBase
-                    placeholder="English"
+                    autoComplete
+                    placeholder="Search country.. (English)"
                     classes={{
                         root: classes.inputRoot,
                         input: classes.inputInput,
