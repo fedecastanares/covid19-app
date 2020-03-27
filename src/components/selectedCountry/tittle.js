@@ -7,7 +7,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 const useStyles = makeStyles({
     title: {
-      fontSize: 32,
+      fontSize: '3rem',
       marginLeft: 16,
     }, 
     alert:{
@@ -22,8 +22,7 @@ const Tittle = (props) => {
     const classes = useStyles();
     const { country,
         status,
-        flag,
-        population } = props;
+        flag, } = props;
 
     if (status !== undefined ) {
     return ( 

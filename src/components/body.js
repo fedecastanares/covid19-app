@@ -46,9 +46,9 @@ const Body = () => {
         flag,
         allcountrys,
     } = useContext(DataContext);
-    const {historycontrol} = useContext(HistoryContext);
+    const {timeline} = useContext(HistoryContext);
 
-        if (country &&  allcountrys[0] !== undefined && flag !== undefined && historycontrol === true) {
+        if (country &&  allcountrys[0] !== undefined && flag !== undefined && timeline !== undefined) {
         
         return(
             <Fragment>

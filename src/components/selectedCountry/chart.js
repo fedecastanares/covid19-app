@@ -42,7 +42,7 @@ const Chart = () => {
     countrycasesReverse.push(status.cases);
     countrycasescompareReverse.push(statuscompare.cases);
     for (let i = 0 ; i < 14 ; i++) {
-        timelineReverse.push(timeline[i]) ;
+        timelineReverse.push(timeline[i].substr(0,timeline[i].length - 3 )) ;
         countrycasesReverse.push(countrycases[i]);
         countrycasescompareReverse.push(countrycasescompare[i]);
     } 
@@ -60,7 +60,7 @@ const Chart = () => {
             data={data}
             width={100}
             height={80}
-            options={{ title: {display: true, text: 'Cases evolucion'}, legend: {display: true}  }}
+            options={{ title: {display: true, text: 'Evolucion de casos'}, legend: {display: true}  }}
             />
         </Fragment>
      );

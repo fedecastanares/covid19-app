@@ -17,8 +17,9 @@ import MenuIcon from '@material-ui/icons/Menu';
     marginRight: theme.spacing(0),
   },
   title: {
+    marginLeft: '2vw',
     flexGrow: 1,
-    fontSize: '1.2rem',
+    fontSize: '1.5rem',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -43,7 +44,7 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Coronavirus covid-19 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 🦠
+            Coronavirus covid-19 &nbsp;&nbsp;&nbsp; 🦠
           </Typography>
         </Toolbar>
       </AppBar>

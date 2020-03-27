@@ -13,6 +13,9 @@ const DataProvider = (props) => {
     const [status, setstatus] = useState({});
     const [statuscompare, setstatuscompare] = useState({});
     const [firstcontrol, setfirstcontrol] = useState(true);
+    const [switchSt, setswitchSt] = React.useState({
+        checkedB: false
+      });
 
     useEffect(()=> {
         const getallcountrys = async () => {
@@ -33,27 +36,44 @@ const DataProvider = (props) => {
 
     useEffect (() =>{
         if (firstcontrol === false) {
-        const getdata = async () => {
-            const status = allcountrys.find(aCountry => aCountry.country === country);
-            setstatus(status);
-            setflag(status.countryInfo.flag);
-            const statuscompare = allcountrys.find(aCountry => aCountry.country === countrycompare);
-            setstatuscompare(statuscompare);
-        }
-        getdata();
+            if (switchSt.checkedB === false) {
+                const getdata = async () => {
+                    const status = allcountrys.find(aCountry => aCountry.country.startsWith(country));
+                    setstatus(status);
+                    setflag(status.countryInfo.flag);
+                }
+            getdata();
+            } 
         }
     }, [country]);
+
+
+    useEffect (() => {
+        if (firstcontrol === false) {
+            if ( switchSt.checkedB === true) {
+                const getdata = async () => {
+                    const statuscompare = allcountrys.find(aCountry => aCountry.country === countrycompare);
+                    setstatuscompare(statuscompare);
+                }
+            getdata();
+            }
+        }
+    }, [countrycompare]);
 
     return (
         <DataContext.Provider
         value={{
+            switchSt,
             country,
             countrycompare,
             allcountrys,
             status,
             statuscompare,
             flag,
-            setcountry
+            firstcontrol,
+            setcountry,
+            setcountrycompare,
+            setswitchSt
         }}>
             {props.children}
         </DataContext.Provider>
