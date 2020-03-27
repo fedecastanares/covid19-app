@@ -28,7 +28,7 @@ const useStyles = makeStyles({
         textAlign: 'right',
         padding: '1vh',
         fontStyle: 'italic',
-        paddingBottom: '6vh',
+        paddingBottom: '8vh',
     }
   });
 
