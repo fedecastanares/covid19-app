@@ -20,12 +20,8 @@ const useStyles = makeStyles(theme => ({
     },
     search: {
       position: 'relative',
-      color: '#fff',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: fade(theme.palette.common.white, 0.15),
-      '&:hover': {
-        backgroundColor: fade(theme.palette.common.white, 0.25),
-      },
+      backgroundColor: '#eeeeee',
       marginLeft: 0,
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
@@ -41,7 +37,6 @@ const useStyles = makeStyles(theme => ({
       justifyContent: 'center',
     },
     inputRoot: {
-      color: 'inherit',
       width: '100%',
     },
     item: {
