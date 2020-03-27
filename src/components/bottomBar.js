@@ -15,6 +15,8 @@ const useStyles = makeStyles(theme => ({
         bottom: 0,
         width: '100vw',
         backgroundColor: '#3f51b5',
+        paddingTop: '1vh',
+        paddingBottom : '1vh',
     },
     search: {
       position: 'relative',
