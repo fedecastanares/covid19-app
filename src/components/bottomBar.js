@@ -21,7 +21,7 @@ const useStyles = makeStyles(theme => ({
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: '#eeeeee',
+      backgroundColor: '#e8eaf6',
       marginLeft: 0,
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
