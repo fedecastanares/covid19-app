@@ -49,6 +49,7 @@ const StyledTableCell = withStyles(theme => ({
         marginTop: 30,
     },expansionpanel: {
       marginTop: '4vh',
+      width: '100%',
       [theme.breakpoints.up('sm')]: {
         margin: '3vh',
       },
@@ -127,9 +128,10 @@ const Tabla = () => {
 
     return ( 
     <Fragment>
-
+    <Grid container>
     <div className={classes.expansionpanel}>
-      <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+
+      <ExpansionPanel expanded={expanded === 'panel1'} onChange={handleChange('panel1')} TransitionProps={{ unmountOnExit: true }}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel1bh-content"
@@ -177,7 +179,7 @@ const Tabla = () => {
                 </Table>
         </ExpansionPanelDetails>
       </ExpansionPanel>
-      <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+      <ExpansionPanel expanded={expanded === 'panel2'} onChange={handleChange('panel2')} TransitionProps={{ unmountOnExit: true }}>
         <ExpansionPanelSummary
           expandIcon={<ExpandMoreIcon />}
           aria-controls="panel2bh-content"
@@ -228,6 +230,7 @@ const Tabla = () => {
         </ExpansionPanelDetails>
       </ExpansionPanel>
     </div>
+    </Grid>
     </Fragment>
      );
 }

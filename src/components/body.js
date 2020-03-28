@@ -60,8 +60,8 @@ const Body = () => {
                         status={status}
                         flag={flag}
                         />
-                        <Grid container>
-                            <Grid item xs>
+                        <Grid container xs>
+                            <Grid item xs={12}>
                                 <Tables />
                             </Grid>
                             <Grid item xs>
