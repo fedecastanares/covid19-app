@@ -12,9 +12,12 @@ const useStyles = makeStyles({
     }, 
     alert:{
         marginTop: 6,
+        textAlign: 'center',
     },
     body2:{
         marginTop: 30,
+    }, alertgroup: {
+        marginTop: '2vh',
     }
   });
 
@@ -31,8 +34,8 @@ const Tittle = (props) => {
             direction="row"
             justify="space-around"
             alignItems="center"
-            spacing={2}>
-            <Grid item xs>
+            spacing={2}
+            xs>
                 <Grid container 
                     direction="column"
                     justify="center"
@@ -43,13 +46,17 @@ const Tittle = (props) => {
                         {country}
                     </Typography>
                 </Grid>
-            </Grid>
-            <Grid item xs>
-                <Alert className={classes.alert} severity="warning">Casos: {status.cases} - ({status.casesPerOneMillion} por millon)</Alert>
-                <Alert className={classes.alert} severity="error">Fallecidos: {status.deaths} - ({((status.deaths * 100) / status.cases).toFixed(3)}%)</Alert>
-                <Alert className={classes.alert} severity="success">Recuperados: {status.recovered} - ({((status.recovered * 100) / status.cases).toFixed(3)}%)</Alert>
-                <Alert className={classes.alert} severity="info">De hoy: {status.todayCases} - ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(3)}%) </Alert>
-            </Grid>
+
+                <Grid container xs={12} spacing={1} className={classes.alertgroup}>
+                    <Grid item xs={6}>
+                        <Alert className={classes.alert} severity="warning">Casos: {status.cases} <br/> ({status.casesPerOneMillion} por millon)</Alert>
+                        <Alert className={classes.alert} severity="error">Fallecidos: {status.deaths} <br/> ({((status.deaths * 100) / status.cases).toFixed(3)}%)</Alert>
+                    </Grid>
+                    <Grid item xs={6}>
+                        <Alert className={classes.alert} severity="success">Recuperados: {status.recovered} <br/> ({((status.recovered * 100) / status.cases).toFixed(3)}%)</Alert>
+                        <Alert className={classes.alert} severity="info">De hoy: {status.todayCases} <br/> ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(3)}%) </Alert>
+                    </Grid>
+                </Grid>
             </Grid>  
         </Fragment>
      );

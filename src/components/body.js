@@ -3,7 +3,7 @@ import { DataContext } from '../context/dataContext.js'
 import {HistoryContext} from '../context/historyContext.js'
 import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
-import Tabla from './selectedCountry/table.js'
+import Tables from './selectedCountry/tables.js'
 import BottomBar from './bottomBar.js'
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -60,8 +60,14 @@ const Body = () => {
                         status={status}
                         flag={flag}
                         />
-                        <Tabla />
-                        <Chart/>
+                        <Grid container>
+                            <Grid item xs>
+                                <Tables />
+                            </Grid>
+                            <Grid item xs>
+                                <Chart/>
+                            </Grid>
+                        </Grid>
                     </CardContent>
                 </Card>
                 <Typography variant='body2' className={classes.firm}>

@@ -9,6 +9,7 @@ const DataProvider = (props) => {
     const [country, setcountry] = useState('Uruguay');
     const [countrycompare, setcountrycompare] = useState('Argentina');
     const [flag, setflag] = useState('');
+    const [flagcompare, setflagcompare] = useState('');
     const [allcountrys, setallcountrys] = useState([]);
     const [status, setstatus] = useState({});
     const [statuscompare, setstatuscompare] = useState({});
@@ -26,6 +27,7 @@ const DataProvider = (props) => {
             const urlcountrycompare = `https://corona.lmao.ninja/countries/${countrycompare}`
             const datacountrycompare = await Axios.get(urlcountrycompare);
             setstatuscompare(datacountrycompare.data);
+            setflagcompare(datacountrycompare.data.countryInfo.flag);
             const url = `https://corona.lmao.ninja/countries`;
             const data = await Axios.get(url);
             setallcountrys(data.data);
@@ -54,6 +56,7 @@ const DataProvider = (props) => {
                 const getdata = async () => {
                     const statuscompare = allcountrys.find(aCountry => aCountry.country === countrycompare);
                     setstatuscompare(statuscompare);
+                    setflagcompare(statuscompare.countryInfo.flag);
                 }
             getdata();
             }
@@ -70,6 +73,7 @@ const DataProvider = (props) => {
             status,
             statuscompare,
             flag,
+            flagcompare,
             firstcontrol,
             setcountry,
             setcountrycompare,

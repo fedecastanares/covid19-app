@@ -106,7 +106,7 @@ const BottomBar = () => {
                         const color = '#fff';
                         return color;
                     } else {
-                        const color = 'rgb(245, 0, 87)';
+                        const color = 'rgba(255,0,0)';
                         return color;
                     }
                     }

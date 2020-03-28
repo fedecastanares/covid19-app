@@ -6,6 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
+import {Container} from '@material-ui/core';
 
 
 
@@ -34,6 +35,7 @@ export default function SearchAppBar() {
       <Fragment>
     <div className={classes.root}>
       <AppBar position="sticky"  style={{ position: "fixed" }}>
+      <Container >
         <Toolbar>
           <IconButton
             edge="start"
@@ -44,9 +46,10 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Coronavirus covid-19 &nbsp;&nbsp;&nbsp; 🦠
+            Coronavirus covid-19 &nbsp;&nbsp; 🦠
           </Typography>
         </Toolbar>
+        </Container>
       </AppBar>
     </div>
     </Fragment>
