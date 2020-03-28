@@ -10,9 +10,8 @@ const Chart = () => {
     const {
         timeline,
         countrycases,
-        countrydeaths,
         countrycasescompare,
-        countrydeathscompare} = useContext(HistoryContext);
+        } = useContext(HistoryContext);
         const {country , status, statuscompare, countrycompare} = useContext(DataContext);
 
 

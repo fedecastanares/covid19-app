@@ -47,7 +47,7 @@ const Tittle = (props) => {
                     </Typography>
                 </Grid>
 
-                <Grid container xs={12} spacing={1} className={classes.alertgroup}>
+                <Grid container spacing={1} className={classes.alertgroup}>
                     <Grid item xs={6}>
                         <Alert className={classes.alert} severity="warning">Casos: {status.cases} <br/> ({status.casesPerOneMillion} por millon)</Alert>
                         <Alert className={classes.alert} severity="error">Fallecidos: {status.deaths} <br/> ({((status.deaths * 100) / status.cases).toFixed(3)}%)</Alert>

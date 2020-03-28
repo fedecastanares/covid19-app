@@ -1,8 +1,7 @@
 import React , {Fragment, useContext, useState, useEffect} from 'react';
 import {DataContext} from '../context/dataContext.js';
-import {HistoryContext} from '../context/historyContext.js';
 import InputBase from '@material-ui/core/InputBase';
-import { fade, makeStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
 import Switch from '@material-ui/core/Switch';
 import {Grid, FormControlLabel} from '@material-ui/core';
@@ -70,8 +69,8 @@ const BottomBar = () => {
     const classes = useStyles();
     const [label, setlabel] = useState('');
     const [color, setcolor] = useState('');
-    const {country, setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare } = useContext(DataContext);
-    const {sethistorycontrol} = useContext(HistoryContext);
+    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare } = useContext(DataContext);
+
 
     const handleChange = event => {
         if ( event.target.name === 'checkedB') {
@@ -80,7 +79,7 @@ const BottomBar = () => {
             const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
             if( newCountry !== undefined) {
              setcountry(newCountry.country);
-        }} else if( event.target.name === 'search' && switchSt.checkedB == true) {
+        }} else if( event.target.name === 'search' && switchSt.checkedB === true) {
             const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
             if( newCountry !== undefined) {
              setcountrycompare(newCountry.country);

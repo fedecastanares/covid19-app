@@ -1,4 +1,4 @@
-import React , {Fragment , useContext} from 'react';
+import React , {Fragment } from 'react';
 
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -46,7 +46,7 @@ export default function SearchAppBar() {
             <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Coronavirus covid-19 &nbsp;&nbsp; 🦠
+            Coronavirus covid-19 &nbsp;&nbsp; <span role="img" aria-label="microbe">🦠</span>
           </Typography>
         </Toolbar>
         </Container>

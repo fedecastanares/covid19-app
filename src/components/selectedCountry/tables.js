@@ -7,10 +7,8 @@ import { withStyles, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
-import TableContainer from '@material-ui/core/TableContainer';
 import TableHead from '@material-ui/core/TableHead';
 import TableRow from '@material-ui/core/TableRow';
-import Paper from '@material-ui/core/Paper';
 import {Grid, Typography} from '@material-ui/core';
 
 import ExpansionPanel from '@material-ui/core/ExpansionPanel';
@@ -139,7 +137,7 @@ const Tabla = () => {
         >
           <Grid container justify="space-between" alignContent='center' alignItems='center'>
             <Grid item xs={10}>
-            <Grid container justify="Flex-start" alignContent='center' alignItems='center'>
+            <Grid container justify="flex-start" alignContent='center' alignItems='center'>
               <Grid item>
                 <img className={classes.flag} src={flag} alt={`bandera de ${country}`} />
               </Grid>
@@ -187,7 +185,7 @@ const Tabla = () => {
         >
           <Grid container justify="space-between" alignContent='center' alignItems='center'>
             <Grid item xs={10}>
-            <Grid container justify="Flex-start" alignContent='center' alignItems='center'>
+            <Grid container justify="flex-start" alignContent='center' alignItems='center'>
               <Grid item>
           <img className={classes.flag} src={flagcompare} alt={`bandera de ${countrycompare}`} />
           </Grid>
@@ -216,7 +214,7 @@ const Tabla = () => {
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {rowsCoutry.map(row => (
+                    {rowsCoutryCompare.map(row => (
                     <StyledTableRow key={row.dia}>
                         <StyledTableCell component="th" scope="row">
                         {row.dia}

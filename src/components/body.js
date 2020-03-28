@@ -60,7 +60,7 @@ const Body = () => {
                         status={status}
                         flag={flag}
                         />
-                        <Grid container xs>
+                        <Grid container>
                             <Grid item xs={12}>
                                 <Tables />
                             </Grid>
