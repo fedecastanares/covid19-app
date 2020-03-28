@@ -15,7 +15,7 @@ import ExpansionPanel from '@material-ui/core/ExpansionPanel';
 import ExpansionPanelDetails from '@material-ui/core/ExpansionPanelDetails';
 import ExpansionPanelSummary from '@material-ui/core/ExpansionPanelSummary';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
-import { TableChartOutlined } from '@material-ui/icons';
+import { TableChart } from '@material-ui/icons';
 
 const StyledTableCell = withStyles(theme => ({
     head: {
@@ -150,7 +150,7 @@ const Tabla = () => {
             </Grid>
             </Grid>
             <Grid item xs={2}>
-              <TableChartOutlined  fontSize='large'/>
+              <TableChart  fontSize='large' color='action'/>
             </Grid>
         </Grid>
         </ExpansionPanelSummary>
@@ -200,7 +200,7 @@ const Tabla = () => {
           </Grid>
             </Grid>
             <Grid item xs={2}>
-              <TableChartOutlined  fontSize='large'/>
+              <TableChart  fontSize='large' color='action'/>
             </Grid>
             </Grid>
         </ExpansionPanelSummary>
