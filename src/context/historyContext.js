@@ -6,7 +6,7 @@ export const HistoryContext = createContext();
 
 const HistoryProvider = (props) => {
 
-    const cantidad = 9;
+    const [cantidad, setcantidad] = useState(9);
     const [allhistory, setallhistory] = useState({});
     const [timeline, settimeline] = useState([]);
     const [countrycases, setcountrycases] = useState([]);
@@ -124,7 +124,8 @@ const HistoryProvider = (props) => {
             countrycases,
             countrydeaths,
             countrycasescompare,
-            countrydeathscompare
+            countrydeathscompare,
+            setcantidad
         }}>
         {props.children}
         </HistoryContext.Provider>

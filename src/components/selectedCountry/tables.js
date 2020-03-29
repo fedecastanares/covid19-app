@@ -1,4 +1,4 @@
-import React, {Fragment, useContext} from 'react';
+import React, {Fragment, useContext, useEffect, useState} from 'react';
 import {HistoryContext} from '../../context/historyContext.js'
 import { DataContext } from '../../context/dataContext.js'
 
@@ -87,12 +87,52 @@ const Tabla = () => {
       countrydeathscompare} = useContext(HistoryContext);
       const {country, status, countrycompare, statuscompare, flag, flagcompare} = useContext(DataContext);
 
-      const [expanded, setExpanded] = React.useState(false);
+      const [expanded, setExpanded] = useState(false);
+      const [rowsCoutry, setrowsCoutry] = useState([]);
+      const [rowsCoutryCompare, setrowsCoutryCompare] = useState([]);
 
       const handleChange = panel => (event, isExpanded) => {
         setExpanded(isExpanded ? panel : false);
       };
 
+
+      useEffect(() => {
+        function getsCountryStatus() {
+          const rowsCoutry = [];
+          rowsCoutry.push(createData('Hoy', status.cases, status.deaths ));
+            if (timeline !== undefined && countrycases !== undefined && countrydeaths !== undefined ) {
+              for (let i = 0 ; i < cantidad ; i++ ) {
+                let day = timeline[i];
+                let cases = countrycases[i];
+                let deaths = countrydeaths[i];
+                rowsCoutry.push(createData( day , cases, deaths));
+            }
+            return rowsCoutry;
+          }
+        }
+        let rowsCoutry = getsCountryStatus(); 
+        setrowsCoutry(rowsCoutry)
+
+        function getsCountryCompareStatus() {
+          const rowsCoutryCompare = [];
+          rowsCoutryCompare.push(createData('Hoy', statuscompare.cases, statuscompare.deaths ));
+            if (timeline !== undefined && countrycasescompare !== undefined && countrydeathscompare !== undefined ) {
+              for (let i = 0 ; i < cantidad ; i++ ) {
+                let day = timeline[i];
+                let cases = countrycasescompare[i];
+                let deaths = countrydeathscompare[i];
+                rowsCoutryCompare.push(createData( day , cases, deaths));
+            }
+            
+            return rowsCoutryCompare;
+          }
+        }
+        let rowsCoutryCompare = getsCountryCompareStatus(); 
+        setrowsCoutryCompare(rowsCoutryCompare);
+
+      }, [cantidad]);
+
+      /*
       function getsCountryStatus() {
         const rowsCoutry = [];
         rowsCoutry.push(createData('Hoy', status.cases, status.deaths ));
@@ -122,7 +162,7 @@ const Tabla = () => {
           return rowsCoutryCompare;
         }
       }
-      let rowsCoutryCompare = getsCountryCompareStatus(); 
+      let rowsCoutryCompare = getsCountryCompareStatus(); */
 
     return ( 
     <Fragment>
