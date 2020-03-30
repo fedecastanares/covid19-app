@@ -19,7 +19,7 @@ const Chart = () => {
         countrycasescompare,
         setcantidad
         } = useContext(HistoryContext);
-        const {country , status, statuscompare, countrycompare} = useContext(DataContext);
+        const {country , status, statuscompare, countrycompare, countrydisplaycompare, countrydisplay} = useContext(DataContext);
 
     
     const HandleChange = (event, value) => {
@@ -43,8 +43,8 @@ const Chart = () => {
         }
     ]
     }
-    data.datasets[0].label = country;
-    data.datasets[1].label = countrycompare;
+    data.datasets[0].label = countrydisplay;
+    data.datasets[1].label = countrydisplaycompare;
     let timelineReverse = [];
     let  countrycasesReverse = [];
     let  countrycasescompareReverse = [];

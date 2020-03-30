@@ -40,7 +40,7 @@ const useStyles = makeStyles({
 const Body = () => {
 
     const classes = useStyles();
-    const {
+    const {countrydisplay,
         country,
         status,
         flag,
@@ -56,7 +56,7 @@ const Body = () => {
                 <Card className={classes.root}>
                     <CardContent>
                         <Tittle
-                        country={country}
+                        countrydisplay={countrydisplay}
                         status={status}
                         flag={flag}
                         />

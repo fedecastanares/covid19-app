@@ -6,6 +6,8 @@ import SearchIcon from '@material-ui/icons/Search';
 import Switch from '@material-ui/core/Switch';
 import {Grid, FormControlLabel} from '@material-ui/core';
 
+const userLang = navigator.language.substr(0,2) || navigator.userLanguage.substr(0,2); 
+
 const useStyles = makeStyles(theme => ({ 
     root: {
       flexGrow: 1,
@@ -69,26 +71,30 @@ const BottomBar = () => {
     const classes = useStyles();
     const [label, setlabel] = useState('');
     const [color, setcolor] = useState('');
-    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare } = useContext(DataContext);
+    const [countryNative, setcountryNative] = useState([]);
+    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare, restcountries } = useContext(DataContext);
 
-
-    const handleChange = event => {
-        if ( event.target.name === 'checkedB') {
-            setswitchSt({ ...switchSt, [event.target.name]: event.target.checked });
-        } else if (event.target.name === 'search' && switchSt.checkedB === false){
-            const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
-            if( newCountry !== undefined) {
-             setcountry(newCountry.country);
-        }} else if( event.target.name === 'search' && switchSt.checkedB === true) {
-            const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
-            if( newCountry !== undefined) {
-             setcountrycompare(newCountry.country);
-        }}
-        else {
-            console.log(event.target.name + '  ' + switchSt);
+    useEffect(() => {
+        const getcountryNative = async () => {
+            let countrys = [];
+            if (restcountries[0] !== undefined) {
+                restcountries.map(aCountry => { 
+                if (userLang !== 'en') {
+                    const lenguajeskeys = Object.keys(aCountry.translations);
+                    const lenguajesvalues = Object.values(aCountry.translations);
+                        for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
+                            if( lenguajeskeys[i] === userLang && lenguajesvalues[i] !== null) {
+                                countrys.push({'country' : lenguajesvalues[i] ,'code' : aCountry.alpha2Code});
+                            } 
+                        }
+                        
+                } 
+            })
+            }
+            setcountryNative(countrys);
         }
-
-    }
+        getcountryNative();
+    }, [restcountries]);
 
     useEffect(() => {
             const label = () => {
@@ -112,6 +118,46 @@ const BottomBar = () => {
                 setlabel(label);
                 setcolor(color);
     }, [switchSt.checkedB]);
+
+    
+    const handleChange = event => {
+        if ( event.target.name === 'checkedB') {
+            setswitchSt({ ...switchSt, [event.target.name]: event.target.checked });
+        } else if (event.target.name === 'search' && switchSt.checkedB === false){
+            if (userLang !== 'en') {
+                const newCountry = countryNative.find(countrycode => countrycode.country.indexOf(event.target.value) > -1 );
+                if (newCountry !== undefined) {
+                    const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
+                    if (newCode !== undefined) {
+                        setcountry(newCode.country);
+                    }
+                }
+            } else {
+                const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
+                if( newCountry !== undefined) {
+                    setcountry(newCountry.country);
+                }
+        }} else if( event.target.name === 'search' && switchSt.checkedB === true) {
+            if (userLang !== 'en') {
+                const newCountry = countryNative.find(countrycode => countrycode.country.indexOf(event.target.value) > -1 );
+                if (newCountry !== undefined) {
+                    const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
+                    if (newCode !== undefined) {
+                        setcountrycompare(newCode.country);
+                    }
+                }
+            } else {
+                const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
+                if( newCountry !== undefined) {
+                    setcountrycompare(newCountry.country);
+                }
+        }
+            }
+        else {
+            console.log(event.target.name + '  ' + switchSt);
+        }
+
+    }
 
     return ( 
         <Fragment>

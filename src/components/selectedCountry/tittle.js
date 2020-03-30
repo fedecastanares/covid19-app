@@ -25,7 +25,7 @@ const Tittle = (props) => {
     const classes = useStyles();
     const { country,
         status,
-        flag, } = props;
+        flag, countrydisplay } = props;
 
     if (status !== undefined ) {
     return ( 
@@ -43,7 +43,7 @@ const Tittle = (props) => {
                     spacing={2}>
                     <img src={flag} alt={`Bandera de ${country}`} />
                     <Typography className={classes.title} color="textSecondary">
-                        {country}
+                        {countrydisplay}
                     </Typography>
                 </Grid>
 

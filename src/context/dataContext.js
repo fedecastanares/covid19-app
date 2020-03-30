@@ -3,8 +3,9 @@ import Axios from 'axios';
 
 export const DataContext = createContext();
 
+const userLang = navigator.language.substr(0,2) || navigator.userLanguage.substr(0,2) ; 
+console.log(userLang);
 const DataProvider = (props) => {
-
 
     const [country, setcountry] = useState('Uruguay');
     const [countrycompare, setcountrycompare] = useState('Argentina');
@@ -14,9 +15,14 @@ const DataProvider = (props) => {
     const [status, setstatus] = useState({});
     const [statuscompare, setstatuscompare] = useState({});
     const [firstcontrol, setfirstcontrol] = useState(true);
-    const [switchSt, setswitchSt] = React.useState({
+    const [switchSt, setswitchSt] = useState({
         checkedB: false
       });
+      
+    const [restcountries, setrestcountries] = useState([]);
+    const [countrydisplay, setcountrydisplay] = useState('');
+    const [countrydisplaycompare, setcountrydisplaycompare] = useState('');
+
 
     useEffect(()=> {
         const getallcountrys = async () => {
@@ -34,6 +40,36 @@ const DataProvider = (props) => {
             setfirstcontrol(false);
         }
         getallcountrys();
+        
+        const getrestcountries = async () => {
+            // const userLang = 'br';
+            if (userLang !== 'en') {
+                const url = `https://restcountries.eu/rest/v2/name/`;
+                const data = await Axios.get(url + country);
+                const lenguajeskeys = Object.keys(data.data[0].translations);
+                const lenguajesvalues = Object.values(data.data[0].translations);
+                for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
+                    if( lenguajeskeys[i] === userLang ) {
+                        setcountrydisplay(lenguajesvalues[i]);
+                    } else {  setcountrydisplay(country); }
+                }
+                const datacompare = await Axios.get(url + countrycompare);
+                const lenguajesvaluescompare = Object.values(datacompare.data[0].translations);
+                for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
+                if( lenguajeskeys[i] === userLang ) {
+                    setcountrydisplaycompare(lenguajesvaluescompare[i]);
+                } else {
+                    setcountrydisplaycompare(countrycompare);
+                }
+                }
+            } else {
+                setcountrydisplay(country);
+                setcountrydisplaycompare(countrycompare);
+            }
+            const alldata = await Axios.get ('https://restcountries.eu/rest/v2/all');
+            setrestcountries(alldata.data); 
+        }
+        getrestcountries();
     }, []);
 
     useEffect (() =>{
@@ -43,6 +79,17 @@ const DataProvider = (props) => {
                     const status = allcountrys.find(aCountry => aCountry.country.startsWith(country));
                     setstatus(status);
                     setflag(status.countryInfo.flag);
+                    const newCountry = restcountries.find(aCountry => status.countryInfo.iso2 === aCountry.alpha2Code);
+                    if (userLang !== 'en') {
+                        const lenguajeskeys = Object.keys(newCountry.translations);
+                        const lenguajesvalues = Object.values(newCountry.translations);
+                        for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
+                            if ( lenguajeskeys[i] === userLang ) {
+                                setcountrydisplay(lenguajesvalues[i]);
+                            } 
+                        } } else {
+                            setcountrydisplay(country);
+                        }
                 }
             getdata();
             } 
@@ -57,6 +104,17 @@ const DataProvider = (props) => {
                     const statuscompare = allcountrys.find(aCountry => aCountry.country === countrycompare);
                     setstatuscompare(statuscompare);
                     setflagcompare(statuscompare.countryInfo.flag);
+                    const newCountry = restcountries.find(aCountry => statuscompare.countryInfo.iso2 === aCountry.alpha2Code);
+                    if (userLang !== 'en') {
+                        const lenguajeskeys = Object.keys(newCountry.translations);
+                        const lenguajesvalues = Object.values(newCountry.translations);
+                        for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
+                            if( lenguajeskeys[i] === userLang ) {
+                                setcountrydisplaycompare(lenguajesvalues[i]);
+                            } 
+                        } } else {
+                            setcountrydisplaycompare(countrycompare);
+                        }
                 }
             getdata();
             }
@@ -66,6 +124,9 @@ const DataProvider = (props) => {
     return (
         <DataContext.Provider
         value={{
+            restcountries,
+            countrydisplay,
+            countrydisplaycompare,
             switchSt,
             country,
             countrycompare,
@@ -77,7 +138,7 @@ const DataProvider = (props) => {
             firstcontrol,
             setcountry,
             setcountrycompare,
-            setswitchSt
+            setswitchSt,
         }}>
             {props.children}
         </DataContext.Provider>

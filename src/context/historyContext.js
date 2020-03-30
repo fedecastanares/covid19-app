@@ -91,7 +91,7 @@ const HistoryProvider = (props) => {
     useEffect (() =>{ 
         if (firstcontrol === false) { 
             const getdata = async () => {
-                const history = (allhistory.find(aCountry => aCountry.country === country.toLowerCase()));
+                const history = (allhistory.find(aCountry => aCountry.country === country));
                 setcountrycases(Object.values( history.timeline.cases).reverse());
                 setcountrydeaths(Object.values( history.timeline.deaths).reverse());
             }
@@ -104,7 +104,7 @@ const HistoryProvider = (props) => {
     useEffect (() =>{ 
         if (firstcontrol === false) { 
             const getdata = async () => {
-                const history = (allhistory.find(aCountry => aCountry.country === countrycompare.toLowerCase()));
+                const history = (allhistory.find(aCountry => aCountry.country === countrycompare));
                 setcountrycasescompare(Object.values( history.timeline.cases).reverse());
                 setcountrydeathscompare(Object.values( history.timeline.deaths).reverse());
             }

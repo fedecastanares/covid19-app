@@ -85,7 +85,7 @@ const Tabla = () => {
       countrydeaths,
       countrycasescompare,
       countrydeathscompare} = useContext(HistoryContext);
-      const {country, status, countrycompare, statuscompare, flag, flagcompare} = useContext(DataContext);
+      const {country, status, countrycompare, statuscompare, flag, flagcompare, countrydisplay, countrydisplaycompare} = useContext(DataContext);
 
       const [expanded, setExpanded] = useState(false);
       const [rowsCoutry, setrowsCoutry] = useState([]);
@@ -182,7 +182,7 @@ const Tabla = () => {
                 <img className={classes.flag} src={flag} alt={`bandera de ${country}`} />
               </Grid>
               <Grid item>
-                <Typography className={classes.heading}>{country}</Typography>
+                <Typography className={classes.heading}>{countrydisplay}</Typography>
               </Grid>
             </Grid>
             <Grid item>
@@ -230,7 +230,7 @@ const Tabla = () => {
           <img className={classes.flag} src={flagcompare} alt={`bandera de ${countrycompare}`} />
           </Grid>
               <Grid item>
-          <Typography className={classes.heading}>{countrycompare}</Typography>
+          <Typography className={classes.heading}>{countrydisplaycompare}</Typography>
           </Grid>
             </Grid>
             <Grid item>
