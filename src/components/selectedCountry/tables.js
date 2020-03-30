@@ -112,7 +112,9 @@ const Tabla = () => {
         }
         let rowsCoutry = getsCountryStatus(); 
         setrowsCoutry(rowsCoutry)
+      }, [countrycases]);
 
+      useEffect(() => {
         function getsCountryCompareStatus() {
           const rowsCoutryCompare = [];
           rowsCoutryCompare.push(createData('Hoy', statuscompare.cases, statuscompare.deaths ));
@@ -129,8 +131,8 @@ const Tabla = () => {
         }
         let rowsCoutryCompare = getsCountryCompareStatus(); 
         setrowsCoutryCompare(rowsCoutryCompare);
-
-      }, [cantidad]);
+      }, [countrycasescompare]);
+      
 
       /*
       function getsCountryStatus() {
