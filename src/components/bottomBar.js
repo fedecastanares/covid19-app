@@ -169,7 +169,7 @@ const BottomBar = () => {
                         <SearchIcon />
                         </div>
                         <InputBase
-                        placeholder="Buscar.. &nbsp;&nbsp;&nbsp;(English)"
+                        placeholder="Buscar.. &nbsp;&nbsp;&nbsp;"
                         classes={{
                             root: classes.inputRoot,
                             input: classes.inputInput,
