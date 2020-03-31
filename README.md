@@ -2,15 +2,16 @@
 
 ## Idiomas de entrada disponibles:
 
-"de": "Uruguay",
-"es": "Uruguay",
-"fr": "Uruguay",
-"ja": "ウルグアイ",
-"it": "Uruguay",
-"br": "Uruguai",
-"pt": "Uruguai",
-"nl": "Uruguay",
-"hr": "Urugvaj",
-"fa": "اروگوئه"
+1. "en": "Uruguay",
+2. "de": "Uruguay",
+3. "es": "Uruguay",
+4. "fr": "Uruguay",
+5. "ja": "ウルグアイ",
+6. "it": "Uruguay",
+7. "br": "Uruguai",
+8. pt": "Uruguai",
+9. "nl": "Uruguay",
+10. "hr": "Urugvaj",
+11. "fa": "اروگوئه"
 
 React - Material UI
