@@ -5,6 +5,7 @@ import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
 import Tables from './selectedCountry/tables.js'
 import BottomBar from './bottomBar.js'
+import Map from './map.js'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid , Typography} from '@material-ui/core';
@@ -66,6 +67,9 @@ const Body = () => {
                             </Grid>
                             <Grid item xs>
                                 <Chart/>
+                            </Grid>
+                            <Grid item>
+                                <Map/>
                             </Grid>
                         </Grid>
                     </CardContent>
