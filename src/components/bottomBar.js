@@ -78,6 +78,9 @@ const BottomBar = () => {
     useEffect(() => {
         const getcountryNative = async () => {
             let countrys = [];
+            if (userLang === 'es') {
+                countrys.push({'country' : 'Estados Unidos' , 'code' : 'US'});
+             }   
             if (restcountries[0] !== undefined) {
                 restcountries.map(aCountry => { 
                 if (userLang !== 'en') {
@@ -88,7 +91,6 @@ const BottomBar = () => {
                                 countrys.push({'country' : lenguajesvalues[i] ,'code' : aCountry.alpha2Code});
                             } 
                         }
-                        
                 } 
             })
             }
