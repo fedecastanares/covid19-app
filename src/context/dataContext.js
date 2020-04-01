@@ -4,7 +4,6 @@ import Axios from 'axios';
 export const DataContext = createContext();
 
 const userLang = navigator.language.substr(0,2) || navigator.userLanguage.substr(0,2) ; 
-console.log(userLang);
 const DataProvider = (props) => {
 
     const [country, setcountry] = useState('Uruguay');

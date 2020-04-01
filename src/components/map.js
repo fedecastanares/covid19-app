@@ -1,10 +1,10 @@
-import React , {useState}from "react";
+import React , {useState , useEffect}from "react";
+import Axios from 'axios';
 import {Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import {Icon} from 'leaflet';
-import * as marksData from '../data/marks.json';
 import { Typography, Grid}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import {Phone, QueryBuilderOutlined} from '@material-ui/icons';
+import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 
 const useStyles = makeStyles({
     root: {
@@ -34,6 +34,7 @@ const useStyles = makeStyles({
         color: 'green',
         fontSize: '0.65rem',
         margin: '5% 0 0 0 !important',
+        minWidth: '85%'
 
     },
     reciben: {
@@ -45,99 +46,155 @@ const useStyles = makeStyles({
         marginTop: '5%'
     },
     contactotext: {
-        fontSize: '0.8rem',
+        fontSize: '0.7rem',
         color: 'grey',
-        margin: '0 0 0 5% !important'
+        margin: '0 0 0 3% !important'
+    },
+    patrocinioimg: {
+        maxWidth: '80%',
+    },
+    patrocinio: {
+        margin: '5% 0 0 0 !important',
+        backgroundColor: '#098a91',
+        borderRadius: '0 0 1vw 1vw',
+
+    }, 
+    patrociniotext: {
+        color: '#fff',
+        fontSize: '0.5rem',
+        margin: '0 0 0 0 !important'
     }
 });
+
+const ollapopularimg = 'https://ollaspopulares.com/assets/img/logo.png'
 
 export default function Mapa(){
     const classes = useStyles();
     const [activeplace, setactiveplace] = useState(null);
-    const data = marksData[0];
+    const [ollaspopulares, setollaspopulares] = useState(null);
 
-    return (
-        <Map center={[-34.901112, -56.164532]} zoom={11}>
-            <TileLayer
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            /> 
 
-            {data.features.map(place => (
-                <Marker 
-                key={place.properties.id}
-                position={[
-                    place.geometry.coordinates[1],
-                    place.geometry.coordinates[0]
-                ]}
-                onclick={() => {setactiveplace(place)}}
-                />
-            ))}
+    useEffect(() => {
+        const getollaspopulares = async () => {
+            const url = 'https://ollaspopulares.com:9095/cooking_pot-service/cooking_pot?fbclid=IwAR3WDCUoTgh2lP4FuwqQaok15B5twXCPX5-79DDqBF1c9c3-yc1pCddsFCk';
+            const dataollaspopulares = await Axios.get(url);
+            setollaspopulares(dataollaspopulares.data);
+        }
+        getollaspopulares();
+    },[]);
 
-            {activeplace && (
+    if (ollaspopulares !== null ) {
+
+
+        return (
+            <Map center={[-34.901112, -56.164532]} zoom={11}>
+                <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                /> 
+
+                {ollaspopulares.map(olla => (
+                    <Marker 
+                    key={olla.ownerPhone}
+                    position={[
+                        olla.latitude,
+                        olla.longitude
+                    ]}
+                    onclick={() => {setactiveplace(olla)}}
+                    />
+                ))}
+
+
+                {activeplace && (
                 <Popup
                     className={classes.root}
                     position={[
-                        activeplace.geometry.coordinates[1],
-                        activeplace.geometry.coordinates[0]
+                        activeplace.latitude,
+                        activeplace.longitude
                     ]}
                     onClose={() => {
                         setactiveplace(null);
                     }}
                 >
                     <div>
-                        { activeplace.properties.lugarimg !== '' ? 
-                        <img className={classes.img} src={activeplace.properties.lugarimg} alt={`Foto de ${activeplace.properties.lugar}`} /> : 
-                        null }
+                        
                         <Typography variant="h4" className={classes.tittles} gutterBottom>
-                            {activeplace.properties.lugar}
+                            {activeplace.potName}
                         </Typography>
                         <Typography variant="h6" className={classes.subtittles} gutterBottom>
-                            {activeplace.properties.sponsor}
+                            {activeplace.ownerName}
                         </Typography>
-                        { activeplace.properties.beneficio !== '' ?  
+                        { activeplace.description !== '' ?  
                         <div> 
                             <Typography variant="body1" className={classes.beneficio} gutterBottom>
                                 Beneficio:
                             </Typography>
                             <Typography variant="body1" className={classes.body} gutterBottom>
-                                {activeplace.properties.beneficio}
+                                {activeplace.description}
                             </Typography>
                         </div> : null }
                         
-                        {activeplace.properties.reciben !== '' ? 
+                        {activeplace.address !== '' ? 
                         <div> 
                         <Typography variant="body1" className={classes.reciben} gutterBottom>
-                            Reciben:
+                            Direccion:
                         </Typography>
                         <Typography variant="body1" className={classes.body} gutterBottom>
-                            {activeplace.properties.reciben}
+                            {activeplace.address}
                         </Typography>
                         </div> 
                         : null }
-                        { activeplace.properties.contacto !== '' ? 
+                        { activeplace.ownerPhone !== '' ? 
                         <Grid container className={classes.contacto}>
-                        <Phone/>
+                        <Phone fontSize="small"/>
                         <Typography variant="body2" className={classes.contactotext} gutterBottom>
-                        {activeplace.properties.contacto}
+                        {activeplace.ownerPhone}
                         </Typography>
                         </Grid>
                         : null}
 
-                        {activeplace.properties.horario !== '' ? 
+                        {activeplace.daysOfService !== '' ? 
                         <Grid container className={classes.contacto} alignItems='center'>
-                        <QueryBuilderOutlined/>
+                        <QueryBuilderOutlined fontSize="small"/>
                         <Typography variant="body2" className={classes.contactotext} gutterBottom>
-                        {activeplace.properties.horario}
+                        {activeplace.daysOfService}
                         </Typography>
                         </Grid> 
                         : null
                         }
+
+                        {activeplace.address !== '' ? 
+                        <Grid container className={classes.contacto} alignItems='center'>
+                        <Room fontSize="small"/>
+                        <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                        {activeplace.address}
+                        </Typography>
+                        </Grid> 
+                        : null
+                        }
+
+
+                        <Grid container className={classes.patrocinio} alignItems='center'>
+                            <Typography variant="body2" className={classes.patrociniotext} gutterBottom>
+                                Proporcionado por:
+                            </Typography>
+                            <img src={ollapopularimg} alt='Logo de ollas populares' className={classes.patrocinioimg}/>
+                        </Grid>
                         
                     </div>
                 </Popup>
             )}
-            
-        </Map>
-    )
+                
+            </Map>
+        )
+    } else {
+        return(
+            <Map center={[-34.901112, -56.164532]} zoom={11}>
+                <TileLayer
+                url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+                attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+                />
+            </Map>
+        );
+    }
 }
