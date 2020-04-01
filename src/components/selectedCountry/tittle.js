@@ -1,7 +1,7 @@
 import React, {Fragment} from 'react';
 
 import { Typography, Grid}  from '@material-ui/core';
-import Alert from '@material-ui/lab/Alert';
+import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 
 
@@ -49,12 +49,12 @@ const Tittle = (props) => {
 
                 <Grid container spacing={1} className={classes.alertgroup}>
                     <Grid item xs={6}>
-                        <Alert className={classes.alert} severity="warning">Casos: {status.cases} <br/> ({status.casesPerOneMillion} por millon)</Alert>
-                        <Alert className={classes.alert} severity="error">Fallecidos: {status.deaths} <br/> ({((status.deaths * 100) / status.cases).toFixed(3)}%)</Alert>
+                        <MuiAlert className={classes.alert} severity="warning" elevation={4} variant='filled'>Casos: {status.cases} <br/> ({status.casesPerOneMillion} por millon)</MuiAlert>
+                        <MuiAlert className={classes.alert} severity="error" elevation={4} variant='filled'>Fallecidos: {status.deaths} <br/> ({((status.deaths * 100) / status.cases).toFixed(3)}%)</MuiAlert>
                     </Grid>
                     <Grid item xs={6}>
-                        <Alert className={classes.alert} severity="success">Recuperados: {status.recovered} <br/> ({((status.recovered * 100) / status.cases).toFixed(3)}%)</Alert>
-                        <Alert className={classes.alert} severity="info">De hoy: {status.todayCases} <br/> ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(3)}%) </Alert>
+                        <MuiAlert className={classes.alert} severity="success" elevation={4} variant='filled'>Recuperados: {status.recovered} <br/> ({((status.recovered * 100) / status.cases).toFixed(3)}%)</MuiAlert>
+                        <MuiAlert className={classes.alert} severity="info" elevation={4} variant='filled'>De hoy: {status.todayCases} <br/> ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(3)}%) </MuiAlert>
                     </Grid>
                 </Grid>
             </Grid>  

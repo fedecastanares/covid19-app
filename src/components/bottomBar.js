@@ -18,6 +18,7 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: '#3f51b5',
         paddingTop: '1vh',
         paddingBottom : '1vh',
+        zIndex: '1100'
     },
     search: {
       position: 'relative',

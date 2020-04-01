@@ -5,7 +5,7 @@ import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
 import Tables from './selectedCountry/tables.js'
 import BottomBar from './bottomBar.js'
-import Map from './map.js'
+import Mapa from './map.js'
 
 import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid , Typography} from '@material-ui/core';
@@ -30,6 +30,11 @@ const useStyles = makeStyles({
         padding: '1vh',
         fontStyle: 'italic',
         paddingBottom: '8vh',
+    },
+    ayuda: {
+        marginTop: '1vh',
+        color: '#fff',
+        fontStyle: 'italic',
     }
   });
 
@@ -68,12 +73,16 @@ const Body = () => {
                             <Grid item xs>
                                 <Chart/>
                             </Grid>
-                            <Grid item>
-                                <Map/>
-                            </Grid>
+                            
                         </Grid>
                     </CardContent>
                 </Card>
+                <Grid item xs={12}>
+                    <Typography variant='body2' className={classes.ayuda}>
+                        Ayuda comunitaria:
+                    </Typography> 
+                    <Mapa/>
+                </Grid>
                 <Typography variant='body2' className={classes.firm}>
                 Federico Castañares
                 </Typography>

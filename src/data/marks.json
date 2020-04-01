@@ -1,0 +1,65 @@
+[
+    {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "properties": {
+            "id": 1,
+            "lugar": "Cerro Olla popular",
+            "lugarimg" :"http://geo0.ggpht.com/cbk?panoid=6tqAuQYyzgmWl-qUc3DR5w&output=thumbnail&cb_client=search.gws-prod.gps&thumb=2&w=408&h=240&yaw=183.4298&pitch=0&thumbfov=100" ,
+            "sponsor": "Iniciativa vecinal",
+            "beneficio": "Comida de olla",
+            "reciben": "Se reciben donaciones",
+            "contacto": "",
+            "horario": "de 9 a 18"
+          },
+          "geometry": {
+            "coordinates": [
+            -56.256320,
+            -34.879430
+            ],
+            "type": "Point"
+          },
+          "type": "Feature"
+        },
+        {
+            "properties": {
+              "id": 2,
+              "lugar": "La teja",
+              "lugarimg" :"" ,
+              "sponsor": "Club de la alegria",
+              "beneficio": "",
+              "reciben": "Reciben alimentos y productos de higiene para familias que lo necesiten. Coordinar al telefono de contacto para dar o recibir",
+              "contacto": "092279519",
+              "horario": "De 9 a 18"
+            },
+            "geometry": {
+              "coordinates": [
+                -56.226300,
+                -34.866080              ],
+              "type": "Point"
+            },
+            "type": "Feature"
+          },{
+            "properties": {
+              "id": 3,
+              "lugar": "Piedras blancas merienda y olla popular",
+              "lugarimg" :"https://media.subrayado.com.uy/adjuntos/230/imagenes/000/600/0000600335.jpg" ,
+              "sponsor": "Iniciativa vecinal",
+              "beneficio": "Olla popular y merienda",
+              "reciben": "Se reciben donaciones",
+              "contacto": "092927150",
+              "horario": "De 12 a 18"
+            },
+            "geometry": {
+              "coordinates": [
+                -56.140000,
+                -34.824180
+              ],
+              "type": "Point"
+            },
+            "type": "Feature"
+          }
+      ]
+    }
+]
