@@ -11,41 +11,41 @@ const useStyles = makeStyles({
         fontSize: '0.75rem',
     },
     tittles: {
-        fontSize: '1rem',
+        fontSize: '0.8rem',
         fontWeight: 'bold'
     },
     body: {
-        fontSize: '1rem',
+        fontSize: '0.8rem',
         color: 'grey',
         margin: '0 !important'
     },
     subtittles: {
         color: 'darkengrey',
-        fontSize: '0.75rem'
+        fontSize: '0.65rem'
 
     },
     img: {
         display: 'block',
         maxWidth: "75%",
         marginLeft: 'auto',
-        marginRight: 'auto'
+        marginRight: 'auto',
     }, 
     beneficio: {
         color: 'green',
-        fontSize: '0.75rem',
+        fontSize: '0.65rem',
         margin: '5% 0 0 0 !important',
 
     },
     reciben: {
         color: 'orange',
-        fontSize: '0.75rem',
+        fontSize: '0.65rem',
         margin: '3% 0 0 0 !important',
     },
     contacto: {
         marginTop: '5%'
     },
     contactotext: {
-        fontSize: '1rem',
+        fontSize: '0.8rem',
         color: 'grey',
         margin: '0 0 0 5% !important'
     }
@@ -125,7 +125,7 @@ export default function Mapa(){
                         : null}
 
                         {activeplace.properties.horario !== '' ? 
-                        <Grid container className={classes.contacto}>
+                        <Grid container className={classes.contacto} alignItems='center'>
                         <QueryBuilderOutlined/>
                         <Typography variant="body2" className={classes.contactotext} gutterBottom>
                         {activeplace.properties.horario}
