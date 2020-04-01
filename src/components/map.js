@@ -17,7 +17,8 @@ const useStyles = makeStyles({
     body: {
         fontSize: '0.8rem',
         color: 'grey',
-        margin: '0 !important'
+        margin: '0 !important',
+        minWidth: '65%'
     },
     subtittles: {
         color: 'darkengrey',
@@ -34,7 +35,7 @@ const useStyles = makeStyles({
         color: 'green',
         fontSize: '0.65rem',
         margin: '5% 0 0 0 !important',
-        minWidth: '85%'
+        minWidth: '65%'
 
     },
     reciben: {
