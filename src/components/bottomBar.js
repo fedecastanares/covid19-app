@@ -82,6 +82,7 @@ const BottomBar = () => {
                 countrys.push({'country' : 'Estados Unidos' , 'code' : 'US'});
              }   
             if (restcountries[0] !== undefined) {
+                // Cambiar Map por filter
                 restcountries.map(aCountry => { 
                 if (userLang !== 'en') {
                     const lenguajeskeys = Object.keys(aCountry.translations);
@@ -128,7 +129,7 @@ const BottomBar = () => {
             setswitchSt({ ...switchSt, [event.target.name]: event.target.checked });
         } else if (event.target.name === 'search' && switchSt.checkedB === false){
             if (userLang !== 'en') {
-                const newCountry = countryNative.find(countrycode => countrycode.country.indexOf(event.target.value) > -1 );
+                const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 if (newCountry !== undefined) {
                     const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
                     if (newCode !== undefined) {
@@ -136,13 +137,13 @@ const BottomBar = () => {
                     }
                 }
             } else {
-                const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
+                const newCountry = allcountrys.find(aCountry => aCountry.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 if( newCountry !== undefined) {
                     setcountry(newCountry.country);
                 }
         }} else if( event.target.name === 'search' && switchSt.checkedB === true) {
             if (userLang !== 'en') {
-                const newCountry = countryNative.find(countrycode => countrycode.country.indexOf(event.target.value) > -1 );
+                const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 if (newCountry !== undefined) {
                     const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
                     if (newCode !== undefined) {
@@ -150,7 +151,7 @@ const BottomBar = () => {
                     }
                 }
             } else {
-                const newCountry = allcountrys.find(aCountry => aCountry.country.indexOf(event.target.value) > -1);
+                const newCountry = allcountrys.find(aCountry => aCountry.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 if( newCountry !== undefined) {
                     setcountrycompare(newCountry.country);
                 }
