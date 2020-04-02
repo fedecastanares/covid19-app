@@ -8,6 +8,8 @@ const DataProvider = (props) => {
 
     const [country, setcountry] = useState('Uruguay');
     const [countrycompare, setcountrycompare] = useState('Argentina');
+    const [codecountry, setcodecountry] = useState([]);
+    const [codecountrycompare, setcodecountrycompare] = useState([]);
     const [flag, setflag] = useState('');
     const [flagcompare, setflagcompare] = useState('');
     const [allcountrys, setallcountrys] = useState([]);
@@ -134,6 +136,8 @@ const DataProvider = (props) => {
             switchSt,
             country,
             countrycompare,
+            codecountry,
+            codecountrycompare,
             allcountrys,
             status,
             statuscompare,
@@ -143,6 +147,8 @@ const DataProvider = (props) => {
             setcountry,
             setcountrycompare,
             setswitchSt,
+            setcodecountry,
+            setcodecountrycompare
         }}>
             {props.children}
         </DataContext.Provider>

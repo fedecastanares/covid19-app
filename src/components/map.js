@@ -96,7 +96,7 @@ export default function Mapa(){
 
                 {ollaspopulares.map(olla => (
                     <Marker 
-                    key={olla.ownerPhone}
+                    key={olla.email}
                     position={[
                         olla.latitude,
                         olla.longitude

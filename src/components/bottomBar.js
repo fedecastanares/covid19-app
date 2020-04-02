@@ -73,7 +73,8 @@ const BottomBar = () => {
     const [label, setlabel] = useState('');
     const [color, setcolor] = useState('');
     const [countryNative, setcountryNative] = useState([]);
-    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare, restcountries, infostatus } = useContext(DataContext);
+    const [codeswithcases, setcodeswithcases] = useState([]);
+    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare, restcountries, infostatus, setcodecountry, setcodecountrycompare } = useContext(DataContext);
 
     useEffect(() => {
         const getcountryNative = async () => {
@@ -82,12 +83,14 @@ const BottomBar = () => {
             if (userLang === 'es') {
                 countrys.push({'country' : 'Estados Unidos' , 'code' : 'US'});
              }   
+             const codeswithcases = allcountrys.map(aCountry => aCountry.countryInfo.iso2);
+             setcodeswithcases(codeswithcases);
             if (restcountries[0] !== undefined) {
                 // Cambiar Map por filter
                 restcountries.map(aCountry => { 
                 if (userLang !== 'en') {
                     for (let i = 0 ; i < allcountrys.length ; i++ ) { 
-                        if (aCountry.alpha2Code === allcountrys[i].countryInfo.iso2) {
+                        if (aCountry.alpha2Code === codeswithcases[i]) {
                             const lenguajeskeys = Object.keys(aCountry.translations);
                             const lenguajesvalues = Object.values(aCountry.translations);
                                 for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
@@ -136,30 +139,38 @@ const BottomBar = () => {
         } else if (event.target.name === 'search' && switchSt.checkedB === false){
             if (userLang !== 'en') {
                 const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
-                if (newCountry !== undefined) {
+                const existe = codeswithcases.find(code => code === newCountry.code);
+                if (newCountry !== undefined && existe === newCountry.code) {
                     const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
                     if (newCode !== undefined) {
                         setcountry(newCode.country);
+                        setcodecountry(existe);
                     }
                 }
             } else {
                 const newCountry = allcountrys.find(aCountry => aCountry.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
+                const existe = codeswithcases.find(code => code === newCountry.code);
                 if( newCountry !== undefined) {
                     setcountry(newCountry.country);
+                    setcodecountry(existe);
                 }
         }} else if( event.target.name === 'search' && switchSt.checkedB === true) {
             if (userLang !== 'en') {
                 const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
+                const existe = codeswithcases.find(code => code === newCountry.code);
                 if (newCountry !== undefined) {
                     const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
                     if (newCode !== undefined) {
                         setcountrycompare(newCode.country);
+                        setcodecountrycompare(existe);
                     }
                 }
             } else {
                 const newCountry = allcountrys.find(aCountry => aCountry.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
+                const existe = codeswithcases.find(code => code === newCountry.code);
                 if( newCountry !== undefined) {
                     setcountrycompare(newCountry.country);
+                    setcodecountrycompare(existe);
                 }
         }
             }
