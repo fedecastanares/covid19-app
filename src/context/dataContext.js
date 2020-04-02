@@ -21,6 +21,7 @@ const DataProvider = (props) => {
     const [restcountries, setrestcountries] = useState([]);
     const [countrydisplay, setcountrydisplay] = useState('');
     const [countrydisplaycompare, setcountrydisplaycompare] = useState('');
+    const [infostatus, setinfostatus] = useState(false);
 
 
     useEffect(()=> {
@@ -69,6 +70,9 @@ const DataProvider = (props) => {
             setrestcountries(alldata.data); 
         }
         getrestcountries();
+        if (allcountrys !== [] && restcountries !== [] ) {
+           setinfostatus(true) 
+        }
     }, []);
 
     useEffect (() =>{
@@ -123,6 +127,7 @@ const DataProvider = (props) => {
     return (
         <DataContext.Provider
         value={{
+            infostatus,
             restcountries,
             countrydisplay,
             countrydisplaycompare,

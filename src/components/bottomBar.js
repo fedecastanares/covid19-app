@@ -73,10 +73,11 @@ const BottomBar = () => {
     const [label, setlabel] = useState('');
     const [color, setcolor] = useState('');
     const [countryNative, setcountryNative] = useState([]);
-    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare, restcountries } = useContext(DataContext);
+    const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare, restcountries, infostatus } = useContext(DataContext);
 
     useEffect(() => {
         const getcountryNative = async () => {
+            if ( infostatus === true && allcountrys[1] !== undefined && restcountries[1] !== undefined) {
             let countrys = [];
             if (userLang === 'es') {
                 countrys.push({'country' : 'Estados Unidos' , 'code' : 'US'});
@@ -85,20 +86,25 @@ const BottomBar = () => {
                 // Cambiar Map por filter
                 restcountries.map(aCountry => { 
                 if (userLang !== 'en') {
-                    const lenguajeskeys = Object.keys(aCountry.translations);
-                    const lenguajesvalues = Object.values(aCountry.translations);
-                        for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
-                            if( lenguajeskeys[i] === userLang && lenguajesvalues[i] !== null) {
-                                countrys.push({'country' : lenguajesvalues[i] ,'code' : aCountry.alpha2Code});
-                            } 
+                    for (let i = 0 ; i < allcountrys.length ; i++ ) { 
+                        if (aCountry.alpha2Code === allcountrys[i].countryInfo.iso2) {
+                            const lenguajeskeys = Object.keys(aCountry.translations);
+                            const lenguajesvalues = Object.values(aCountry.translations);
+                                for ( let i = 0 ; i < lenguajeskeys.length ; i++) {
+                                    if( lenguajeskeys[i] === userLang && lenguajesvalues[i] !== null) {
+                                        countrys.push({'country' : lenguajesvalues[i] ,'code' : aCountry.alpha2Code});
+                                    } 
+                                }
                         }
+                    }
                 } 
             })
             }
             setcountryNative(countrys);
         }
+        }
         getcountryNative();
-    }, [restcountries]);
+    }, [allcountrys]);
 
     useEffect(() => {
             const label = () => {
