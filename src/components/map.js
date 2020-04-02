@@ -118,7 +118,6 @@ export default function Mapa(){
                     }}
                 >
                     <div>
-                        
                         <Typography variant="h4" className={classes.tittles} gutterBottom>
                             {activeplace.potName}
                         </Typography>

@@ -83,9 +83,11 @@ const Body = () => {
                     </Typography> 
                     <Mapa/>
                 </Grid>
-                <Typography variant='body2' className={classes.firm}>
-                Federico Castañares
-                </Typography>
+                    <a href='https://www.linkedin.com/in/federico-casta%C3%B1ares-992a0512b/'>
+                        <Typography variant='body2' className={classes.firm}>
+                        Federico Castañares
+                        </Typography>
+                    </a>
                 </Container>
                 <BottomBar/>
             </Fragment>
