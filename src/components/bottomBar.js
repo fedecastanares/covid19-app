@@ -1,5 +1,6 @@
 import React , {Fragment, useContext, useState, useEffect} from 'react';
 import {DataContext} from '../context/dataContext.js';
+import {HistoryContext} from '../context/historyContext.js';
 import InputBase from '@material-ui/core/InputBase';
 import { makeStyles } from '@material-ui/core/styles';
 import SearchIcon from '@material-ui/icons/Search';
@@ -74,7 +75,9 @@ const BottomBar = () => {
     const [color, setcolor] = useState('');
     const [countryNative, setcountryNative] = useState([]);
     const [codeswithcases, setcodeswithcases] = useState([]);
+    const [countrywithhistory, setcountrywithhistory] = useState([]);
     const { setcountry, allcountrys, switchSt ,setswitchSt,setcountrycompare, restcountries, infostatus, setcodecountry, setcodecountrycompare } = useContext(DataContext);
+    const { allhistory } = useContext(HistoryContext);
 
     useEffect(() => {
         const getcountryNative = async () => {
@@ -85,10 +88,13 @@ const BottomBar = () => {
              }   
              const codeswithcases = allcountrys.map(aCountry => aCountry.countryInfo.iso2);
              setcodeswithcases(codeswithcases);
+             const countrywithhistory = allhistory.map(aCountry => aCountry.country);
+             setcountrywithhistory(countrywithhistory);
             if (restcountries[0] !== undefined) {
                 // Cambiar Map por filter
                 restcountries.map(aCountry => { 
-                if (userLang !== 'en') {
+                const hashistory = countrywithhistory.find( country => country === aCountry.name)
+                if (userLang !== 'en' && hashistory !== undefined) {
                     for (let i = 0 ; i < allcountrys.length ; i++ ) { 
                         if (aCountry.alpha2Code === codeswithcases[i]) {
                             const lenguajeskeys = Object.keys(aCountry.translations);
@@ -139,6 +145,7 @@ const BottomBar = () => {
         } else if (event.target.name === 'search' && switchSt.checkedB === false){
             if (userLang !== 'en') {
                 const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
+                if (newCountry !== undefined) {
                 const existe = codeswithcases.find(code => code === newCountry.code);
                 if (newCountry !== undefined && existe === newCountry.code) {
                     const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
@@ -146,7 +153,7 @@ const BottomBar = () => {
                         setcountry(newCode.country);
                         setcodecountry(existe);
                     }
-                }
+                }}
             } else {
                 const newCountry = allcountrys.find(aCountry => aCountry.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 const existe = codeswithcases.find(code => code === newCountry.code);
@@ -157,6 +164,7 @@ const BottomBar = () => {
         }} else if( event.target.name === 'search' && switchSt.checkedB === true) {
             if (userLang !== 'en') {
                 const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
+                if (newCountry !== undefined) {
                 const existe = codeswithcases.find(code => code === newCountry.code);
                 if (newCountry !== undefined) {
                     const newCode = allcountrys.find(aCountry => aCountry.countryInfo.iso2 === newCountry.code && aCountry !== undefined);
@@ -164,7 +172,7 @@ const BottomBar = () => {
                         setcountrycompare(newCode.country);
                         setcodecountrycompare(existe);
                     }
-                }
+                }}
             } else {
                 const newCountry = allcountrys.find(aCountry => aCountry.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 const existe = codeswithcases.find(code => code === newCountry.code);

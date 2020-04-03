@@ -14,7 +14,7 @@ const HistoryProvider = (props) => {
     const [countrycasescompare, setcountrycasescompare] = useState([]);
     const [countrydeathscompare , setcountrydeathscompare] = useState([]);
 
-    const { country , countrycompare, firstcontrol, codecountry, codecountrycompare} = useContext(DataContext);
+    const { country , countrycompare, firstcontrol} = useContext(DataContext);
 
     useEffect(() => {
         const getData = async () => {
@@ -91,21 +91,21 @@ const HistoryProvider = (props) => {
     useEffect (() =>{ 
         if (firstcontrol === false) { 
             const getdata = async () => {
-                /* Con find no funciona mas
-                const history = (allhistory.find(aCountry => aCountry.country === country));
-                setcountrycases(Object.values( history.timeline.cases).reverse());
-                setcountrydeaths(Object.values( history.timeline.deaths).reverse());
-                */
                 const url = `https://corona.lmao.ninja/v2/historical/${country}`
-                const data = await Axios.get(url);
-                let timeline =  Object.keys(data.data.timeline.cases);
-                timeline = timeline.reverse();
-                let cases = Object.values(data.data.timeline.cases);
-                cases = cases.reverse();
-                let deaths = Object.values(data.data.timeline.deaths);
-                deaths = deaths.reverse();
-                setcountrycases(cases);
-                setcountrydeaths(deaths);
+                try {
+                    const data = await Axios.get(url);
+                    let timeline =  Object.keys(data.data.timeline.cases);
+                    timeline = timeline.reverse();
+                    let cases = Object.values(data.data.timeline.cases);
+                    cases = cases.reverse();
+                    let deaths = Object.values(data.data.timeline.deaths);
+                    deaths = deaths.reverse();
+                    setcountrycases(cases);
+                    setcountrydeaths(deaths);
+                } catch (error) {
+                    setcountrycases([]);
+                    setcountrydeaths([]);
+                }
                 }
             getdata();
         }
@@ -116,14 +116,9 @@ const HistoryProvider = (props) => {
     useEffect (() =>{ 
         if (firstcontrol === false) { 
             const getdata = async () => {
-                /* Lo mismo que el anterior 
-                const history = (allhistory.find(aCountry => aCountry.country === countrycompare));
-                setcountrycasescompare(Object.values( history.timeline.cases).reverse());
-                setcountrydeathscompare(Object.values( history.timeline.deaths).reverse());
-                */
-                const url = `https://corona.lmao.ninja/v2/historical/${countrycompare}`
+               const url = `https://corona.lmao.ninja/v2/historical/${countrycompare}`
+               try {
                 const data = await Axios.get(url);
-                console.log(data);
                 let timeline =  Object.keys(data.data.timeline.cases);
                 timeline = timeline.reverse();
                 let cases = Object.values(data.data.timeline.cases);
@@ -132,6 +127,10 @@ const HistoryProvider = (props) => {
                 deaths = deaths.reverse();
                 setcountrycasescompare(cases);
                 setcountrydeathscompare(deaths);
+            } catch (error) {
+                setcountrycasescompare([]);
+                setcountrydeathscompare([]);
+            }
             }
             getdata();
         }
@@ -144,6 +143,7 @@ const HistoryProvider = (props) => {
     return (
         <HistoryContext.Provider
         value={{
+            allhistory,
             cantidad,
             timeline,
             countrycases,

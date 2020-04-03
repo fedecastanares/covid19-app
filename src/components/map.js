@@ -1,7 +1,6 @@
 import React , {useState , useEffect}from "react";
 import Axios from 'axios';
 import {Map, Marker, Popup, TileLayer } from 'react-leaflet';
-import {Icon} from 'leaflet';
 import { Typography, Grid}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';

@@ -19,7 +19,7 @@ const Chart = () => {
         countrycasescompare,
         setcantidad
         } = useContext(HistoryContext);
-        const {country , status, statuscompare, countrycompare, countrydisplaycompare, countrydisplay} = useContext(DataContext);
+        const { status, statuscompare, countrydisplaycompare, countrydisplay} = useContext(DataContext);
 
     
     const HandleChange = (event, value) => {
