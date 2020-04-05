@@ -30,6 +30,7 @@ const useStyles = makeStyles({
         padding: '1vh',
         fontStyle: 'italic',
         paddingBottom: '8vh',
+        textDecoration: 'none'
     },
     ayuda: {
         marginTop: '1vh',
