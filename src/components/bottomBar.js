@@ -144,6 +144,7 @@ const BottomBar = () => {
             setswitchSt({ ...switchSt, [event.target.name]: event.target.checked });
         } else if (event.target.name === 'search' && switchSt.checkedB === false){
             if (userLang !== 'en') {
+                // Buscar primero coincidencia exacta
                 const newCountry = countryNative.find(countrycode => countrycode.country.startsWith(event.target.value.charAt(0).toUpperCase() + event.target.value.slice(1)));
                 if (newCountry !== undefined) {
                 const existe = codeswithcases.find(code => code === newCountry.code);

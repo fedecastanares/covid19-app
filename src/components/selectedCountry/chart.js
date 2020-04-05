@@ -82,7 +82,7 @@ const Chart = () => {
                     step={1}
                     marks
                     min={7}
-                    max={timeline.length - 20}
+                    max={timeline.length}
                     valueLabelDisplay="auto"
                     onChange={HandleChange}
                 />
