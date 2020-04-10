@@ -55,6 +55,7 @@ const useStyles = makeStyles({
     },
     patrocinio: {
         margin: '5% 0 0 0 !important',
+        padding: 10,
         borderRadius: '0 0 1vw 1vw',
         justifyContent: 'space-around'
     }, 
