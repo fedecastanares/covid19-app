@@ -100,7 +100,6 @@ export default function Mapa(){
 
     if (ollaspopulares !== null && acaestamosuy !== null) {
 
-        console.log(acaestamosuy[0].geometry.geometries[0].coordinates[1]);
         return (
             <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick}>
                 <TileLayer

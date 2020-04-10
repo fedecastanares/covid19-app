@@ -14,6 +14,7 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { css } from "@emotion/core";
 import PacmanLoader from "react-spinners/ClipLoader";
+import LinkedInIcon from '@material-ui/icons/LinkedIn';
 
 
 const useStyles = makeStyles( theme => ({ 
@@ -30,7 +31,13 @@ const useStyles = makeStyles( theme => ({
         textAlign: 'right',
         padding: '1vh',
         fontStyle: 'italic',
-        paddingBottom: '8vh',
+        padding: '1vh 0 8vh 0',
+    },
+    firmicon: {
+        color: '#304ffe',
+        padding: '1vh 0.5vh 8vh 0',
+        textAlign: 'right',
+        fontSize: '1rem',
     },
     ayuda: {
         marginTop: '1vh',
@@ -177,9 +184,12 @@ const Body = () => {
                                 : <Mapa/> }
                     </Grid>
                     <a href='https://www.linkedin.com/in/federico-casta%C3%B1ares-992a0512b/' style={{'textDecoration' : 'none'}}>
-                        <Typography variant='body2' className={classes.firm}>
-                        Federico Castañares
-                        </Typography>
+                        <Grid container alignItems='center' alignContent='center' justify='flex-end'>
+                            <LinkedInIcon fontSize='small'className={classes.firmicon} />
+                            <Typography variant='body2' className={classes.firm}>
+                            Federico Castañares
+                            </Typography>
+                        </Grid>
                     </a>
                 </Container>
                 <BottomBar/>
