@@ -51,13 +51,12 @@ const useStyles = makeStyles({
         margin: '0 0 0 3% !important'
     },
     patrocinioimg: {
-        maxWidth: '80%',
+        maxWidth: '50%',
     },
     patrocinio: {
         margin: '5% 0 0 0 !important',
-        backgroundColor: '#098a91',
         borderRadius: '0 0 1vw 1vw',
-
+        justifyContent: 'space-around'
     }, 
     patrociniotext: {
         color: '#fff',
@@ -66,12 +65,19 @@ const useStyles = makeStyles({
     }
 });
 
-const ollapopularimg = 'https://ollaspopulares.com/assets/img/logo.png'
+const ollapopularimg = 'https://ollaspopulares.com/assets/img/logo.png';
+const acaestamosuyimg = 'http://acaestamos.uy/wp-content/uploads/2020/04/Logo_ak.jpg';
 
 export default function Mapa(){
     const classes = useStyles();
-    const [activeplace, setactiveplace] = useState(null);
+    const [activeplaceolla, setactiveplaceolla] = useState(null);
     const [ollaspopulares, setollaspopulares] = useState(null);
+    const [acaestamosuy, setacaestamosuy] = useState(null);
+    const [activeplaceaca, setactiveplaceaca] = useState(null);
+
+    const HandleClick = event => {
+        console.log(event.latlng );
+    }
 
 
     useEffect(() => {
@@ -81,99 +87,121 @@ export default function Mapa(){
             setollaspopulares(dataollaspopulares.data);
         }
         getollaspopulares();
+
+        const getacaestamosuy = async () => {
+            const url = 'https://uy.mapa.frenalacurva.net/api/v3/posts/geojson?has_location=mapped&limit=200&offset=0&order=desc&order_unlocked_on_top=true&orderby=created&source%5B%5D=sms&source%5B%5D=twitter&source%5B%5D=web&source%5B%5D=email&status%5B%5D=published&status%5B%5D=draft';
+            const dataacaestamos = await Axios.get(url);
+            setacaestamosuy(dataacaestamos.data.features);
+        }
+        getacaestamosuy();
     },[]);
 
-    if (ollaspopulares !== null ) {
 
+    if (ollaspopulares !== null && acaestamosuy !== null) {
 
+        console.log(acaestamosuy[0].geometry.geometries[0].coordinates[1]);
         return (
-            <Map center={[-34.901112, -56.164532]} zoom={11}>
+            <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick}>
                 <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 /> 
 
+                
+
                 {ollaspopulares.map(olla => (
+                    olla.potName !== 'Test' ?
                     <Marker 
                     key={olla.email}
                     position={[
                         olla.latitude,
                         olla.longitude
                     ]}
-                    onclick={() => {setactiveplace(olla)}}
+                    onclick={() => {setactiveplaceolla(olla)}}
+                    /> 
+                    : null 
+                ))}
+
+                {acaestamosuy.map(beneficio => (
+                    <Marker
+                    key={beneficio.properties.id}
+                    position={[
+                        beneficio.geometry.geometries[0].coordinates[1], 
+                        beneficio.geometry.geometries[0].coordinates[0]
+                    ]}
+                    onclick={() => {setactiveplaceaca(beneficio)}}
                     />
                 ))}
 
-
-                {activeplace && (
+                {activeplaceolla && (
                 <Popup
                     className={classes.root}
                     position={[
-                        activeplace.latitude,
-                        activeplace.longitude
+                        activeplaceolla.latitude,
+                        activeplaceolla.longitude
                     ]}
                     onClose={() => {
-                        setactiveplace(null);
+                        setactiveplaceolla(null);
                     }}
                 >
                     <div>
                         <Typography variant="h4" className={classes.tittles} gutterBottom>
-                            {activeplace.potName}
+                            {activeplaceolla.potName}
                         </Typography>
                         <Typography variant="h6" className={classes.subtittles} gutterBottom>
-                            {activeplace.ownerName}
+                            {activeplaceolla.ownerName}
                         </Typography>
-                        { activeplace.description !== '' ?  
+                        { activeplaceolla.description !== '' ?  
                         <div> 
                             <Typography variant="body1" className={classes.beneficio} gutterBottom>
                                 Beneficio:
                             </Typography>
                             <Typography variant="body1" className={classes.body} gutterBottom>
-                                {activeplace.description}
+                                {activeplaceolla.description}
                             </Typography>
                         </div> : null }
                         
-                        {activeplace.address !== '' ? 
+                        {activeplaceolla.address !== '' ? 
                         <div> 
                         <Typography variant="body1" className={classes.reciben} gutterBottom>
                             Direccion:
                         </Typography>
                         <Typography variant="body1" className={classes.body} gutterBottom>
-                            {activeplace.address}
+                            {activeplaceolla.address}
                         </Typography>
                         </div> 
                         : null }
-                        { activeplace.ownerPhone !== '' ? 
+                        { activeplaceolla.ownerPhone !== '' ? 
                         <Grid container className={classes.contacto}>
                         <Phone fontSize="small"/>
                         <Typography variant="body2" className={classes.contactotext} gutterBottom>
-                        {activeplace.ownerPhone}
+                        {activeplaceolla.ownerPhone}
                         </Typography>
                         </Grid>
                         : null}
 
-                        {activeplace.daysOfService !== '' ? 
+                        {activeplaceolla.daysOfService !== '' ? 
                         <Grid container className={classes.contacto} alignItems='center'>
                         <QueryBuilderOutlined fontSize="small"/>
                         <Typography variant="body2" className={classes.contactotext} gutterBottom>
-                        {activeplace.daysOfService}
+                        {activeplaceolla.daysOfService}
                         </Typography>
                         </Grid> 
                         : null
                         }
 
-                        {activeplace.address !== '' ? 
+                        {activeplaceolla.address !== '' ? 
                         <Grid container className={classes.contacto} alignItems='center'>
                         <Room fontSize="small"/>
                         <Typography variant="body2" className={classes.contactotext} gutterBottom>
-                        {activeplace.address}
+                        {activeplaceolla.address}
                         </Typography>
                         </Grid> 
                         : null
                         }
 
 
-                        <Grid container className={classes.patrocinio} alignItems='center'>
+                        <Grid container className={classes.patrocinio} alignItems='center' style={{backgroundColor: '#098a91'}}>
                             <Typography variant="body2" className={classes.patrociniotext} gutterBottom>
                                 Proporcionado por:
                             </Typography>
@@ -183,6 +211,34 @@ export default function Mapa(){
                     </div>
                 </Popup>
             )}
+
+                {activeplaceaca && (
+                <Popup
+                    className={classes.root}
+                    position={[
+                        activeplaceaca.geometry.geometries[0].coordinates[1],
+                        activeplaceaca.geometry.geometries[0].coordinates[0]
+                    ]}
+                    onClose={() => {
+                        setactiveplaceaca(null);
+                    }}
+                >
+                        <Typography variant="h4" className={classes.tittles} gutterBottom>
+                            {activeplaceaca.properties.title}
+                        </Typography>
+                        <Typography variant="body1" className={classes.beneficio} gutterBottom>
+                            Descripcion:
+                        </Typography>
+                        <Typography variant="body1" className={classes.body} gutterBottom>
+                            {activeplaceaca.properties.description}
+                        </Typography>
+                        <Grid container className={classes.patrocinio} alignItems='center' style={{backgroundColor: '#811815'}}>
+                            <Typography variant="body2" className={classes.patrociniotext} gutterBottom>
+                                Proporcionado por:
+                            </Typography>
+                            <img src={acaestamosuyimg} alt='Logo de AcaEstamosuy' className={classes.patrocinioimg}/>
+                        </Grid>
+                </Popup>)}
                 
             </Map>
         )
