@@ -5,9 +5,14 @@ import { Typography, Grid}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
     root: {
-        fontSize: '0.75rem',
+        fontSize: '0.55rem',
+        maxWidth: '80vw',
+        [theme.breakpoints.up('sm')]: {
+            fontSize: '1rem',
+            maxWidth: '90vw',
+          },
     },
     tittles: {
         fontSize: '0.8rem',
@@ -64,7 +69,7 @@ const useStyles = makeStyles({
         fontSize: '0.5rem',
         margin: '0 0 0 0 !important'
     }
-});
+}));
 
 const ollapopularimg = 'https://ollaspopulares.com/assets/img/logo.png';
 const acaestamosuyimg = 'http://acaestamos.uy/wp-content/uploads/2020/04/Logo_ak.jpg';
