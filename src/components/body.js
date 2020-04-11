@@ -31,11 +31,11 @@ const useStyles = makeStyles( theme => ({
         textAlign: 'right',
         padding: '1vh',
         fontStyle: 'italic',
-        padding: '1vh 0 8vh 0',
+        padding: '2vh 0 8vh 0',
     },
     firmicon: {
         color: '#304ffe',
-        padding: '1vh 0.5vh 8vh 0',
+        padding: '2vh 0.5vh 8vh 0',
         textAlign: 'right',
         fontSize: '1rem',
     },
@@ -173,10 +173,7 @@ const Body = () => {
                                 Ayuda comunitaria:
                             </Typography> 
                         </Grid>
-                        <Grid item >
-                            <Button variant="contained" className={classes.buttomNew} color="primary" size='small' onClick={handleNext}>{btntxtprimary}</Button>
-                            <Button variant="outlined" className={classes.donate} color="secondary" size='small' onClick={handleBack}>{btntxtsecondary}</Button>
-                        </Grid>
+                        
                     </Grid>
                     {formview ? <Form
                                     activeStep={activeStep}
