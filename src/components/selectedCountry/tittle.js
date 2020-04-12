@@ -35,7 +35,7 @@ const Tittle = (props) => {
             justify="space-around"
             alignItems="center"
             spacing={2}
-            xs>
+            >
                 <Grid container 
                     direction="column"
                     justify="center"

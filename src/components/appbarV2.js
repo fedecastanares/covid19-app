@@ -6,9 +6,9 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Container, List, ListItem,  ListItemText, Divider, SwipeableDrawer,ListItemAvatar, Avatar} from '@material-ui/core';
-import { FixedSizeList } from 'react-window';
-import PropTypes from 'prop-types';
+import {Container, ListItem,  ListItemText, Divider, SwipeableDrawer,ListItemAvatar, Avatar} from '@material-ui/core';
+import { FixedSizeList } from "react-window";
+import AutoSizer from "react-virtualized-auto-sizer";
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -40,9 +40,6 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     backgroundColor: '#3f51b5',
     color: '#f2f2f2',
   },
-  titleDrawer: {
-    padding: '3vh'
-  }
 }));
 
 
@@ -55,24 +52,20 @@ export default function SearchAppBar() {
     setcountry(e.target.textContent);
   }
   
-  renderRow.propTypes = {
-    index: PropTypes.number.isRequired,
-    style: PropTypes.object.isRequired,
-  };
 
   function renderRow(props) {
     const { index, style } = props;
-    
+    console.log('Render row ' + index)
     return (
-      <Fragment>
-        <ListItem button style={style} key={index} onClick={HandleClick}>
+      <div style={style}>
+        <ListItem button onClick={HandleClick} >
           <ListItemAvatar>
               <Avatar variant='rounded' alt={`Bandera de ${allcountrys[index].country}`} src={allcountrys[index].countryInfo.flag}/>
             </ListItemAvatar>
           <ListItemText primary={`${allcountrys[index].country}`} /> 
         </ListItem>
         <Divider variant="inset" component="li" />
-      </Fragment>
+      </div>
       )
   }
 
@@ -89,20 +82,30 @@ export default function SearchAppBar() {
     setState(open);
   };
 
-  const list = () => (
+  const ListaCountrys = () => {
+    console.log('ejecuto Lista')
+    return (
     <div
       className={classes.list}
       role="presentation"
       onClick={toggleDrawer(false)}
       onKeyDown={toggleDrawer(false)}
     >
-      <List>
-      <FixedSizeList height={600}  itemSize={46} itemCount={allcountrys.length}>
-        {renderRow}
-      </FixedSizeList>
-      </List>
+      <AutoSizer disableWidth>
+        {({height}) => (
+          <FixedSizeList 
+          height={400} 
+          width={300} 
+          itemSize={46} 
+          itemCount={allcountrys.length}
+          >
+            {renderRow}
+          </FixedSizeList>
+        )}
+      </AutoSizer>
     </div>
-  );
+    )
+  };
 
 
   return (
@@ -138,10 +141,7 @@ export default function SearchAppBar() {
             paper: classes.paper
           }}
         >
-          <Typography variant='h6' className={classes.titleDrawer}>
-            Cambia de Pais
-          </Typography>
-          {list()}
+          <ListaCountrys/>
         </SwipeableDrawer>
     </Fragment>
   );

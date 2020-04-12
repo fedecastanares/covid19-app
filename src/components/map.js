@@ -56,6 +56,7 @@ const useStyles = makeStyles(theme => ({
         margin: '0 0 0 3% !important'
     },
     patrocinioimg: {
+        minWidth: '30%',
         maxWidth: '50%',
     },
     patrocinio: {

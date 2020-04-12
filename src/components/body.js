@@ -29,7 +29,6 @@ const useStyles = makeStyles( theme => ({
         color: '#304ffe',
         fontSize: '0.8rem',
         textAlign: 'right',
-        padding: '1vh',
         fontStyle: 'italic',
         padding: '2vh 0 8vh 0',
     },
