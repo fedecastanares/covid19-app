@@ -83,10 +83,6 @@ export default function Mapa(){
     const [acaestamosuy, setacaestamosuy] = useState(null);
     const [activeplaceaca, setactiveplaceaca] = useState(null);
 
-    const HandleClick = event => {
-        console.log(event.latlng );
-    }
-
 
     useEffect(() => {
         const getollaspopulares = async () => {
