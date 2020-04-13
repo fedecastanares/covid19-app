@@ -6,6 +6,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
 
+
 const useStyles = makeStyles(theme => ({
     root: {
         fontSize: '0.55rem',
@@ -78,10 +79,12 @@ const acaestamosuyimg = 'http://acaestamos.uy/wp-content/uploads/2020/04/Logo_ak
 
 export default function Mapa(){
     const classes = useStyles();
+    const [userGeolocation, setuserGeolocation] = useState([-34.901112, -56.164532])
     const [activeplaceolla, setactiveplaceolla] = useState(null);
     const [ollaspopulares, setollaspopulares] = useState(null);
     const [acaestamosuy, setacaestamosuy] = useState(null);
     const [activeplaceaca, setactiveplaceaca] = useState(null);
+
 
 
     useEffect(() => {
@@ -98,13 +101,21 @@ export default function Mapa(){
             setacaestamosuy(dataacaestamos.data.features);
         }
         getacaestamosuy();
+
+        if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(getPosition);
+          }
+          function getPosition(position) {
+            setuserGeolocation([position.coords.latitude, position.coords.longitude]);
+          }
+    
     },[]);
 
 
     if (ollaspopulares !== null && acaestamosuy !== null) {
 
         return (
-            <Map center={[-34.901112, -56.164532]} zoom={12} >
+            <Map center={userGeolocation} zoom={13} >
                 <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

@@ -80,6 +80,7 @@ const Tabla = () => {
     const classes = useStyles();
 
     const {
+      cantidad,
       timeline,
       countrycases,
       countrydeaths,
@@ -131,8 +132,7 @@ const Tabla = () => {
         }
         let rowsCoutryCompare = getsCountryCompareStatus(); 
         setrowsCoutryCompare(rowsCoutryCompare);
-      }, [countrycasescompare]);
-
+      }, [countrycasescompare]); 
 
 
     return ( 

@@ -60,8 +60,7 @@ const Chart = () => {
     data.labels = timelineReverse.reverse()
     data.datasets[0].data = countrycasesReverse.reverse();
     data.datasets[1].data = countrycasescompareReverse.reverse(); 
-    // Agregando un valor al objeto
-    // data.labels[data.labels.length] = '4' ;
+
 
     if ( timeline !== undefined) {
         return ( 
