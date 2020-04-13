@@ -5,6 +5,9 @@ import { Typography, Grid}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
+import MarkerClusterGroup from 'react-leaflet-markercluster';
+import 'react-leaflet-markercluster/dist/styles.min.css';
+
 
 
 const useStyles = makeStyles(theme => ({
@@ -120,7 +123,14 @@ export default function Mapa(){
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 /> 
+                <MarkerClusterGroup
+                    spiderLegPolylineOptions={{
+                        weight: 0,
+                        opacity: 0,
+                    }}
+                >
 
+         
                 
 
                 {ollaspopulares.map(olla => (
@@ -253,7 +263,7 @@ export default function Mapa(){
                             <img src={acaestamosuyimg} alt='Logo de AcaEstamosuy' className={classes.patrocinioimg}/>
                         </Grid>
                 </Popup>)}
-                
+                </MarkerClusterGroup>
             </Map>
         )
     } else {
