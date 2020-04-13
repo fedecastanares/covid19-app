@@ -1,4 +1,4 @@
-import React , {Fragment, useState, useContext } from 'react';
+import React , {Fragment, useState, useContext, useEffect } from 'react';
 import {DataContext} from '../context/dataContext.js';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -6,7 +6,7 @@ import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Container, List, ListItem,  ListItemText, Divider, SwipeableDrawer,ListItemAvatar, Avatar} from '@material-ui/core';
+import {Container, List, ListItem,  ListItemText, Divider, SwipeableDrawer,ListItemAvatar, Avatar, FormControlLabel, Switch, Grid} from '@material-ui/core';
 import { FixedSizeList } from 'react-window';
 import PropTypes from 'prop-types';
 
@@ -41,18 +41,45 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     color: '#f2f2f2',
   },
   titleDrawer: {
-    padding: '3vh'
+    paddingTop: '3vh',
+    paddingBottom: '3vh',
+    paddingLeft: '2vh'
+  },
+  FormControlLabel: {
+    paddingTop: '3vh',
+    paddingBottom: '3vh'
   }
 }));
 
 
 export default function SearchAppBar() {
   const classes = useStyles();
-  const {allcountrys, setcountry} = useContext(DataContext);
   const [state, setState] = useState(false);
+  const {allcountrys, setcountry, setcountrycompare, switchSt, setswitchSt} = useContext(DataContext);
+  const [label, setlabel] = useState('Cambiar pais');
+
+  useEffect(() => {
+    const label = () => {
+      if (switchSt.checkedB === false) {
+          const newlabel = 'Cambiar pais';
+          setlabel(newlabel) ;
+      } else {
+          const newlabel = 'Cambiar comparacion';
+          setlabel(newlabel) ;
+      }
+      }
+      label();
+  }, [switchSt.checkedB]);
+
+  const handleChange = event => {
+    if ( event.target.name === 'checkedB') {
+        setswitchSt({ ...switchSt, [event.target.name]: event.target.checked });
+  }}
 
   const HandleClick = e => {
-    setcountry(e.target.textContent);
+    switchSt.checkedB === false ? 
+    setcountry(e.target.textContent) :
+    setcountrycompare(e.target.textContent)
   }
   
   renderRow.propTypes = {
@@ -62,16 +89,15 @@ export default function SearchAppBar() {
 
   function renderRow(props) {
     const { index, style } = props;
-    
     return (
       <Fragment>
-        <ListItem button style={style} key={index} onClick={HandleClick}>
+        <ListItem button style={style} key={index} onClick={HandleClick} className={classes.listitem}>
           <ListItemAvatar>
               <Avatar variant='rounded' alt={`Bandera de ${allcountrys[index].country}`} src={allcountrys[index].countryInfo.flag}/>
             </ListItemAvatar>
           <ListItemText primary={`${allcountrys[index].country}`} /> 
+          <Divider />
         </ListItem>
-        <Divider variant="inset" component="li" />
       </Fragment>
       )
   }
@@ -97,9 +123,10 @@ export default function SearchAppBar() {
       onKeyDown={toggleDrawer(false)}
     >
       <List>
-      <FixedSizeList height={600}  itemSize={46} itemCount={allcountrys.length}>
+      <FixedSizeList height={600} itemSize={46} itemCount={allcountrys.length}>
         {renderRow}
       </FixedSizeList>
+      <Divider variant="inset" component="ul" />
       </List>
     </div>
   );
@@ -138,9 +165,24 @@ export default function SearchAppBar() {
             paper: classes.paper
           }}
         >
-          <Typography variant='h6' className={classes.titleDrawer}>
-            Cambia de Pais
-          </Typography>
+          <Grid container >
+            <Grid item xs={10} alignContent='center' alignItems='center'>
+              <Typography variant='h6' className={classes.titleDrawer}>
+                {label}
+              </Typography>
+            </Grid>
+            <Grid item xs={2}>
+              <FormControlLabel 
+                className={classes.FormControlLabel}
+                control= {
+                <Switch
+                  checked={switchSt.checkedB}
+                  onChange={handleChange}
+                  name="checkedB" />
+                  } 
+                />
+              </Grid>
+            </Grid>
           {list()}
         </SwipeableDrawer>
     </Fragment>
