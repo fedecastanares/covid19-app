@@ -63,6 +63,10 @@
   display: none;
 }
 
+.markercluster-map { 
+  height: 90vh; 
+}
+
 @media (max-width: 576px) {
   .leaflet-container {
     width: 90%;
