@@ -174,10 +174,7 @@ const Body = () => {
                                 Ayuda comunitaria:
                             </Typography> 
                         </Grid>
-                        <Grid item >
-                            <Button variant="contained" className={classes.buttomNew} color="primary" size='small' onClick={handleNext}>{btntxtprimary}</Button>
-                            <Button variant="outlined" className={classes.donate} color="secondary" size='small' onClick={handleBack}>{btntxtsecondary}</Button>
-                        </Grid>
+                        
                     </Grid>
                     {formview ? <Form
                                     activeStep={activeStep}
