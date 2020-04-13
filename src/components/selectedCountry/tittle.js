@@ -11,14 +11,14 @@ const useStyles = makeStyles({
       marginLeft: 16,
     }, 
     alert:{
-        marginTop: 6,
         textAlign: 'center',
+        justifyContent: 'center'
     },
     body2:{
         marginTop: 30,
     }, alertgroup: {
         marginTop: '2vh',
-    }
+    }, 
   });
 
 const Tittle = (props) => {
@@ -46,15 +46,18 @@ const Tittle = (props) => {
                         {countrydisplay}
                     </Typography>
                 </Grid>
-
                 <Grid container spacing={1} className={classes.alertgroup}>
-                    <Grid item xs={6}>
-                        <MuiAlert className={classes.alert} severity="warning" elevation={4} variant='filled'>Casos: {status.cases} <br/> ({status.casesPerOneMillion} por millon)</MuiAlert>
-                        <MuiAlert className={classes.alert} severity="error" elevation={4} variant='filled'>Fallecidos: {status.deaths} <br/> ({((status.deaths * 100) / status.cases).toFixed(3)}%)</MuiAlert>
+                    <Grid item xs={6} lg={3}>
+                        <MuiAlert className={classes.alert} severity="warning" elevation={4} variant='filled'>Casos: {status.cases} <br className='mobile'/> ({status.casesPerOneMillion} por millon)</MuiAlert>
                     </Grid>
-                    <Grid item xs={6}>
-                        <MuiAlert className={classes.alert} severity="success" elevation={4} variant='filled'>Recuperados: {status.recovered} <br/> ({((status.recovered * 100) / status.cases).toFixed(3)}%)</MuiAlert>
-                        <MuiAlert className={classes.alert} severity="info" elevation={4} variant='filled'>De hoy: {status.todayCases} <br/> ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(3)}%) </MuiAlert>
+                    <Grid item xs={6} lg={3}>
+                        <MuiAlert className={classes.alert} severity="info" elevation={4} variant='filled'>De hoy: {status.todayCases} <br className='mobile'/> ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(3)}%) </MuiAlert>
+                    </Grid>
+                    <Grid item xs={6} lg={3}>
+                        <MuiAlert className={classes.alert} severity="success" elevation={4} variant='filled'>Recuperados: <br className='mobile'/> {status.recovered} <br className='mobile'/> ({((status.recovered * 100) / status.cases).toFixed(3)}%)</MuiAlert>
+                    </Grid>
+                    <Grid item xs={6} lg={3}>
+                        <MuiAlert className={classes.alert} severity="error" elevation={4} variant='filled'>Fallecidos:<br className='mobile'/> {status.deaths} <br className='mobile'/> ({((status.deaths * 100) / status.cases).toFixed(3)}%)</MuiAlert>
                     </Grid>
                 </Grid>
             </Grid>  

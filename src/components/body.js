@@ -57,6 +57,8 @@ const useStyles = makeStyles( theme => ({
         [theme.breakpoints.up('sm')]: {
             marginRight: 0
         }
+    }, tables: {
+        marginTop: '2vh'
     }
     }));
 
@@ -154,7 +156,7 @@ const Body = () => {
                         status={status}
                         flag={flag}
                         />
-                        <Grid container>
+                        <Grid container className={classes.tables}>
                             <Grid item xs={12}>
                                 <Tables />
                             </Grid>
