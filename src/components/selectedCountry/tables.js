@@ -79,7 +79,7 @@ const StyledTableCell = withStyles(theme => ({
 const Tabla = () => {
     const classes = useStyles();
 
-    const {cantidad,
+    const {
       timeline,
       countrycases,
       countrydeaths,
@@ -101,7 +101,7 @@ const Tabla = () => {
           const rowsCoutry = [];
           rowsCoutry.push(createData('Hoy', status.cases, status.deaths ));
             if (timeline !== undefined && countrycases !== [] && countrydeaths !== [] ) {
-              for (let i = 0 ; i < cantidad ; i++ ) {
+              for (let i = 0 ; i < 14 ; i++ ) {
                 const day = timeline[i];
                 const cases = countrycases[i];
                 const deaths = countrydeaths[i];
@@ -119,7 +119,7 @@ const Tabla = () => {
           const rowsCoutryCompare = [];
           rowsCoutryCompare.push(createData('Hoy', statuscompare.cases, statuscompare.deaths ));
             if (timeline !== undefined && countrycasescompare !== [] && countrydeathscompare !== [] ) {
-              for (let i = 0 ; i < cantidad ; i++ ) {
+              for (let i = 0 ; i < 14 ; i++ ) {
                 let day = timeline[i];
                 let cases = countrycasescompare[i];
                 let deaths = countrydeathscompare[i];
@@ -133,41 +133,6 @@ const Tabla = () => {
         setrowsCoutryCompare(rowsCoutryCompare);
       }, [countrycasescompare]);
 
-      useEffect(() => {
-        function getsCountryStatus() {
-          const rowsCoutry = [];
-          rowsCoutry.push(createData('Hoy', status.cases, status.deaths ));
-            if (timeline !== undefined && countrycases !== undefined && countrydeaths !== undefined ) {
-              for (let i = 0 ; i < cantidad ; i++ ) {
-                let day = timeline[i];
-                let cases = countrycases[i];
-                let deaths = countrydeaths[i];
-                rowsCoutry.push(createData( day , cases, deaths));
-            }
-            return rowsCoutry;
-          }
-        }
-        let rowsCoutry = getsCountryStatus(); 
-        setrowsCoutry(rowsCoutry)
-
-        function getsCountryCompareStatus() {
-          const rowsCoutryCompare = [];
-          rowsCoutryCompare.push(createData('Hoy', statuscompare.cases, statuscompare.deaths ));
-            if (timeline !== undefined && countrycasescompare !== undefined && countrydeathscompare !== undefined ) {
-              for (let i = 0 ; i < cantidad ; i++ ) {
-                let day = timeline[i];
-                let cases = countrycasescompare[i];
-                let deaths = countrydeathscompare[i];
-                rowsCoutryCompare.push(createData( day , cases, deaths));
-            }
-            
-            return rowsCoutryCompare;
-          }
-        }
-        let rowsCoutryCompare = getsCountryCompareStatus(); 
-        setrowsCoutryCompare(rowsCoutryCompare);
-
-      }, [cantidad]);
 
 
     return ( 
