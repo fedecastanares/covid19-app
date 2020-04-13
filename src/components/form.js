@@ -174,9 +174,9 @@ export default function CustomizedSteppers(props) {
 
   
   function Formulario (step) {
-    
+
     const responseGoogle = (response) => {
-      console.log(response);
+      console.log(response.profileObj.email);
     }
 
     switch (step) {
@@ -184,40 +184,44 @@ export default function CustomizedSteppers(props) {
         <form  noValidate autoComplete="off">
           <Container>
           <Grid container
-            spacing={2}
-            alignContent='center'
-            alignItems='center'
-            justify='center'
             className={classes.container}>
-              <Grid item>
-              <GoogleLogin
-                  clientId="308239159030-mlj6n5skslr27r0s56sjindfof2g6mts.apps.googleusercontent.com"
-                  buttonText="Login"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={'single_host_origin'}
-                />
+              <Grid container justify='center'>
+                <GoogleLogin
+                    clientId="308239159030-mlj6n5skslr27r0s56sjindfof2g6mts.apps.googleusercontent.com"
+                    buttonText="Login"
+                    onSuccess={responseGoogle}
+                    onFailure={responseGoogle}
+                    cookiePolicy={'single_host_origin'}
+                  />
               </Grid>
-              <Grid item >
-                <TextField  label="Lugar" variant="outlined" color='secondary' size='small' />
-              </Grid>
-              <Grid item >
-                <TextField label="Beneficio" variant="outlined" color='secondary' size='small' />
-              </Grid>
-              <Grid item >
-                <TextField  label="Recibe" variant="outlined" color='secondary' size='small' />
-              </Grid>
-              <Grid item >
-                <TextField label="Contacto" variant="outlined" color='secondary' size='small' />
-              </Grid>
-              <Grid item >
-                <TextField  label="Horario" variant="outlined" color='secondary' size='small' />
-              </Grid>
-              <Grid item>
-                <TextField  label="Direccion" variant="outlined" color='secondary' size='small' />
-              </Grid>
-              <Grid item >
-                <TextField  label="Vinculo a imagen" variant="outlined" color='secondary' size='small' />
+                <Grid container 
+                spacing={2}
+                alignContent='center'
+                alignItems='center'
+                justify='center'
+                style={{marginTop: '2vh'}}
+                >
+                <Grid item >
+                  <TextField  label="Lugar" variant="outlined" color='secondary' size='small' />
+                </Grid>
+                <Grid item >
+                  <TextField label="Beneficio" variant="outlined" color='secondary' size='small' />
+                </Grid>
+                <Grid item >
+                  <TextField  label="Recibe" variant="outlined" color='secondary' size='small' />
+                </Grid>
+                <Grid item >
+                  <TextField label="Contacto" variant="outlined" color='secondary' size='small' />
+                </Grid>
+                <Grid item >
+                  <TextField  label="Horario" variant="outlined" color='secondary' size='small' />
+                </Grid>
+                <Grid item>
+                  <TextField  label="Direccion" variant="outlined" color='secondary' size='small' />
+                </Grid>
+                <Grid item >
+                  <TextField  label="Vinculo a imagen" variant="outlined" color='secondary' size='small' />
+                </Grid>
               </Grid>
           </Grid>
           </Container>
