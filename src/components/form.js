@@ -10,7 +10,7 @@ import Check from '@material-ui/icons/Check';
 import {Edit, LocationOn, Done} from '@material-ui/icons/';
 import StepConnector from '@material-ui/core/StepConnector';
 import {Map, TileLayer, Marker } from 'react-leaflet';
-
+import { GoogleLogin } from 'react-google-login';
 
 
 const useQontoStepIconStyles = makeStyles({
@@ -174,6 +174,11 @@ export default function CustomizedSteppers(props) {
 
   
   function Formulario (step) {
+    
+    const responseGoogle = (response) => {
+      console.log(response);
+    }
+
     switch (step) {
       case 0: return (
         <form  noValidate autoComplete="off">
@@ -184,6 +189,15 @@ export default function CustomizedSteppers(props) {
             alignItems='center'
             justify='center'
             className={classes.container}>
+              <Grid item>
+              <GoogleLogin
+                  clientId="308239159030-mlj6n5skslr27r0s56sjindfof2g6mts.apps.googleusercontent.com"
+                  buttonText="Login"
+                  onSuccess={responseGoogle}
+                  onFailure={responseGoogle}
+                  cookiePolicy={'single_host_origin'}
+                />
+              </Grid>
               <Grid item >
                 <TextField  label="Lugar" variant="outlined" color='secondary' size='small' />
               </Grid>
