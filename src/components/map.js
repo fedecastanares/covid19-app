@@ -104,7 +104,7 @@ export default function Mapa(){
     if (ollaspopulares !== null && acaestamosuy !== null) {
 
         return (
-            <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick}>
+            <Map center={[-34.901112, -56.164532]} zoom={12} >
                 <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
