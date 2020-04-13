@@ -4,6 +4,7 @@ import {Map, Marker, Popup, TileLayer } from 'react-leaflet';
 import { Typography, Grid}  from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
+import { v4 as uuidv4 } from 'uuid';
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -118,7 +119,7 @@ export default function Mapa(){
                 {ollaspopulares.map(olla => (
                     olla.potName !== 'Test' ?
                     <Marker 
-                    key={olla.email}
+                    key={uuidv4()}
                     position={[
                         olla.latitude,
                         olla.longitude
@@ -130,7 +131,7 @@ export default function Mapa(){
 
                 {acaestamosuy.map(beneficio => (
                     <Marker
-                    key={beneficio.properties.id}
+                    key={uuidv4()}
                     position={[
                         beneficio.geometry.geometries[0].coordinates[1], 
                         beneficio.geometry.geometries[0].coordinates[0]
