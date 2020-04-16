@@ -26,16 +26,18 @@ const useStyles = makeStyles( theme => ({
     title: {
       fontSize: 32,
     },
+    contenedorFirma: {
+        padding: '2vh 0 8vh 0'
+    },
     firm: {
         color: '#304ffe',
         fontSize: '0.8rem',
         textAlign: 'right',
         fontStyle: 'italic',
-        padding: '2vh 0 8vh 0',
     },
     firmicon: {
         color: '#304ffe',
-        padding: '2vh 0.5vh 8vh 0',
+        marginRight: '1vh',
         textAlign: 'right',
         fontSize: '1rem',
     },
@@ -189,7 +191,7 @@ const Body = () => {
                                 : <Mapa/> }
                     </Grid>
                     <a href='https://www.linkedin.com/in/federico-casta%C3%B1ares-992a0512b/' style={{'textDecoration' : 'none'}}>
-                        <Grid container alignItems='center' alignContent='center' justify='flex-end'>
+                        <Grid container alignItems='center' alignContent='center' justify='flex-end' className={classes.contenedorFirma}>
                             <LinkedInIcon fontSize='small'className={classes.firmicon} />
                             <Typography variant='body2' className={classes.firm}>
                             Federico Castañares
