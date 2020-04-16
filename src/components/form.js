@@ -322,7 +322,7 @@ export default function CustomizedSteppers(props) {
           </Map>
       );
       case 2: return (
-        <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} id='mapForm'>
+        <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} id='mapConfirmar'>
             <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'

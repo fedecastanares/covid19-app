@@ -52,6 +52,10 @@
   height: 60vh;
 }
 
+#mapConfirmar {
+  width: '100%';
+}
+
 .MuiStepLabel-label.MuiStepLabel-completed {
   color: black !important;
 }
