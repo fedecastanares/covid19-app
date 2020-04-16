@@ -21,6 +21,7 @@ const useStyles = makeStyles( theme => ({
     root: {
       paddingTop : '10vh',
       minWidth: 275,
+      backgroundColor: '#f9f9f9',
     },
     title: {
       fontSize: 32,
@@ -174,7 +175,10 @@ const Body = () => {
                                 Ayuda comunitaria:
                             </Typography> 
                         </Grid>
-                        
+                        <Grid item >
+                            <Button variant="contained" className={classes.buttomNew} color="primary" size='small' style={activeStep === 2 ? {backgroundColor: '#008000'} : null} onClick={handleNext}>{btntxtprimary}</Button>
+                            <Button variant="outlined" className={classes.donate} color="secondary" size='small' onClick={handleBack}>{btntxtsecondary}</Button>
+                        </Grid>
                     </Grid>
                     {formview ? <Form
                                     activeStep={activeStep}

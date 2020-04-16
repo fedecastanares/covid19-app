@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { TextField, Grid, Container } from '@material-ui/core/';
+import { TextField, Grid, Container, Typography } from '@material-ui/core/';
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
@@ -9,9 +9,10 @@ import StepLabel from '@material-ui/core/StepLabel';
 import Check from '@material-ui/icons/Check';
 import {Edit, LocationOn, Done} from '@material-ui/icons/';
 import StepConnector from '@material-ui/core/StepConnector';
-import {Map, TileLayer, Marker } from 'react-leaflet';
+import {Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { GoogleLogin } from 'react-google-login';
-
+import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -133,7 +134,7 @@ ColorlibStepIcon.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: '#3f51b5',
+    backgroundColor: '#f9f9f9',
     borderRadius: '1vw',
   },
   button: {
@@ -144,16 +145,80 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: theme.spacing(1),
   },
   papper: {
-    backgroundColor: '#3f51b5',
+    backgroundColor: '#f9f9f9',
     borderRadius: '1vw',
 
   },
   forminput: {
-    backgroundColor: '#e8eaf6',
+    backgroundColor: '#3f51b5',
   },
   container: {
     paddingTop: '5%',
     marginTop: '5%'
+  },
+  label: {
+    color: '#3f51b5'
+  },
+  tittles: {
+      fontSize: '0.8rem',
+      fontWeight: 'bold'
+  },
+  body: {
+      fontSize: '0.8rem',
+      color: 'grey',
+      margin: '0 !important',
+      minWidth: '65%'
+  },
+  subtittles: {
+      color: 'darkengrey',
+      fontSize: '0.65rem'
+
+  },
+  img: {
+      display: 'block',
+      maxWidth: "75%",
+      marginLeft: 'auto',
+      marginRight: 'auto',
+  }, 
+  beneficio: {
+      color: 'green',
+      fontSize: '0.65rem',
+      margin: '5% 0 0 0 !important',
+      minWidth: '65%'
+
+  },
+  reciben: {
+      color: 'orange',
+      fontSize: '0.65rem',
+      margin: '3% 0 0 0 !important',
+  },
+  contacto: {
+      marginTop: '5%'
+  },
+  contactotext: {
+      fontSize: '0.7rem',
+      color: 'grey',
+      margin: '0 0 0 3% !important'
+  },
+  patrocinioimg: {
+      minWidth: '30%',
+      maxWidth: '40%',
+      minHeight: '35%',
+      maxHeight: '60%'
+  },
+  patrocinio: {
+      margin: '5% 0 0 0 !important',
+      padding: 10,
+      borderRadius: '0 0 1vw 1vw',
+      justifyContent: 'space-around'
+  }, 
+  patrociniotext: {
+      color: '#fff',
+      fontSize: '0.5rem',
+      margin: '0 0 0 0 !important'
+  },
+  alerta: {
+    padding: '24px',
   }
 }));
 
@@ -167,6 +232,15 @@ export default function CustomizedSteppers(props) {
   const classes = useStyles();
   const steps = getSteps();
 
+  const [id, setid] = useState(null);
+  const [lugar, setLugar] = useState('');
+  const [contacto, setContacto] = useState('');
+  const [direccion, setDireccion] = useState('');
+  const [beneficio, setBeneficio] = useState('');
+  const [horario, setHorario] = useState('');
+  const [recibe, setRecibe] = useState('');
+  const [vinculo, setVinculo] = useState('');
+
   const [currentPos, setcurrentPos] = useState(null);
   const HandleClick = event => {
     setcurrentPos([event.latlng.lat, event.latlng.lng]) ;
@@ -177,6 +251,25 @@ export default function CustomizedSteppers(props) {
 
     const responseGoogle = (response) => {
       console.log(response.profileObj.email);
+    }
+    
+    const HandleChange = e => {
+      switch(e.target.id) {
+        case 'Lugar': setLugar(e.target.value);
+        break;
+        case 'Contacto': setContacto(e.target.value);
+        break;
+        case 'Direccion': setDireccion(e.target.value);
+        break;
+        case 'Beneficio': setBeneficio(e.target.value);
+        break;
+        case 'Horario': setHorario(e.target.value);
+        break;
+        case 'Recibe': setRecibe(e.target.value);
+        break;
+        case 'Vinculo': setVinculo(e.target.value);
+        break;
+      }
     }
 
     switch (step) {
@@ -201,27 +294,19 @@ export default function CustomizedSteppers(props) {
                 justify='center'
                 style={{marginTop: '2vh'}}
                 >
-                <Grid item >
-                  <TextField  label="Lugar" variant="outlined" color='secondary' size='small' />
-                </Grid>
-                <Grid item >
-                  <TextField label="Beneficio" variant="outlined" color='secondary' size='small' />
-                </Grid>
-                <Grid item >
-                  <TextField  label="Recibe" variant="outlined" color='secondary' size='small' />
-                </Grid>
-                <Grid item >
-                  <TextField label="Contacto" variant="outlined" color='secondary' size='small' />
-                </Grid>
-                <Grid item >
-                  <TextField  label="Horario" variant="outlined" color='secondary' size='small' />
-                </Grid>
-                <Grid item>
-                  <TextField  label="Direccion" variant="outlined" color='secondary' size='small' />
-                </Grid>
-                <Grid item >
-                  <TextField  label="Vinculo a imagen" variant="outlined" color='secondary' size='small' />
-                </Grid>
+                  <Grid item sm={4}>
+                    <TextField  label="Lugar" id='Lugar' value={lugar} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange}/>
+                    <TextField label="Contacto" id="Contacto" value={contacto} variant="outlined" color='primary' size='small' fullWidth  onChange={HandleChange} style={{marginTop: '1vh'}}/>
+                    <TextField  label="Direccion" id="Direccion" value={direccion} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '1vh'}}/>
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField label="Beneficio" id="Beneficio" value={beneficio} variant="outlined" color='primary' size='small' fullWidth multiline rows="3" onChange={HandleChange}/>
+                    <TextField  label="Horario" id="Horario" value={horario} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                  </Grid>
+                  <Grid item sm={4}>
+                    <TextField  label="Recibe" id="Recibe" value={recibe} variant="outlined" color='primary' size='small' fullWidth multiline rows="3" onChange={HandleChange}/>
+                    <TextField  label="Vinculo a imagen" id="Vinculo" value={vinculo} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                  </Grid>
               </Grid>
           </Grid>
           </Container>
@@ -237,10 +322,74 @@ export default function CustomizedSteppers(props) {
           </Map>
       );
       case 2: return (
-      <h1>Mostrar para confirmar</h1>
+        <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} id='mapForm'>
+            <TileLayer
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+            /> 
+            <Popup
+                    className={classes.root}
+                    position={currentPos}
+                >
+                   <div>
+                        <Typography variant="h4" className={classes.tittles} gutterBottom>
+                            {lugar}
+                        </Typography>
+                        <Typography variant="body1" className={classes.beneficio} gutterBottom>
+                          Beneficio:
+                        </Typography>
+                        <Typography variant="body1" className={classes.body} gutterBottom>
+                          {beneficio}
+                        </Typography>
+                        <Typography variant="body1" className={classes.reciben} gutterBottom>
+                            Reciben:
+                        </Typography>
+                        <Typography variant="body1" className={classes.body} gutterBottom>
+                            {recibe}
+                        </Typography>
+                          <Grid container className={classes.contacto}>
+                            <Phone fontSize="small"/>
+                            <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                            {contacto}
+                          </Typography>
+                        </Grid>
+                          <Grid container className={classes.contacto} alignItems='center'>
+                            <QueryBuilderOutlined fontSize="small"/>
+                            <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                            {horario}
+                          </Typography>
+                        </Grid> 
+                        <Grid container className={classes.contacto} alignItems='center'>
+                          <Room fontSize="small"/>
+                          <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                          {direccion}
+                          </Typography>
+                        </Grid> 
+                        <Grid container className={classes.patrocinio} alignItems='center' style={{backgroundColor: '#3f51b5'}}>
+                            <Typography variant="body2" className={classes.patrociniotext} gutterBottom>
+                                Proporcionado por:
+                            </Typography>
+                            <img src={vinculo} alt={`Logo de ${lugar}`} className={classes.patrocinioimg}/>
+                        </Grid>
+                        
+                    </div>
+            </Popup>
+          </Map>
       );
       case 3: return (
-      <h1>Mostrar confirmado</h1>
+        <Grid container className={classes.alerta}>
+          <Alert severity="success" variant='filled'>
+            <AlertTitle className={classes.alertaTittle}>Guardado</AlertTitle>
+            <Grid container>
+              <Grid item sm={6}>
+                <p style={{fontSize: '0.975rem'}}>Gracias por colaborar, por ser parte de esto</p>
+              </Grid>
+              <Grid item sm={6}> 
+                <p><strong style={{fontSize: '0.775rem', padding: 0}}>- puedes registrar todos los lugares que quieras!</strong></p>
+              </Grid>
+            </Grid>
+          </Alert>
+        </Grid>
       );
       default: return null;
     }
@@ -253,7 +402,7 @@ export default function CustomizedSteppers(props) {
       <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className={classes.papper}>
         {steps.map((label) => (
           <Step key={label}>
-            <StepLabel StepIconComponent={ColorlibStepIcon}>{label}</StepLabel>
+            <StepLabel StepIconComponent={ColorlibStepIcon} className={classes.label}>{label}</StepLabel>
           </Step>
         ))}
       </Stepper>

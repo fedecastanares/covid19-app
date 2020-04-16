@@ -53,10 +53,10 @@
 }
 
 .MuiStepLabel-label.MuiStepLabel-completed {
-  color: #fff !important;
+  color: black !important;
 }
 .MuiStepLabel-label {
-  color: #f9f9f9b7 !important;
+  color: rgba(0, 0, 0, 0.50) !important;
   font-weight: 400;
 }
 .mobile {

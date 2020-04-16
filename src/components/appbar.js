@@ -9,6 +9,9 @@ import MenuIcon from '@material-ui/icons/Menu';
 import {Container, List, ListItem,  ListItemText, Divider, SwipeableDrawer,ListItemAvatar, Avatar, FormControlLabel, Switch, Grid} from '@material-ui/core';
 import { FixedSizeList } from 'react-window';
 import PropTypes from 'prop-types';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -52,11 +55,23 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 }));
 
 
-export default function SearchAppBar() {
+export default function SearchAppBar(props) {
   const classes = useStyles();
   const [state, setState] = useState(false);
   const {allcountrys, setcountry, setcountrycompare, switchSt, setswitchSt} = useContext(DataContext);
   const [label, setlabel] = useState('Cambiar pais');
+
+  function ElevationScroll(props) {
+    const { children } = props;
+    const trigger = useScrollTrigger({
+      disableHysteresis: true,
+      threshold: 0,
+    });
+  
+    return React.cloneElement(children, {
+      elevation: trigger ? 4 : 0,
+    });
+  }
 
   useEffect(() => {
     const label = () => {
@@ -135,6 +150,8 @@ export default function SearchAppBar() {
   return (
       <Fragment>
     <div className={classes.root}>
+    <CssBaseline />
+      <ElevationScroll {...props}>
       <AppBar position="sticky"  style={{ position: "fixed" }}>
       <Container >
         <Toolbar>
@@ -153,6 +170,7 @@ export default function SearchAppBar() {
         </Toolbar>
         </Container>
       </AppBar>
+      </ElevationScroll>
     </div>
     <SwipeableDrawer
           anchor={"left"}
@@ -166,7 +184,7 @@ export default function SearchAppBar() {
           }}
         >
           <Grid container >
-            <Grid item xs={10} alignContent='center' alignItems='center'>
+            <Grid item xs={10}>
               <Typography variant='h6' className={classes.titleDrawer}>
                 {label}
               </Typography>
