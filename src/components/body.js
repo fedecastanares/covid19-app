@@ -177,7 +177,7 @@ const Body = () => {
                                 Ayuda comunitaria:
                             </Typography> 
                         </Grid>
-                        
+
                     </Grid>
                     {formview ? <Form
                                     activeStep={activeStep}

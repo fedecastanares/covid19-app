@@ -28,15 +28,15 @@ const DataProvider = (props) => {
 
     useEffect(()=> {
         const getallcountrys = async () => {
-            const urlcountry = `https://corona.lmao.ninja/countries/${country}`
+            const urlcountry = `https://corona.lmao.ninja/v2/countries/${country}`
             const datacountry = await Axios.get(urlcountry);
             setstatus(datacountry.data);
             setflag(datacountry.data.countryInfo.flag);
-            const urlcountrycompare = `https://corona.lmao.ninja/countries/${countrycompare}`
+            const urlcountrycompare = `https://corona.lmao.ninja/v2/countries/${countrycompare}`
             const datacountrycompare = await Axios.get(urlcountrycompare);
             setstatuscompare(datacountrycompare.data);
             setflagcompare(datacountrycompare.data.countryInfo.flag);
-            const url = `https://corona.lmao.ninja/countries`;
+            const url = `https://corona.lmao.ninja/v2/countries`;
             const data = await Axios.get(url);
             setallcountrys(data.data);
             setfirstcontrol(false);
