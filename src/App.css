@@ -71,6 +71,9 @@
   height: 90vh; 
 }
 
+.MuiButton-contained.Mui-disabled {
+  background-color: #ffffff7a !important;
+}
 @media (max-width: 576px) {
   .leaflet-container {
     width: 90%;

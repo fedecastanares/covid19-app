@@ -9,7 +9,7 @@ import Mapa from './map.js'
 import Form from './form.js'
 
 import { makeStyles } from '@material-ui/core/styles';
-import { Container, Grid , Typography, Button} from '@material-ui/core';
+import { Container, Grid , Typography, Button, FormControl } from '@material-ui/core';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import { css } from "@emotion/core";
@@ -52,7 +52,7 @@ const useStyles = makeStyles( theme => ({
     },
     buttomNew: {
         fontSize: '0.75rem',
-        marginRight: '2vw'
+        marginRight: '2vw',
     },
     donate: {
         fontSize: '0.75rem',
@@ -78,6 +78,8 @@ const Body = () => {
         status,
         flag,
         allcountrys,
+        formControl,
+        setFormControl,
     } = useContext(DataContext);
     const {timeline} = useContext(HistoryContext);
 
@@ -136,6 +138,7 @@ const Body = () => {
         if ( formview === true) {
             if (activeStep > 0) {
                 setActiveStep((prevActiveStep) => prevActiveStep - 1);
+                setFormControl(false);
             } else if (activeStep === 0 ) {
                 setActiveStep(-1);
                 setformview(false);
@@ -147,8 +150,7 @@ const Body = () => {
       };
 
 
-        if (country &&  allcountrys[0] !== undefined && flag !== undefined && timeline !== undefined) {
-        
+        if (country &&  allcountrys[0] !== undefined && flag !== undefined && timeline !== undefined ) {
         return(
             <Fragment>
                 <Container>
@@ -177,13 +179,16 @@ const Body = () => {
                                 Ayuda comunitaria:
                             </Typography> 
                         </Grid>
-
+                        
+                        
                     </Grid>
                     {formview ? <Form
                                     activeStep={activeStep}
                                     setActiveStep={setActiveStep}
                                     setbtntxtprimary={setbtntxtprimary}
                                     setbtntxtsecondary={setbtntxtsecondary}
+                                    formControl={formControl}
+                                    setFormControl={setFormControl}
                                     /> 
                                 : <Mapa/> }
                     </Grid>

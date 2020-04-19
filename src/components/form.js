@@ -1,4 +1,5 @@
-import React, {useState} from 'react';
+import React, {useState, useContext} from 'react';
+import {DataContext} from '../context/dataContext.js'
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
 import { TextField, Grid, Container, Typography } from '@material-ui/core/';
@@ -39,7 +40,7 @@ const useQontoStepIconStyles = makeStyles({
 
 function QontoStepIcon(props) {
   const classes = useQontoStepIconStyles();
-  const { active, completed } = props;
+  const { active, completed} = props;
 
   return (
     <div
@@ -228,9 +229,12 @@ function getSteps() {
 
 
 export default function CustomizedSteppers(props) {
-  const { activeStep } = props;
+  const { activeStep, formControl, setFormControl  } = props;
+  const {email, setemail} = useContext(DataContext);
   const classes = useStyles();
   const steps = getSteps();
+
+
 
   const [id, setid] = useState(null);
   const [lugar, setLugar] = useState('');
@@ -250,7 +254,7 @@ export default function CustomizedSteppers(props) {
   function Formulario (step) {
 
     const responseGoogle = (response) => {
-      console.log(response.profileObj.email);
+      setemail(response.profileObj.email);
     }
     
     const HandleChange = e => {
@@ -272,8 +276,18 @@ export default function CustomizedSteppers(props) {
       }
     }
 
+    
     switch (step) {
-      case 0: return (
+      case 0: 
+
+      if (email !== '') {
+        setFormControl(false)
+      } else {
+        // descomentar luego de probar
+        // setFormControl(true)
+      }
+
+      return (
         <form  noValidate autoComplete="off">
           <Container>
           <Grid container
@@ -281,7 +295,7 @@ export default function CustomizedSteppers(props) {
               <Grid container justify='center'>
                 <GoogleLogin
                     clientId="308239159030-mlj6n5skslr27r0s56sjindfof2g6mts.apps.googleusercontent.com"
-                    buttonText="Login"
+                    buttonText={email === '' ? 'Login' : 'Logeado'}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}
@@ -312,7 +326,13 @@ export default function CustomizedSteppers(props) {
           </Container>
         </form>
       );
-      case 1: return (
+      case 1: 
+      if (currentPos !== null) {
+        setFormControl(false)
+      } else {
+        setFormControl(true)
+      }
+      return (
           <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} id='mapForm'>
             <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -382,7 +402,7 @@ export default function CustomizedSteppers(props) {
             <AlertTitle className={classes.alertaTittle}>Guardado</AlertTitle>
             <Grid container>
               <Grid item sm={6}>
-                <p style={{fontSize: '0.975rem'}}>Gracias por colaborar, por ser parte de esto</p>
+                <p style={{fontSize: '0.975rem'}}>Gracias por colaborar</p>
               </Grid>
               <Grid item sm={6}> 
                 <p><strong style={{fontSize: '0.775rem', padding: 0}}>- puedes registrar todos los lugares que quieras!</strong></p>
