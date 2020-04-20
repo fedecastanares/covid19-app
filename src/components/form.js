@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react';
+import React, {useState, useContext, useEffect} from 'react';
 import {DataContext} from '../context/dataContext.js'
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
@@ -14,7 +14,8 @@ import {Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { GoogleLogin } from 'react-google-login';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 import { Alert, AlertTitle } from '@material-ui/lab';
-import { v4 as uuidv4 } from 'uuid';
+import firebase from '../firebase.js';
+
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -255,7 +256,7 @@ function getSteps() {
 
 
 export default function CustomizedSteppers(props) {
-  const { activeStep, formControl, setFormControl  } = props;
+  const { activeStep, formControl, setFormControl, saveData, setsaveData  } = props;
   const {email, setemail} = useContext(DataContext);
   const classes = useStyles();
   const steps = getSteps();
@@ -275,6 +276,22 @@ export default function CustomizedSteppers(props) {
     setcurrentPos([event.latlng.lat, event.latlng.lng]) ;
 }
 
+  useEffect(() => {
+    if (saveData) {
+      setsaveData(false);
+      const db = firebase.firestore()
+      db.collection('Puntos').add({
+      email: email,
+      lugar: lugar,
+      contacto: contacto,
+      direccion: direccion,
+      beneficio: beneficio,
+      horario: horario,
+      recibe: recibe,
+      geoloc: currentPos
+      })
+    }
+  }, [saveData])
   
   function Formulario (step) {
 
@@ -302,20 +319,6 @@ export default function CustomizedSteppers(props) {
       }
     }
 
-    function createData (email, lugar, contacto, direccion, beneficio, horario, recibe, imagen) {
-      const id = uuidv4();
-      return { 
-        'id': id,
-        'email': email,
-        'lugar': lugar,
-        'contacto': contacto,
-        'direccion': direccion,
-        'beneficio': beneficio,
-        'horario': horario,
-        'recibe': recibe,
-        'imgen': imagen,
-        }
-    }
 
     
     switch (step) {

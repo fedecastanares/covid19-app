@@ -7,7 +7,7 @@ import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 import { v4 as uuidv4 } from 'uuid';
 import MarkerClusterGroup from 'react-leaflet-markercluster';
 import 'react-leaflet-markercluster/dist/styles.min.css';
-
+import firebase from '../firebase.js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -83,12 +83,12 @@ const acaestamosuyimg = 'http://acaestamos.uy/wp-content/uploads/2020/04/Logo_ak
 export default function Mapa(){
     const classes = useStyles();
     const [userGeolocation, setuserGeolocation] = useState([-34.901112, -56.164532])
-    const [activeplaceolla, setactiveplaceolla] = useState(null);
     const [ollaspopulares, setollaspopulares] = useState(null);
     const [acaestamosuy, setacaestamosuy] = useState(null);
+    const [dataFirebase, setdataFirebase] = useState(null);
+    const [activeplaceolla, setactiveplaceolla] = useState(null);
     const [activeplaceaca, setactiveplaceaca] = useState(null);
-
-
+    const [activeplaceFire, setactiveplaceFire] = useState(null);
 
     useEffect(() => {
         const getollaspopulares = async () => {
@@ -111,12 +111,19 @@ export default function Mapa(){
           function getPosition(position) {
             setuserGeolocation([position.coords.latitude, position.coords.longitude]);
           }
+
+          const fetchData = async () => {
+            const db = firebase.firestore()
+            const data = await db.collection("Puntos").get()
+            const dataformated = ( data.docs.map( (p, index) => [{id: data.docs[index].id, data: p.data()}]))
+            setdataFirebase(dataformated[0]);
+          }
+          fetchData()
     
     },[]);
 
 
-    if (ollaspopulares !== null && acaestamosuy !== null) {
-
+    if (ollaspopulares !== null && acaestamosuy !== null && dataFirebase !== null) {
         return (
             <Map center={userGeolocation} zoom={12} >
                 <TileLayer
@@ -130,7 +137,16 @@ export default function Mapa(){
                     }}
                 >
 
-         
+                {dataFirebase.map(punto => (
+                    <Marker
+                    key={punto.id}
+                    position={[
+                        punto.data.geoloc[0],
+                        punto.data.geoloc[1]
+                    ]}
+                    onclick={() => setactiveplaceFire(punto)}
+                    />
+                ))} 
                 
 
                 {ollaspopulares.map(olla => (
@@ -263,6 +279,74 @@ export default function Mapa(){
                             <img src={acaestamosuyimg} alt='Logo de AcaEstamosuy' className={classes.patrocinioimg}/>
                         </Grid>
                 </Popup>)}
+                
+
+                {activeplaceFire && (
+                <Popup
+                    className={classes.root}
+                    position={[
+                        activeplaceFire.data.geoloc[0],
+                        activeplaceFire.data.geoloc[1]
+                    ]}
+                    onClose={() => {
+                        setactiveplaceFire(null);
+                    }}
+                >
+                    <div>
+                        <Typography variant="h4" className={classes.tittles} gutterBottom>
+                            {activeplaceFire.data.lugar}
+                        </Typography>  
+                        <div> 
+                            <Typography variant="body1" className={classes.beneficio} gutterBottom>
+                                Beneficio:
+                            </Typography>
+                            <Typography variant="body1" className={classes.body} gutterBottom>
+                                {activeplaceFire.data.beneficio}
+                            </Typography>
+                        </div>
+                        
+                        <div> 
+                        <Typography variant="body1" className={classes.reciben} gutterBottom>
+                            Reciben:
+                        </Typography>
+                        <Typography variant="body1" className={classes.body} gutterBottom>
+                            {activeplaceFire.data.recibe}
+                        </Typography>
+                        </div> 
+                        <Grid container className={classes.contacto}>
+                        <Phone fontSize="small"/>
+                        <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                        {activeplaceFire.data.direccion}
+                        </Typography>
+                        </Grid>
+
+                        <Grid container className={classes.contacto} alignItems='center'>
+                        <QueryBuilderOutlined fontSize="small"/>
+                        <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                        {activeplaceFire.data.horario}
+                        </Typography>
+                        </Grid> 
+
+                        <Grid container className={classes.contacto} alignItems='center'>
+                        <Room fontSize="small"/>
+                        <Typography variant="body2" className={classes.contactotext} gutterBottom>
+                        {activeplaceFire.data.direccion}
+                        </Typography>
+                        </Grid> 
+
+                        {/* si tiene imagen 
+                        <Grid container className={classes.patrocinio} alignItems='center' style={{backgroundColor: '#098a91'}}>
+                            <Typography variant="body2" className={classes.patrociniotext} gutterBottom>
+                                Proporcionado por:
+                            </Typography>
+                            <img src={ollapopularimg} alt='Logo de ollas populares' className={classes.patrocinioimg}/>
+                        </Grid>
+                        */}
+                        
+                    </div>
+                </Popup>
+            )}
+
                 </MarkerClusterGroup>
             </Map>
         )

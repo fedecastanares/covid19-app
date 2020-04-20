@@ -86,7 +86,8 @@ const Body = () => {
     const [formview, setformview] = useState(false);
     const [btntxtprimary, setbtntxtprimary] = useState('Nuevo punto');
     const [btntxtsecondary, setbtntxtsecondary] = useState('Donar');
-    const [activeStep, setActiveStep] = React.useState(-1);
+    const [activeStep, setActiveStep] = useState(-1);
+    const [saveData, setsaveData] = useState(false);
 
     useEffect(() => {
         if ( formview === true) {
@@ -122,9 +123,13 @@ const Body = () => {
         if ( formview === true) {
             if ( activeStep < 3){
                 setActiveStep((prevActiveStep) => prevActiveStep + 1);
-            }else if(activeStep === 3) {
-                setActiveStep(-1)
-                setformview(false)
+                if (activeStep === 2) {
+                    setsaveData(true);
+                }
+            }
+            else if(activeStep === 3) {
+                setActiveStep(-1);
+                setformview(false);
             }
            }
         else {
@@ -192,6 +197,8 @@ const Body = () => {
                                     setbtntxtsecondary={setbtntxtsecondary}
                                     formControl={formControl}
                                     setFormControl={setFormControl}
+                                    saveData={saveData}
+                                    setsaveData={setsaveData}
                                     /> 
                                 : <Mapa/> }
                     </Grid>
