@@ -383,7 +383,7 @@ export default function CustomizedSteppers(props) {
                             startIcon={<CloudUpload />}
                             fullWidth
                           >
-                            Upload
+                            Subir
                           </Button>
                         </Grid>
                       </Grid>

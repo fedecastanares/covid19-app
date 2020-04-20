@@ -137,7 +137,8 @@ export default function Mapa(){
                     }}
                 >
 
-                {dataFirebase.map(punto => (
+                {dataFirebase !== undefined ?
+                dataFirebase.map(punto => (
                     <Marker
                     key={punto.id}
                     position={[
@@ -146,7 +147,8 @@ export default function Mapa(){
                     ]}
                     onclick={() => setactiveplaceFire(punto)}
                     />
-                ))} 
+                )) :
+                null} 
                 
 
                 {ollaspopulares.map(olla => (
