@@ -9,6 +9,7 @@ const useStyles = makeStyles({
     title: {
       fontSize: '3rem',
       marginLeft: 16,
+
     }, 
     alert:{
         textAlign: 'center',

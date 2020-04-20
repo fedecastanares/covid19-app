@@ -47,20 +47,21 @@
   height: 80vh;
 }
 
-#mapForm {
+.mapForm {
   width: 100%;
   height: 60vh;
 }
+
 
 #mapConfirmar {
   width: '100%';
 }
 
 .MuiStepLabel-label.MuiStepLabel-completed {
-  color: black !important;
+  color: rgb(255, 255, 255) !important;
 }
 .MuiStepLabel-label {
-  color: rgba(0, 0, 0, 0.50) !important;
+  color: rgba(255, 255, 255, 0.5) !important;
   font-weight: 400;
 }
 .mobile {
@@ -79,7 +80,7 @@
     width: 90%;
     height: 60vh;
   }
-  #mapForm {
+  .mapForm {
     width: 100%;
     height: 40vh;
   }

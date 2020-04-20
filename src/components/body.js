@@ -142,6 +142,7 @@ const Body = () => {
             } else if (activeStep === 0 ) {
                 setActiveStep(-1);
                 setformview(false);
+                setFormControl(false);
             }
            }
         else {
@@ -179,8 +180,10 @@ const Body = () => {
                                 Ayuda comunitaria:
                             </Typography> 
                         </Grid>
-                        
-                        
+                        <Grid item >
+                            <Button variant="contained" className={classes.buttomNew} color={formControl ? 'default' : 'primary'} size='small' style={activeStep === 2 ? {backgroundColor: '#4caf50'} : null} disabled={formControl} onClick={handleNext}>{btntxtprimary}</Button>
+                            <Button variant="outlined" className={classes.donate} color="secondary" size='small' onClick={handleBack}>{btntxtsecondary}</Button>
+                        </Grid>
                     </Grid>
                     {formview ? <Form
                                     activeStep={activeStep}

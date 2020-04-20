@@ -28,6 +28,7 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
     flexGrow: 1,
     fontSize: '1.5rem',
     fontWeight: '400',
+    fontFamily: 'Quicksand',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
     },
@@ -165,7 +166,7 @@ export default function SearchAppBar(props) {
           <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Coronavirus covid-19 &nbsp;&nbsp; <span role="img" aria-label="microbe">🦠</span>
+            Juntos podemos <span role="img" aria-label="Flexed Biceps">💪</span>
           </Typography>
         </Toolbar>
         </Container>

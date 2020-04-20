@@ -14,6 +14,7 @@ import {Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { GoogleLogin } from 'react-google-login';
 import {Phone, QueryBuilderOutlined, Room} from '@material-ui/icons';
 import { Alert, AlertTitle } from '@material-ui/lab';
+import { v4 as uuidv4 } from 'uuid';
 
 const useQontoStepIconStyles = makeStyles({
   root: {
@@ -65,13 +66,13 @@ const ColorlibConnector = withStyles({
   active: {
     '& $line': {
       backgroundImage:
-        'linear-gradient(336deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
+        'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
     },
   },
   completed: {
     '& $line': {
       backgroundImage:
-        'linear-gradient(336deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
+        'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
     },
   },
   line: {
@@ -85,6 +86,7 @@ const ColorlibConnector = withStyles({
 const useColorlibStepIconStyles = makeStyles({
   root: {
     backgroundColor: '#ccc',
+    background: 'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(204,204,204,1) 30%, rgba(204,204,204,0.20211834733893552) 68%)',
     zIndex: 1,
     color: '#fff',
     width: 50,
@@ -96,12 +98,12 @@ const useColorlibStepIconStyles = makeStyles({
   },
   active: {
     backgroundImage:
-      'linear-gradient(336deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
+      'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
     boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
   },
   completed: {
     backgroundImage:
-      'linear-gradient(336deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
+      'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(40,53,147,1) 35%, rgba(26,35,126,1) 100%)',
   },
 });
 
@@ -148,7 +150,8 @@ const useStyles = makeStyles((theme) => ({
   papper: {
     backgroundColor: '#f9f9f9',
     borderRadius: '1vw',
-
+    paddingTop: '8vh',
+    background: 'linear-gradient(0deg, rgba(2,0,36,1) 0%, rgba(26,35,126,1) 20%, rgba(40,53,147,1) 30%, rgba(40,53,147,0) 60%)',
   },
   forminput: {
     backgroundColor: '#3f51b5',
@@ -158,7 +161,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: '5%'
   },
   label: {
-    color: '#3f51b5'
+    color: '#fff'
   },
   tittles: {
       fontSize: '0.8rem',
@@ -220,11 +223,34 @@ const useStyles = makeStyles((theme) => ({
   },
   alerta: {
     padding: '24px',
+  },
+  alertaTittle: {
+    fontFamily: 'Quicksand',
+    fontSize: '1.25rem'
+  },
+  formcontainer: {
+    marginTop: '2vh', 
+    [theme.breakpoints.up('sm')]: {
+      padding: '10vh'
+  }
+  },
+  necesario: {
+    fontSize: '0.75rem',
+    color: 'grey',
+    marginTop: '1vh'
+  },
+  bodyalerta: {
+    marginTop: '5vh',
+    marginBottom: '5vh',
+    [theme.breakpoints.up('sm')]: {
+      marginTop: '10vh',
+      marginBottom: '10vh',
+    }
   }
 }));
 
 function getSteps() {
-  return ['Ingresar datos', 'Marcar Punto', 'Confirmar'];
+  return ['Ingresar datos', 'Marcar en el mapa', 'Confirmar'];
 }
 
 
@@ -236,7 +262,6 @@ export default function CustomizedSteppers(props) {
 
 
 
-  const [id, setid] = useState(null);
   const [lugar, setLugar] = useState('');
   const [contacto, setContacto] = useState('');
   const [direccion, setDireccion] = useState('');
@@ -258,6 +283,7 @@ export default function CustomizedSteppers(props) {
     }
     
     const HandleChange = e => {
+
       switch(e.target.id) {
         case 'Lugar': setLugar(e.target.value);
         break;
@@ -276,17 +302,30 @@ export default function CustomizedSteppers(props) {
       }
     }
 
+    function createData (email, lugar, contacto, direccion, beneficio, horario, recibe, imagen) {
+      const id = uuidv4();
+      return { 
+        'id': id,
+        'email': email,
+        'lugar': lugar,
+        'contacto': contacto,
+        'direccion': direccion,
+        'beneficio': beneficio,
+        'horario': horario,
+        'recibe': recibe,
+        'imgen': imagen,
+        }
+    }
+
     
     switch (step) {
       case 0: 
-
-      if (email !== '') {
-        setFormControl(false)
+      // agregar email !== '' && luego de pruebas
+      if (  lugar !== '' &&  contacto !== '' &&  direccion !== '' &&  beneficio !== '' &&  horario !== '' &&  recibe !== '' ) {
+        setFormControl(false);
       } else {
-        // descomentar luego de probar
-        // setFormControl(true)
+        setFormControl(true);
       }
-
       return (
         <form  noValidate autoComplete="off">
           <Container>
@@ -301,25 +340,42 @@ export default function CustomizedSteppers(props) {
                     cookiePolicy={'single_host_origin'}
                   />
               </Grid>
+              <Grid container justify='center'>
+                <Typography variant="body2" className={classes.necesario}>
+                  Guardaremos tu email
+                </Typography>
+              </Grid>
                 <Grid container 
                 spacing={2}
                 alignContent='center'
                 alignItems='center'
                 justify='center'
-                style={{marginTop: '2vh'}}
+                className={classes.formcontainer}
                 >
                   <Grid item sm={4}>
-                    <TextField  label="Lugar" id='Lugar' value={lugar} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange}/>
-                    <TextField label="Contacto" id="Contacto" value={contacto} variant="outlined" color='primary' size='small' fullWidth  onChange={HandleChange} style={{marginTop: '1vh'}}/>
+                    <Grid container spacing={2} justify='space-between' alignItems='center' alignItems='center' >
+                      <Grid item xs={6}>
+                        <TextField  label="Lugar" id='Lugar' value={lugar} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange}/>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField label="Contacto" id="Contacto" value={contacto} variant="outlined" color='primary' size='small' fullWidth  onChange={HandleChange} />
+                      </Grid>
+                    </Grid>
                     <TextField  label="Direccion" id="Direccion" value={direccion} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '1vh'}}/>
                   </Grid>
-                  <Grid item sm={4}>
-                    <TextField label="Beneficio" id="Beneficio" value={beneficio} variant="outlined" color='primary' size='small' fullWidth multiline rows="3" onChange={HandleChange}/>
-                    <TextField  label="Horario" id="Horario" value={horario} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                  <Grid item xs={12} sm={4}>
+                    <TextField label="Beneficio" id="Beneficio" value={beneficio} variant="outlined" color='primary' size='small' fullWidth multiline rows="4" onChange={HandleChange}/>
                   </Grid>
                   <Grid item sm={4}>
-                    <TextField  label="Recibe" id="Recibe" value={recibe} variant="outlined" color='primary' size='small' fullWidth multiline rows="3" onChange={HandleChange}/>
-                    <TextField  label="Vinculo a imagen" id="Vinculo" value={vinculo} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                    <TextField  label="Recibe" id="Recibe" value={recibe} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange}/>
+                    <Grid container spacing={2} justify='space-between' alignItems='center' alignItems='center' >
+                      <Grid item xs={6}>
+                        <TextField  label="Horario" id="Horario" value={horario} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                      </Grid>
+                      <Grid item xs={6}>
+                        <TextField  label="Vinculo a imagen" id="Vinculo" value={vinculo} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                      </Grid>
+                    </Grid>
                   </Grid>
               </Grid>
           </Grid>
@@ -333,7 +389,7 @@ export default function CustomizedSteppers(props) {
         setFormControl(true)
       }
       return (
-          <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} id='mapForm'>
+          <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} className='mapForm'>
             <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -342,7 +398,7 @@ export default function CustomizedSteppers(props) {
           </Map>
       );
       case 2: return (
-        <Map center={[-34.901112, -56.164532]} zoom={12} onclick={HandleClick} id='mapConfirmar'>
+        <Map center={currentPos} zoom={15} onclick={HandleClick} className='mapForm'>
             <TileLayer
             url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -385,27 +441,28 @@ export default function CustomizedSteppers(props) {
                           {direccion}
                           </Typography>
                         </Grid> 
+                        {vinculo !== '' ? 
                         <Grid container className={classes.patrocinio} alignItems='center' style={{backgroundColor: '#3f51b5'}}>
                             <Typography variant="body2" className={classes.patrociniotext} gutterBottom>
                                 Proporcionado por:
                             </Typography>
                             <img src={vinculo} alt={`Logo de ${lugar}`} className={classes.patrocinioimg}/>
-                        </Grid>
-                        
+                        </Grid> :
+                        null}
                     </div>
             </Popup>
           </Map>
       );
       case 3: return (
-        <Grid container className={classes.alerta}>
-          <Alert severity="success" variant='filled'>
+        <Grid container className={classes.alerta} alignContent='center' alignItems='center' justify='center'>
+          <Alert severity="success" variant='filled' className={classes.bodyalerta}>
             <AlertTitle className={classes.alertaTittle}>Guardado</AlertTitle>
             <Grid container>
               <Grid item sm={6}>
-                <p style={{fontSize: '0.975rem'}}>Gracias por colaborar</p>
+                <p style={{fontSize: '0.975rem', fontFamily: 'Quicksand'}}>Gracias por colaborar</p>
               </Grid>
               <Grid item sm={6}> 
-                <p><strong style={{fontSize: '0.775rem', padding: 0}}>- puedes registrar todos los lugares que quieras!</strong></p>
+                <p><strong style={{fontSize: '0.775rem', padding: 0, fontFamily: 'Quicksand',}}>- puedes registrar todos los lugares que quieras!</strong></p>
               </Grid>
             </Grid>
           </Alert>
