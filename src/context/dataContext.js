@@ -25,7 +25,7 @@ const DataProvider = (props) => {
     const [countrydisplaycompare, setcountrydisplaycompare] = useState('');
     const [infostatus, setinfostatus] = useState(false);
     const [formControl, setFormControl] = useState(false);
-    const [email, setemail] = useState('');
+    const [email, setemail] = useState(null);
 
 
     useEffect(()=> {

@@ -324,7 +324,7 @@ export default function CustomizedSteppers(props) {
     switch (step) {
       case 0: 
       // agregar email !== '' && luego de pruebas
-      if ( email !== '' && lugar !== '' &&  contacto !== '' &&  direccion !== '' &&  beneficio !== '' &&  horario !== '' &&  recibe !== '' ) {
+      if ( email !== null && lugar !== '' &&  contacto !== '' &&  direccion !== '' &&  beneficio !== '' &&  horario !== '' &&  recibe !== '' ) {
         setFormControl(false);
       } else {
         setFormControl(true);
