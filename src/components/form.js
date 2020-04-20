@@ -2,13 +2,13 @@ import React, {useState, useContext} from 'react';
 import {DataContext} from '../context/dataContext.js'
 import PropTypes from 'prop-types';
 import { makeStyles, withStyles } from '@material-ui/core/styles';
-import { TextField, Grid, Container, Typography } from '@material-ui/core/';
+import { TextField, Grid, Container, Typography, Button } from '@material-ui/core/';
 import clsx from 'clsx';
 import Stepper from '@material-ui/core/Stepper';
 import Step from '@material-ui/core/Step';
 import StepLabel from '@material-ui/core/StepLabel';
 import Check from '@material-ui/icons/Check';
-import {Edit, LocationOn, Done} from '@material-ui/icons/';
+import {Edit, LocationOn, Done, CloudUpload} from '@material-ui/icons/';
 import StepConnector from '@material-ui/core/StepConnector';
 import {Map, TileLayer, Marker, Popup } from 'react-leaflet';
 import { GoogleLogin } from 'react-google-login';
@@ -373,7 +373,16 @@ export default function CustomizedSteppers(props) {
                         <TextField  label="Horario" id="Horario" value={horario} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
                       </Grid>
                       <Grid item xs={6}>
-                        <TextField  label="Vinculo a imagen" id="Vinculo" value={vinculo} variant="outlined" color='primary' size='small' fullWidth onChange={HandleChange} style={{marginTop: '2vh'}}/>
+                        <Grid container justify='center' alignContent='center' alignItems='center' style={{marginTop: '2vh'}}>
+                          <Button
+                            variant="contained"
+                            color="primary"
+                            startIcon={<CloudUpload />}
+                            fullWidth
+                          >
+                            Upload
+                          </Button>
+                        </Grid>
                       </Grid>
                     </Grid>
                   </Grid>
