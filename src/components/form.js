@@ -296,6 +296,7 @@ export default function CustomizedSteppers(props) {
   function Formulario (step) {
 
     const responseGoogle = (response) => {
+      console.log(response);
       setemail(response.profileObj.email);
     }
     
