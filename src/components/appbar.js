@@ -193,8 +193,7 @@ export default function SearchAppBar(props) {
   return (
       <Fragment>
     <div className={classes.root}>
-    <CssBaseline />
-      <ElevationScroll {...props}>
+
       <AppBar position="sticky"  style={{ position: "fixed" }}>
       <Container >
         <Toolbar>
@@ -226,7 +225,7 @@ export default function SearchAppBar(props) {
         </Toolbar>
         </Container>
       </AppBar>
-      </ElevationScroll>
+
     </div>
     <SwipeableDrawer
           anchor={"left"}
