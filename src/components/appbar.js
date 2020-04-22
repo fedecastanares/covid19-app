@@ -1,4 +1,4 @@
-import React , {Fragment, useState, useContext, useEffect } from 'react';
+import React , {Fragment, useState, useContext, useEffect, useCallback } from 'react';
 import {DataContext} from '../context/dataContext.js';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -11,6 +11,9 @@ import { FixedSizeList } from 'react-window';
 import PropTypes from 'prop-types';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import AccountCircle from '@material-ui/icons/AccountCircle';
 
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -61,6 +64,8 @@ export default function SearchAppBar(props) {
   const [state, setState] = useState(false);
   const {allcountrys, setcountry, setcountrycompare, switchSt, setswitchSt} = useContext(DataContext);
   const [label, setlabel] = useState('Cambiar pais');
+  const [anchorEl, setAnchorEl] = useState(null);
+  const openMenu = Boolean(anchorEl);
 
   function ElevationScroll(props) {
     const { children } = props;
@@ -97,6 +102,14 @@ export default function SearchAppBar(props) {
     setcountry(e.target.textContent) :
     setcountrycompare(e.target.textContent)
   }
+
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
   
   renderRow.propTypes = {
     index: PropTypes.number.isRequired,
@@ -147,6 +160,35 @@ export default function SearchAppBar(props) {
     </div>
   );
 
+  const MenuView = useCallback(
+    () => {
+      // No lo encuentra en el layout por la elevacion
+      if (openMenu) {
+        return (
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'right',
+            }}
+            open={openMenu}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={handleClose}>Iniciar sesion</MenuItem>
+            <Divider/>
+            <MenuItem onClick={handleClose}>Registrarme</MenuItem>
+          </Menu>
+        )
+      }
+    }, [handleMenu],
+  );
+
 
   return (
       <Fragment>
@@ -168,6 +210,19 @@ export default function SearchAppBar(props) {
           <Typography className={classes.title} variant="h6" noWrap>
             Juntos podemos <span role="img" aria-label="Flexed Biceps">💪</span>
           </Typography>
+          <Fragment>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+                id='menu'
+              >
+                <AccountCircle />
+              </IconButton>                    
+              {openMenu ? <MenuView/> : null}
+            </Fragment>
         </Toolbar>
         </Container>
       </AppBar>

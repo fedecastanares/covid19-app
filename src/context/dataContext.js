@@ -25,7 +25,7 @@ const DataProvider = (props) => {
     const [countrydisplaycompare, setcountrydisplaycompare] = useState('');
     const [infostatus, setinfostatus] = useState(false);
     const [formControl, setFormControl] = useState(false);
-    const [email, setemail] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
 
     useEffect(()=> {
@@ -147,14 +147,14 @@ const DataProvider = (props) => {
             flagcompare,
             firstcontrol,
             formControl,
-            email,
+            currentUser,
             setcountry,
             setcountrycompare,
             setswitchSt,
             setcodecountry,
             setcodecountrycompare,
             setFormControl,
-            setemail
+            setCurrentUser,
         }}>
             {props.children}
         </DataContext.Provider>

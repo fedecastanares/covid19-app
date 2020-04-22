@@ -257,7 +257,7 @@ function getSteps() {
 
 export default function CustomizedSteppers(props) {
   const { activeStep, formControl, setFormControl, saveData, setsaveData  } = props;
-  const {email, setemail} = useContext(DataContext);
+  const {currentUser, setCurrentUser} = useContext(DataContext);
   const classes = useStyles();
   const steps = getSteps();
 
@@ -281,7 +281,7 @@ export default function CustomizedSteppers(props) {
       setsaveData(false);
       const db = firebase.firestore()
       db.collection('Puntos').add({
-      email: email,
+      email: currentUser.profileObj.email,
       lugar: lugar,
       contacto: contacto,
       direccion: direccion,
@@ -296,8 +296,8 @@ export default function CustomizedSteppers(props) {
   function Formulario (step) {
 
     const responseGoogle = (response) => {
-      console.log(response);
-      setemail(response.profileObj.email);
+      console.log(response.tokenId);
+      setCurrentUser(response);
     }
     
     const HandleChange = e => {
@@ -325,7 +325,7 @@ export default function CustomizedSteppers(props) {
     switch (step) {
       case 0: 
       // agregar email !== '' && luego de pruebas
-      if ( email !== null && lugar !== '' &&  contacto !== '' &&  direccion !== '' &&  beneficio !== '' &&  horario !== '' &&  recibe !== '' ) {
+      if ( currentUser !== null && lugar !== '' &&  contacto !== '' &&  direccion !== '' &&  beneficio !== '' &&  horario !== '' &&  recibe !== '' ) {
         setFormControl(false);
       } else {
         setFormControl(true);
@@ -338,7 +338,7 @@ export default function CustomizedSteppers(props) {
               <Grid container justify='center'>
                 <GoogleLogin
                     clientId="308239159030-mlj6n5skslr27r0s56sjindfof2g6mts.apps.googleusercontent.com"
-                    buttonText={email === '' ? 'Login' : 'Logeado'}
+                    buttonText={currentUser !== null ? 'Login' : 'Logeado'}
                     onSuccess={responseGoogle}
                     onFailure={responseGoogle}
                     cookiePolicy={'single_host_origin'}

@@ -1,148 +1,103 @@
-import React , {Fragment, useState, useContext } from 'react';
-import {DataContext} from '../context/dataContext.js';
+import React, {Fragment , } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
-import IconButton from '@material-ui/core/IconButton';
 import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
+import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
-import {Container, ListItem,  ListItemText, Divider, SwipeableDrawer,ListItemAvatar, Avatar} from '@material-ui/core';
-import { FixedSizeList } from "react-window";
-import AutoSizer from "react-virtualized-auto-sizer";
+import AccountCircle from '@material-ui/icons/AccountCircle';
+import Switch from '@material-ui/core/Switch';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import FormGroup from '@material-ui/core/FormGroup';
+import MenuItem from '@material-ui/core/MenuItem';
+import Menu from '@material-ui/core/Menu';
+import {Container} from '@material-ui/core';
 
-const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
-
-  const useStyles = makeStyles(theme => ({ 
+const useStyles = makeStyles((theme) => ({
   root: {
-    backgroundColor: theme.palette.dark ,
     flexGrow: 1,
   },
   menuButton: {
-    marginRight: theme.spacing(0),
+    marginRight: theme.spacing(2),
   },
   title: {
-    marginLeft: '1vw',
     flexGrow: 1,
-    fontSize: '1.5rem',
-    fontWeight: '400',
-    [theme.breakpoints.up('sm')]: {
-      display: 'block',
-    },
-  },
-  list: {
-    width: '70vw',
-    [theme.breakpoints.up('sm')]: {
-      width: '30vw',
-    },
-
-  },
-  paper: {
-    backgroundColor: '#3f51b5',
-    color: '#f2f2f2',
   },
 }));
 
 
-export default function SearchAppBar() {
+export default function AppBarV2() {
   const classes = useStyles();
-  const {allcountrys, setcountry} = useContext(DataContext);
-  const [state, setState] = useState(false);
+  const [auth, setAuth] = React.useState(true);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
 
-  const HandleClick = e => {
-    setcountry(e.target.textContent);
-  }
-  
-
-  function renderRow(props) {
-    const { index, style } = props;
-    console.log('Render row ' + index)
-    return (
-      <div style={style}>
-        <ListItem button onClick={HandleClick} >
-          <ListItemAvatar>
-              <Avatar variant='rounded' alt={`Bandera de ${allcountrys[index].country}`} src={allcountrys[index].countryInfo.flag}/>
-            </ListItemAvatar>
-          <ListItemText primary={`${allcountrys[index].country}`} /> 
-        </ListItem>
-        <Divider variant="inset" component="li" />
-      </div>
-      )
-  }
-
-
-  const toggleDrawer = open => event => {
-    if (
-      event &&
-      event.type === "keydown" &&
-      (event.key === "Tab" || event.key === "Shift")
-    ) {
-      return;
-    }
-
-    setState(open);
+  const handleChange = (event) => {
+    setAuth(event.target.checked);
   };
 
-  const ListaCountrys = () => {
-    console.log('ejecuto Lista')
-    return (
-    <div
-      className={classes.list}
-      role="presentation"
-      onClick={toggleDrawer(false)}
-      onKeyDown={toggleDrawer(false)}
-    >
-      <AutoSizer disableWidth>
-        {({height}) => (
-          <FixedSizeList 
-          height={400} 
-          width={300} 
-          itemSize={46} 
-          itemCount={allcountrys.length}
-          >
-            {renderRow}
-          </FixedSizeList>
-        )}
-      </AutoSizer>
-    </div>
-    )
+  const handleMenu = (event) => {
+    setAnchorEl(event.currentTarget);
   };
 
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   return (
-      <Fragment>
+    <Fragment>
     <div className={classes.root}>
+      <FormGroup style={{ position: "fixed" , marginTop: '10vh'}}>
+        <FormControlLabel
+          control={<Switch checked={auth} onChange={handleChange} aria-label="login switch" />}
+          label={auth ? 'Logout' : 'Login'}
+        />
+      </FormGroup>
+
       <AppBar position="sticky"  style={{ position: "fixed" }}>
       <Container >
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer(true)}
-          >
-          <MenuIcon />
+          <IconButton edge="start" className={classes.menuButton} color="inherit" aria-label="menu">
+            <MenuIcon />
           </IconButton>
           <Typography className={classes.title} variant="h6" noWrap>
-            Coronavirus covid-19 &nbsp;&nbsp; <span role="img" aria-label="microbe">🦠</span>
+            Juntos podemos <span role="img" aria-label="Flexed Biceps">💪</span>
           </Typography>
+          {auth && (
+            <div>
+              <IconButton
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleMenu}
+                color="inherit"
+              >
+                <AccountCircle />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={open}
+                onClose={handleClose}
+              >
+                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={handleClose}>My account</MenuItem>
+              </Menu>
+            </div>
+          )}
         </Toolbar>
         </Container>
       </AppBar>
     </div>
-    <SwipeableDrawer
-          anchor={"left"}
-          open={state}
-          onClose={toggleDrawer(false)}
-          onOpen={toggleDrawer(true)}
-          disableBackdropTransition={!iOS}
-          disableDiscovery={iOS}
-          classes={{
-            paper: classes.paper
-          }}
-        >
-          <ListaCountrys/>
-        </SwipeableDrawer>
     </Fragment>
   );
 }

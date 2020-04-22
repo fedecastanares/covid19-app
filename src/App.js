@@ -5,7 +5,7 @@ import DataProvider from './context/dataContext.js'
 import HistoryProvider from './context/historyContext.js'
 import Body from './components/body.js'
 import { makeStyles } from '@material-ui/core/styles';
-
+import SearchBar from './components/appbar.js';
 
 
 const useStyles = makeStyles(theme => ({
@@ -24,7 +24,7 @@ function App() {
     <Fragment>
       <DataProvider>
         <HistoryProvider>
-          <AppBar/>
+          <SearchBar/>
           <div className={classes.root}>
             <Body/>
           </div>
