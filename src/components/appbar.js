@@ -13,8 +13,8 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 import useScrollTrigger from '@material-ui/core/useScrollTrigger';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import AccountCircle from '@material-ui/icons/AccountCircle';
-
+import PersonIcon from '@material-ui/icons/Person';  
+import { Brightness2, BrightnessMedium } from '@material-ui/icons';
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
@@ -29,11 +29,12 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
   title: {
     marginLeft: '1vw',
     flexGrow: 1,
-    fontSize: '1.5rem',
+    fontSize: '1.3rem',
     fontWeight: '400',
     fontFamily: 'Quicksand',
     [theme.breakpoints.up('sm')]: {
       display: 'block',
+      fontSize: '1.5rem',
     },
   },
   list: {
@@ -62,7 +63,7 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 export default function SearchAppBar(props) {
   const classes = useStyles();
   const [state, setState] = useState(false);
-  const {allcountrys, setcountry, setcountrycompare, switchSt, setswitchSt} = useContext(DataContext);
+  const {allcountrys, setcountry, setcountrycompare, switchSt, setswitchSt, darkMode, setdarkMode} = useContext(DataContext);
   const [label, setlabel] = useState('Cambiar pais');
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
@@ -169,19 +170,19 @@ export default function SearchAppBar(props) {
             id="menu-appbar"
             anchorEl={anchorEl}
             anchorOrigin={{
-              vertical: 'top',
-              horizontal: 'right',
+              vertical: 'bottom',
+              horizontal: 'center',
             }}
             keepMounted
             transformOrigin={{
               vertical: 'top',
-              horizontal: 'right',
+              horizontal: 'center',
             }}
             open={openMenu}
             onClose={handleClose}
           >
             <MenuItem onClick={handleClose}>Iniciar sesion</MenuItem>
-            <Divider/>
+            <Divider variant='middle' light/>
             <MenuItem onClick={handleClose}>Registrarme</MenuItem>
           </Menu>
         )
@@ -210,6 +211,7 @@ export default function SearchAppBar(props) {
             Juntos podemos <span role="img" aria-label="Flexed Biceps">💪</span>
           </Typography>
           <Fragment>
+              {darkMode ? <BrightnessMedium onClick={() => setdarkMode(false)}/> : <Brightness2 onClick={() => setdarkMode(true)}/>}
               <IconButton
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -218,7 +220,7 @@ export default function SearchAppBar(props) {
                 color="inherit"
                 id='menu'
               >
-                <AccountCircle />
+                <PersonIcon />
               </IconButton>                    
               {openMenu ? <MenuView/> : null}
             </Fragment>

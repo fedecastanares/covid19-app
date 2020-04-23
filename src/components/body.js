@@ -21,7 +21,6 @@ const useStyles = makeStyles( theme => ({
     root: {
       paddingTop : '10vh',
       minWidth: 275,
-      backgroundColor: '#f9f9f9',
     },
     title: {
       fontSize: 32,

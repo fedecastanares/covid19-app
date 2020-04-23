@@ -26,6 +26,7 @@ const DataProvider = (props) => {
     const [infostatus, setinfostatus] = useState(false);
     const [formControl, setFormControl] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const {darkMode, setdarkMode} = props;
 
 
     useEffect(()=> {
@@ -148,6 +149,7 @@ const DataProvider = (props) => {
             firstcontrol,
             formControl,
             currentUser,
+            darkMode,
             setcountry,
             setcountrycompare,
             setswitchSt,
@@ -155,6 +157,7 @@ const DataProvider = (props) => {
             setcodecountrycompare,
             setFormControl,
             setCurrentUser,
+            setdarkMode,
         }}>
             {props.children}
         </DataContext.Provider>
