@@ -31,7 +31,7 @@ const Chart = () => {
     datasets: [
         {
             label: '',
-            backgroundColor: 'rgba(255,0,0,0.50)',
+            backgroundColor: '#0d47a1',
             type: 'line',
             data: []
         },
