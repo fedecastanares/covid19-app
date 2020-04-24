@@ -4,7 +4,6 @@ import {HistoryContext} from '../context/historyContext.js'
 import Tittle from './selectedCountry/tittle.js'
 import Chart from './selectedCountry/chart.js'
 import Tables from './selectedCountry/tables.js'
-import BottomBar from './bottomBar.js'
 import Mapa from './map.js'
 import Form from './form.js'
 
@@ -26,7 +25,7 @@ const useStyles = makeStyles( theme => ({
       fontSize: 32,
     },
     contenedorFirma: {
-        padding: '2vh 0 8vh 0'
+        padding: '2vh 0 1vh 0'
     },
     firm: {
         color: '#304ffe',
@@ -210,7 +209,6 @@ const Body = () => {
                         </Grid>
                     </a>
                 </Container>
-                <BottomBar/>
             </Fragment>
         )
         } else {
@@ -228,14 +226,13 @@ const Body = () => {
                             spacing={2}>
                                 <PacmanLoader
                                 css={override}
-                                size={'20vh'}
+                                size={'25vh'}
                                 color={'white'}
                                 />
                         </Grid>
                     </Grid>
                 </Grid>
             </Container>
-            <BottomBar/>
         </Fragment>;
 }} 
 

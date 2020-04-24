@@ -15,12 +15,12 @@ import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import PersonIcon from '@material-ui/icons/Person';  
 import { Brightness2, BrightnessMedium } from '@material-ui/icons';
+import BottomBar from './bottomBar.js'
 
 const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   const useStyles = makeStyles(theme => ({ 
   root: {
-    backgroundColor: theme.palette.dark ,
     flexGrow: 1,
   },
   menuButton: {
@@ -45,8 +45,8 @@ const iOS = process.browser && /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   },
   paper: {
-    backgroundColor: '#3f51b5',
-    color: '#f2f2f2',
+    backgroundColor: theme.palette.dark,
+    color: theme.palette.contrast ,
   },
   titleDrawer: {
     paddingTop: '3vh',
@@ -194,36 +194,42 @@ export default function SearchAppBar(props) {
   return (
       <Fragment>
     <div className={classes.root}>
-
-      <AppBar position="sticky"  style={{ position: "fixed" }}>
+      <AppBar position="sticky"  style={{ position: "fixed", paddingBottom: '2vh', paddingTop: '1vh' }} color='default'>
       <Container >
         <Toolbar>
-          <IconButton
-            edge="start"
-            className={classes.menuButton}
-            color="inherit"
-            aria-label="open drawer"
-            onClick={toggleDrawer(true)}
-          >
-          <MenuIcon />
-          </IconButton>
-          <Typography className={classes.title} variant="h6" noWrap>
-            Juntos podemos <span role="img" aria-label="Flexed Biceps">💪</span>
-          </Typography>
-          <Fragment>
-              {darkMode ? <BrightnessMedium onClick={() => setdarkMode(false)}/> : <Brightness2 onClick={() => setdarkMode(true)}/>}
-              <IconButton
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
-                id='menu'
-              >
-                <PersonIcon />
-              </IconButton>                    
-              {openMenu ? <MenuView/> : null}
-            </Fragment>
+          <Grid container>
+            <Grid item  xs={12} lg={8}>
+              <Grid container justify='space-between' alignContent='center' alignItems='center'>
+                <IconButton
+                    edge="start"
+                    className={classes.menuButton}
+                    color="inherit"
+                    aria-label="open drawer"
+                    onClick={toggleDrawer(true)}
+                  >
+                  <MenuIcon />
+                  </IconButton>
+                  <Typography className={classes.title} variant="h6" noWrap>
+                    Juntos podemos <span role="img" aria-label="Flexed Biceps">💪</span>
+                  </Typography>
+                      {darkMode ? <BrightnessMedium onClick={() => setdarkMode(false)}/> : <Brightness2 onClick={() => setdarkMode(true)}/>}
+                      <IconButton
+                        aria-label="account of current user"
+                        aria-controls="menu-appbar"
+                        aria-haspopup="true"
+                        onClick={handleMenu}
+                        color="inherit"
+                        id='menu'
+                      >
+                        <PersonIcon />
+                      </IconButton>                    
+                      {openMenu ? <MenuView/> : null}
+                </Grid>
+              </Grid>
+              <Grid item xs={12} lg={4}>
+                <BottomBar/>
+              </Grid>
+          </Grid>
         </Toolbar>
         </Container>
       </AppBar>

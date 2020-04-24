@@ -12,19 +12,11 @@ const userLang = navigator.language.substr(0,2) || navigator.userLanguage.substr
 const useStyles = makeStyles(theme => ({ 
     root: {
       flexGrow: 1,
-      position: 'fixed',
-        left: 0,
-        bottom: 0,
-        width: '100vw',
-        backgroundColor: '#3f51b5',
-        paddingTop: '1vh',
-        paddingBottom : '1vh',
-        zIndex: '1100'
     },
     search: {
       position: 'relative',
       borderRadius: theme.shape.borderRadius,
-      backgroundColor: '#e8eaf6',
+      backgroundColor: theme.palette.contrast,
       marginLeft: 0,
       [theme.breakpoints.up('sm')]: {
         marginLeft: theme.spacing(1),
@@ -38,6 +30,7 @@ const useStyles = makeStyles(theme => ({
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
+      color: theme.palette.dark
     },
     inputRoot: {
       width: '100%',
@@ -55,7 +48,7 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: `calc(1em + ${theme.spacing(4)}px)`,
       transition: theme.transitions.create('width'),
       width: '100%',
-      color: 'black'
+      color: theme.palette.dark
     }, FormControlLabel: {
         width: '30vw',
         [theme.breakpoints.up('sm')]: {
@@ -128,10 +121,10 @@ const BottomBar = () => {
                 }
                 const color = () => {
                     if (switchSt.checkedB === false) {
-                        const color = '#fff';
+                        const color = 'inherit';
                         return color;
                     } else {
-                        const color = 'rgba(255,0,0)';
+                        const color = '#0ACFA9';
                         return color;
                     }
                     }
@@ -192,12 +185,11 @@ const BottomBar = () => {
 
     return ( 
         <Fragment>
-            <div className={classes.root}>
-               <Grid container justify='center' alignItems='center' alignContent='center' spacing={2}>
-                   <Grid item className={classes.item}>
+               <Grid container justify='space-evenly' alignContent='center' alignItems='center' style={{marginTop: '1vh'}}>
+                   <Grid item className={classes.item} xs={6}>
                     <div className={classes.search}>
                         <div className={classes.searchIcon}>
-                        <SearchIcon />
+                            <SearchIcon />
                         </div>
                         <InputBase
                         placeholder="Buscar.. &nbsp;&nbsp;&nbsp;"
@@ -211,7 +203,7 @@ const BottomBar = () => {
                         />
                         </div>
                         </Grid>
-                        <Grid item>
+                        <Grid item xs={4}>
                         <FormControlLabel 
                         className={classes.FormControlLabel}
                         control= {
@@ -225,7 +217,6 @@ const BottomBar = () => {
                         />
                     </Grid>
                 </Grid>
-            </div>
         </Fragment>
      );
 }
