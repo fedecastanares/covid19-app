@@ -52,7 +52,7 @@ const Tittle = (props) => {
                         <MuiAlert className={classes.alert} severity="warning" elevation={4} variant='filled'>Casos: {status.cases} <br className='mobile'/> ({status.casesPerOneMillion} por millon)</MuiAlert>
                     </Grid>
                     <Grid item xs={6} lg={3}>
-                        <MuiAlert className={classes.alert} severity="info" elevation={4} variant='filled'>De hoy: {status.todayCases} <br className='mobile'/> ({(((status.todayCases === 0 ?  0 : status.todayCases) * 100) / status.cases).toFixed(1)}%) </MuiAlert>
+                        <MuiAlert className={classes.alert} severity="info" elevation={4} variant='filled'>Activos: {status.active} <br className='mobile'/> ({((status.active * 100) / status.cases).toFixed(1)}%) </MuiAlert>
                     </Grid>
                     <Grid item xs={6} lg={3}>
                         <MuiAlert className={classes.alert} severity="success" elevation={4} variant='filled'>Recuperados: <br className='mobile'/> {status.recovered} <br className='mobile'/> ({((status.recovered * 100) / status.cases).toFixed(1)}%)</MuiAlert>
