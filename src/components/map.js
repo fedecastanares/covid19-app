@@ -92,7 +92,7 @@ export default function Mapa(){
 
     useEffect(() => {
         const getollaspopulares = async () => {
-            const url = 'https://ollaspopulares.com:9095/cooking_pot-service/cooking_pot?fbclid=IwAR3WDCUoTgh2lP4FuwqQaok15B5twXCPX5-79DDqBF1c9c3-yc1pCddsFCk';
+            const url = 'https://ollapopular.uy/index.php/wp-json/geodir/v2/markers/?post_type=gd_place';
             const dataollaspopulares = await Axios.get(url);
             setollaspopulares(dataollaspopulares.data);
         }
@@ -123,7 +123,7 @@ export default function Mapa(){
     },[]);
 
 
-    if (ollaspopulares !== null && acaestamosuy !== null && dataFirebase !== null) {
+    if (/*ollaspopulares !== null && */ acaestamosuy !== null && dataFirebase !== null) {
         return (
             <Map center={userGeolocation} zoom={12} >
                 <TileLayer
@@ -151,7 +151,7 @@ export default function Mapa(){
                 null} 
                 
 
-                {ollaspopulares.map(olla => (
+                {/* ollaspopulares.map(olla => (
                     olla.potName !== 'Test' ?
                     <Marker 
                     key={uuidv4()}
@@ -162,7 +162,7 @@ export default function Mapa(){
                     onclick={() => {setactiveplaceolla(olla)}}
                     /> 
                     : null 
-                ))}
+                )) */}
 
                 {acaestamosuy.map(beneficio => (
                     <Marker
